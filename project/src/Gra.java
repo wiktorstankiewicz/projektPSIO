@@ -1,5 +1,8 @@
-public class Gra {
+import javax.swing.*;
 
+public class Gra {
+	JFrame mainFrame;
+	JPanel mainPanel;
 
 	public static void main(String [] args){
 		Gra gra = new Gra();
@@ -8,6 +11,10 @@ public class Gra {
 	}
 
 	private void init(){
+		makeGUI();
+	}
+
+	private void makeGUI(){
 
 	}
 }
