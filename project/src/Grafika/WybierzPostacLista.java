@@ -10,31 +10,31 @@ import java.awt.*;
 
 public class WybierzPostacLista implements ListSelectionListener {
 
-    String[] listaKlas = {"Wojownik", "Zabójca", "Łowca", "Mag"};
-    JList<?> lista = new JList<>(listaKlas);
-    JScrollPane przewijanie = new JScrollPane(lista);
-    String wybranaPostac;
+    private String[] listaKlas = {"Wojownik", "Zabójca", "Łowca", "Mag"};
+    private JList<?> lista = new JList<>(listaKlas);
+    private JScrollPane przewijanie = new JScrollPane(lista);
+    private String wybranaPostac;
 
     public WybierzPostacLista() {
         przewijanie.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         przewijanie.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        lista.setVisibleRowCount(4);
         lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         lista.addListSelectionListener(this);
+        lista.setFont(new Font("Calibri",Font.BOLD,20));
     }
 
 
     @Override
     public void valueChanged(ListSelectionEvent zaznaczenie) {
         if (!zaznaczenie.getValueIsAdjusting()) {
-            wybranaPostac = (String) lista.getSelectedValue();
-            System.out.println(wybranaPostac);
+            System.out.println((String)lista.getSelectedValue());
+
         }
 
     }
 
     public String getWybranaPostac(){
-        return wybranaPostac;
+        return ((String) lista.getSelectedValue());
     }
 
     public JList<?> getLista() {
