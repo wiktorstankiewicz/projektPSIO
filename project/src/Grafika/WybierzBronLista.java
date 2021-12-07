@@ -3,23 +3,28 @@ package Grafika;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 
 public class WybierzBronLista implements ListSelectionListener {
 
-    String[] listaBroniWojownika = {"Wojownik", "Zabójca", "Łowca", "Mag"};
-    String[] listaBroniŁowcy ={"Łuk"};
-    String[] listaBroniZabojcy = {"Sztylet"};
-    String[] listaBroniMaga = {"Różdżka"};
-    String[] listaBroni;
+    private String[] listaBroniWojownika = {"Miecz", "Młot"};
+    private String[] listaBroniLowcy ={"Łuk"};
+    private String[] listaBroniZabojcy = {"Sztylet"};
+    private String[] listaBroniMaga = {"Różdżka"};
+    private String[] listaBroni;
+
+    private JScrollPane przewijanie;
+    private JList<?> lista;
+    private String wybranaBron;
+
 
     public WybierzBronLista(String Postac){
-
         switch(Postac){
             case "Wojownik":
                 listaBroni=listaBroniWojownika;
                 break;
             case "Łowca":
-                listaBroni=listaBroniŁowcy;
+                listaBroni=listaBroniLowcy;
                 break;
             case "Zabójca":
                 listaBroni=listaBroniZabojcy;
@@ -29,43 +34,60 @@ public class WybierzBronLista implements ListSelectionListener {
                 break;
 
         }
+
+        lista = new JList<>(listaBroni);
+        lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        lista.addListSelectionListener(this);
+        lista.setFont(new Font("Calibri",Font.BOLD,20));
+
+        przewijanie= new JScrollPane(lista);
+        przewijanie.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        przewijanie.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
     }
 
-    JList<?> lista = new JList<>(listaBroni);
+    public void pokazWybor() {
 
-    JScrollPane przewijanie = new JScrollPane(lista);
-    JPanel panel = new JPanel();
-    JFrame frame = new JFrame();
+        JFrame wyborBroni = new JFrame();
+        wyborBroni.setSize(150,200);
+        wyborBroni.setLocationRelativeTo(null);
 
-    String wybranaBron;
 
-    public void dzialaj() {
+        wyborBroni.setTitle("Wybór postaci");
+
+        JPanel panel=new JPanel();
+
+        panel.add(przewijanie);
+        panel.setVisible(true);
+
+        wyborBroni.setResizable(false);
+        wyborBroni.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        wyborBroni.add(panel);
 
         przewijanie.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         przewijanie.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        frame.setSize(300, 300);
-        frame.add(panel);
-        frame.setVisible(true);
-        panel.setVisible(true);
-        panel.add(przewijanie);
-        lista.setVisibleRowCount(4);
         lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         lista.addListSelectionListener(this);
-
-
+        lista.setFont(new Font("Calibri",Font.BOLD,20));
+        wyborBroni.setVisible(true);
     }
 
 
     @Override
     public void valueChanged(ListSelectionEvent zaznaczenie) {
         if (!zaznaczenie.getValueIsAdjusting()) {
-            String wybor = (String) lista.getSelectedValue();
-            wybranaBron = wybor;
-            System.out.println(wybor);
+            wybranaBron=((String)lista.getSelectedValue());
         }
-
     }
+
+    public JScrollPane getPrzewijanieBron() {
+        return przewijanie;
+    }
+
+    public String getWybranaBron(){
+        return wybranaBron;
+    }
+
 
 
 }

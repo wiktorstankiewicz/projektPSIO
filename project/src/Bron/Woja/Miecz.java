@@ -9,6 +9,6 @@ public class Miecz extends BronWoja {
 
     }
     public String getPath(){
-        return "/png/miecz.png";
+        return "miecz.png";
     }
 }

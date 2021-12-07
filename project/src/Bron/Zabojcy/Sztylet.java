@@ -1,7 +1,5 @@
 package Bron.Zabojcy;
 
-
-
 public class Sztylet extends BronZabojcy {
 
     public Sztylet() {
@@ -10,6 +8,7 @@ public class Sztylet extends BronZabojcy {
         obrazeniaMax = 20;
     }
     public String getPath(){
-        return "/png/sztylet.png";
+        return "sztylet.png";
+
     }
 }

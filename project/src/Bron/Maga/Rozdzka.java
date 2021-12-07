@@ -2,6 +2,7 @@ package Bron.Maga;
 
 public class Rozdzka extends BronMaga {
 
+
     public Rozdzka() {
         nazwa = "Rozdzka";
         obrazeniaMin = 1;
@@ -9,6 +10,6 @@ public class Rozdzka extends BronMaga {
     }
 
     public String getPath(){
-        return "/png/rozdzka.png";
+        return "rozdzka.png";
     }
 }

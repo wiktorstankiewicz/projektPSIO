@@ -26,7 +26,7 @@ public abstract class Bron {
         try {
             zdjecie = ImageIO.read(new File("project/resources/img/"+getPath()));
 
-            JLabel label = new JLabel(new ImageIcon(zdjecie));
+            //JLabel label = new JLabel(new ImageIcon(zdjecie));
             //panelRozgrywki.add(label);  //TODO odkomentowac jak panel rozgrywki bedzie gotowy
         } catch (IOException e) {
 

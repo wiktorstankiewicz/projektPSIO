@@ -26,13 +26,25 @@ public class Ramka extends JFrame {
         this.setLocationRelativeTo(null);
     }
     public void wyswietlPanelWyboru(){
+
+        JLabel napis1 = new JLabel("Wybór postaci i broni:",null, SwingConstants.CENTER);
+        napis1.setFont(new Font("Calibri",Font.BOLD,20));
+
         WybierzPostacLista wybierzPostacLista = new WybierzPostacLista();
         panelWyboru = new JPanel();
         panelWyboru.setVisible(true);
         this.getContentPane().add(BorderLayout.WEST,wybierzPostacLista.getPrzewijanie());
-        this.getContentPane().add(BorderLayout.NORTH, new JLabel("WYBÓR POSTACI",null,JLabel.CENTER));
+        this.setTitle("Konfiguracja postaci");
+
+        this.getContentPane().add(BorderLayout.NORTH, napis1);
+
+
+        WybierzBronLista wybierzBronLista = new WybierzBronLista("Wojownik");
+        this.getContentPane().add(BorderLayout.EAST, wybierzBronLista.getPrzewijanieBron());
+
         this.add(panelWyboru);
         panelWyboru.setPreferredSize(new Dimension(150,200));
+
 
         //panel.setVisible(false);
         //wyswietlanie listy mozliwych postaci, po wybraniu postaci i kliknieciu przycisku ustawia pole wybranaPostac
