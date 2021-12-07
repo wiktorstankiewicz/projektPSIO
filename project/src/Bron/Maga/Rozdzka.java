@@ -6,6 +6,6 @@ public class Rozdzka extends BronMaga
 {
     public Rozdzka()
     {
-
+    super();
     }
 }

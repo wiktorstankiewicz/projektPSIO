@@ -6,6 +6,6 @@ public class Sztylet extends BronZabojcy
 {
     public Sztylet()
     {
-
+    super();
     }
 }

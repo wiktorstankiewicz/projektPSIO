@@ -13,15 +13,9 @@ public class WybierzBronLista implements ListSelectionListener {
     private String[] listaBroniMaga = {"Różdżka"};
     private String[] listaBroni;
 
-    private JList<?> lista;
-
     private JScrollPane przewijanie;
-    private JPanel panel = new JPanel();
-    private JFrame frame = new JFrame();
-
+    private JList<?> lista;
     private String wybranaBron;
-
-
 
 
     public WybierzBronLista(String Postac){
@@ -44,33 +38,54 @@ public class WybierzBronLista implements ListSelectionListener {
         lista = new JList<>(listaBroni);
         lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         lista.addListSelectionListener(this);
+        lista.setFont(new Font("Calibri",Font.BOLD,20));
 
         przewijanie= new JScrollPane(lista);
         przewijanie.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         przewijanie.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        lista.setFont(new Font("Calibri",Font.BOLD,20));
-
-
-
     }
 
+    public void pokazWybor() {
+
+        JFrame wyborBroni = new JFrame();
+        wyborBroni.setSize(150,200);
+        wyborBroni.setLocationRelativeTo(null);
 
 
+        wyborBroni.setTitle("Wybór postaci");
 
+        JPanel panel=new JPanel();
+
+        panel.add(przewijanie);
+        panel.setVisible(true);
+
+        wyborBroni.setResizable(false);
+        wyborBroni.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        wyborBroni.add(panel);
+
+        przewijanie.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        przewijanie.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        lista.addListSelectionListener(this);
+        lista.setFont(new Font("Calibri",Font.BOLD,20));
+        wyborBroni.setVisible(true);
+    }
 
 
     @Override
     public void valueChanged(ListSelectionEvent zaznaczenie) {
         if (!zaznaczenie.getValueIsAdjusting()) {
-            String wybor = (String) lista.getSelectedValue();
-            wybranaBron = wybor;
-            System.out.println(wybor);
+            wybranaBron=((String)lista.getSelectedValue());
         }
-
     }
 
     public JScrollPane getPrzewijanieBron() {
         return przewijanie;
+    }
+
+    public String getWybranaBron(){
+        return wybranaBron;
     }
 
 

@@ -4,6 +4,6 @@ public class Mlot extends BronWoja
 {
     public Mlot()
     {
-
+        super();
     }
 }

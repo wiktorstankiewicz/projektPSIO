@@ -4,6 +4,6 @@ public class Luk extends BronLowcy
 {
     public Luk()
     {
-
+        super();
     }
 }

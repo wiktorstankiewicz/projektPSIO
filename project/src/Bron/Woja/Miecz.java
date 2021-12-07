@@ -4,6 +4,6 @@ public class Miecz extends BronWoja
 {
     public Miecz()
     {
-
+    super();
     }
 }
