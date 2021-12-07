@@ -21,6 +21,8 @@ abstract public class Postac {
     final private int maksymalneSzczescie = 100;
     //
 
+    //todo konstuktor
+
 
     // Funkcja sprawdzajaca czy wartosc punktow zawiera sie w przedziale min-max
     private int getWartoscWPrzedziale(int minimalnaWartoscPunktow, int maksymalnaWartoscPunktow, int wartoscPunktow) {
