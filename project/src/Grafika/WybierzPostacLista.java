@@ -17,6 +17,8 @@ public class WybierzPostacLista implements ListSelectionListener {
     JPanel panel = new JPanel();
     JFrame frame = new JFrame();
 
+    String wybranaPostac;
+
     public void dzialaj() {
 
         przewijanie.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -39,7 +41,7 @@ public class WybierzPostacLista implements ListSelectionListener {
     public void valueChanged(ListSelectionEvent zaznaczenie) {
         if (!zaznaczenie.getValueIsAdjusting()) {
             String wybor = (String) lista.getSelectedValue();
-
+            wybranaPostac=wybor;
             System.out.println(wybor);
         }
 
