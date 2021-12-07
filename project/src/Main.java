@@ -1,3 +1,4 @@
+import Broń.Broń;
 import Grafika.Ramka;
 
 public class Main {
@@ -7,5 +8,8 @@ public class Main {
         System.out.println("Hello World!");
         Ramka ramka = new Ramka();
         ramka.setVisible(true);
+
+
+
     }
 }
