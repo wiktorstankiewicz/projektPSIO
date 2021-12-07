@@ -5,24 +5,36 @@ import java.awt.*;
 public class Ramka extends JFrame {
     private Object wybranaPostac;
     private Object przeciwnik;
-    private JPanel panelWyboruPostaci;
-    private JPanel panelWyboruBroni;
+
+    private JPanel panelWyboru;
     private JPanel panelRozgrywki;
     private JPanel panelKoncowy;
 
+    private JScrollPane przewijanie;
+
     private JButton przyciskZatwierdzeniaPostaci;
     private JButton wykonajAkcje;
+
     private JList<Object> listaPostaci;
     private JList<Object> listaBroni;
 
     public Ramka(){
-        this.add(new Panel());
+        wyswietlPanelWyboru();
         this.pack();
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
     }
-    public void wyswietlPanelWyboruPostaci(Graphics2D g2D){
+    public void wyswietlPanelWyboru(){
+        WybierzPostacLista wybierzPostacLista = new WybierzPostacLista();
+        panelWyboru = new JPanel();
+        panelWyboru.setVisible(true);
+        this.getContentPane().add(BorderLayout.WEST,wybierzPostacLista.getPrzewijanie());
+        this.getContentPane().add(BorderLayout.NORTH, new JLabel("WYBÓR POSTACI",null,JLabel.CENTER));
+        this.add(panelWyboru);
+        panelWyboru.setPreferredSize(new Dimension(150,200));
+
+        //panel.setVisible(false);
         //wyswietlanie listy mozliwych postaci, po wybraniu postaci i kliknieciu przycisku ustawia pole wybranaPostac
     }
 
