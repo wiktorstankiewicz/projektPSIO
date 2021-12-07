@@ -32,7 +32,7 @@ public class WybierzPostacLista implements ListSelectionListener {
         lista.setVisibleRowCount(4);
         lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         lista.addListSelectionListener(this);
-
+        //panel.setVisible(false);
 
     }
 
@@ -40,10 +40,13 @@ public class WybierzPostacLista implements ListSelectionListener {
     @Override
     public void valueChanged(ListSelectionEvent zaznaczenie) {
         if (!zaznaczenie.getValueIsAdjusting()) {
-            String wybor = (String) lista.getSelectedValue();
-            wybranaPostac=wybor;
-            System.out.println(wybor);
+            wybranaPostac = (String) lista.getSelectedValue();
+            System.out.println(wybranaPostac);
         }
 
+    }
+
+    public String getWybranaPostac(){
+        return wybranaPostac;
     }
 }
