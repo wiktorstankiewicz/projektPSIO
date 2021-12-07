@@ -11,16 +11,18 @@ import java.util.Objects;
 public abstract class Bron
 {
     protected String nazwa;
-    protected double obrazenia;
+    protected double obrazenia_min, obrazenia_max;
     protected BufferedImage zdjecie;
+    protected String path;
+
 
 
     protected Bron()
     {
         nazwa = "";
-        obrazenia = 0;
+        obrazenia_min = 0;
+        obrazenia_max = 0;
 
-        String path = "";
         File file = new File(path);
         try
         {
@@ -34,8 +36,6 @@ public abstract class Bron
 
             e.printStackTrace();
         }
-
-
     }
 
     public String getNazwa()
@@ -43,13 +43,13 @@ public abstract class Bron
         return nazwa;
     }
 
-    public double getObrazenia()
-    {
-        return obrazenia;
-    }
-
     public Image getZdjecie()
     {
         return zdjecie;
     }
+
+    public double getObrazenia_min() {return obrazenia_min; }
+
+    public double getObrazenia_max() {return obrazenia_max;}
+
 }
