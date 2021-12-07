@@ -21,7 +21,26 @@ abstract public class Postac {
     final private int maksymalneSzczescie = 100;
     //
 
-    //todo konstuktor
+
+    // Konstruktory
+    public Postac(){
+        this.atak = maksymalnyAtak;
+        this.punktyZycia = maksymalnePunktyZycia;
+        this.pancerz = maksymalnyPancerz;
+        this.szczescie = maksymalneSzczescie;
+        this.imie = "Bozydar";
+        this.obrazek = "";
+    }
+
+    public Postac(int atak, int punktyZycia, int pancerz, int szczescie, String imie, String obrazek) {
+        this.atak = atak;
+        this.punktyZycia = punktyZycia;
+        this.pancerz = pancerz;
+        this.szczescie = szczescie;
+        this.imie = imie;
+        this.obrazek = obrazek;
+    }
+    //
 
 
     // Funkcja sprawdzajaca czy wartosc punktow zawiera sie w przedziale min-max
