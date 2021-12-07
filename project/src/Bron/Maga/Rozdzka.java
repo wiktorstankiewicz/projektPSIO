@@ -1,14 +1,14 @@
 package Bron.Maga;
 
-import java.awt.*;
+public class Rozdzka extends BronMaga {
 
-public class Rozdzka extends BronMaga
-{
-    public Rozdzka()
-    {
+    public Rozdzka() {
         nazwa = "Rozdzka";
-        obrazenia_min = 1;
-        obrazenia_max = 20;
-        String path = "\\png\\rozdzka.png";
+        obrazeniaMin = 1;
+        obrazeniaMax = 20;
+    }
+
+    public String getPath(){
+        return "/png/rozdzka.png";
     }
 }

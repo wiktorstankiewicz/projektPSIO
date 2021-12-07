@@ -1,12 +1,14 @@
 package Bron.Woja;
 
-public class Miecz extends BronWoja
-{
-    public Miecz()
-    {
+public class Miecz extends BronWoja {
+
+    public Miecz() {
         nazwa = "Miecz";
-        obrazenia_min = 13;
-        obrazenia_max = 18;
-        String path = "\\png\\miecz.png";
+        obrazeniaMin = 13;
+        obrazeniaMax = 18;
+
+    }
+    public String getPath(){
+        return "/png/miecz.png";
     }
 }

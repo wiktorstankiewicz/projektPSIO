@@ -1,12 +1,13 @@
 package Bron.Woja;
 
-public class Mlot extends BronWoja
-{
-    public Mlot()
-    {
+public class Mlot extends BronWoja {
+
+    public Mlot() {
         nazwa = "Mlot";
-        obrazenia_min = 5;
-        obrazenia_max = 30;
-        String path = "\\png\\mlot.png";
+        obrazeniaMin = 5;
+        obrazeniaMax = 30;
+    }
+    public String getPath(){
+        return "/png/mlot.png";
     }
 }
