@@ -23,7 +23,7 @@ abstract public class Postac {
 
 
     // Konstruktory
-    public Postac(){
+    public Postac() {
         this.atak = maksymalnyAtak;
         this.punktyZycia = maksymalnePunktyZycia;
         this.pancerz = maksymalnyPancerz;
