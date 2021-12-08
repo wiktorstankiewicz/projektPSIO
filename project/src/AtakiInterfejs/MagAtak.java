@@ -12,7 +12,7 @@ public class MagAtak implements AtakiInterfejs_I{
 
         int ArmorTMP = P.getPancerz();
         P.setPancerz(0);
-        P.setHp(P.getHp()-generator.nextInt(b.getObrazeniaMax())+ b.getObrazeniaMin()+1);
+        P.setHp(P.getHp()-(generator.nextInt(b.getObrazeniaMax())+ b.getObrazeniaMin()+1));
         P.setPancerz(ArmorTMP);
 
     }

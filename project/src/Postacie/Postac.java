@@ -115,5 +115,9 @@ abstract public class Postac implements AtakiInterfejs_I {
 //        this.obrazek = obrazek;
 //    }
 
-
+    @Override
+    public void Atak(Postac p, Bron b) {
+        b=this.getBron();
+        atak.Atak(p,b);
+    }
 }

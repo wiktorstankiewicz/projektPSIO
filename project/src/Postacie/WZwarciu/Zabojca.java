@@ -11,13 +11,10 @@ public class Zabojca extends WZwarciu{
 
     public Zabojca(String imie, BronZabojcy bron) {
         super(imie, bron);
+        atak = new ZabojcaAtak();
     }
 
-    @Override
-    public void Atak(Postac p,Bron b) {
-        b=this.getBron();
-        atak.Atak(p,b);
-    }
+
 
 
     //todo

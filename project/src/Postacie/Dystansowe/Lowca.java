@@ -9,12 +9,9 @@ public class Lowca extends Dystansowe{
 
     public Lowca(String imie, BronLowcy bron) {
         super(imie, bron);
+        atak = new LowcaAtak();
     }
 
-    @Override
-    public void Atak(Postac p, Bron b) {
-        b=this.getBron();
-        atak.Atak(p, b);
-    }
+
     //todo
 }

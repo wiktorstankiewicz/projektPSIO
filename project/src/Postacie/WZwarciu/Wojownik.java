@@ -8,13 +8,10 @@ import Postacie.Postac;
 public class Wojownik extends WZwarciu{
     public Wojownik(String imie, BronWoja bron) {
         super(imie, bron);
+        atak = new WojownikAtak();
     }
 
-    @Override
-    public void Atak(Postac p, Bron b) {
-        b=this.getBron();
-        atak.Atak(p,b);
-    }
+
 
     //todo
 }

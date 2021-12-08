@@ -7,6 +7,8 @@ public class Main {
 
         Gra gra = new Gra();
         gra.prepareGame();
+        gra.gracz_typ();
+        gra.bitwa();
 
 
 
