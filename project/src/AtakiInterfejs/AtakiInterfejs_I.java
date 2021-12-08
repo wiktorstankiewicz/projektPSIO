@@ -1,7 +1,8 @@
 package AtakiInterfejs;
 
-import Postacie.Postacie;
+
+import Postacie.Postac;
 
 public interface AtakiInterfejs_I {
-    public void Atak(Postacie p);
+    public void Atak(Postac p);
 }

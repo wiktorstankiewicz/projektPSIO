@@ -14,7 +14,7 @@ public class Main {
     public static void main(String[] args) {
 
         int ilosc_graczy = 2;
-        Postacie[] postacie = new Postacie[ilosc_graczy];
+        Postac[] postacie = new Postacie[ilosc_graczy];
         Bron[] bronie = new Bron[ilosc_graczy];
 
         String[] StringBronie = new String[ilosc_graczy];

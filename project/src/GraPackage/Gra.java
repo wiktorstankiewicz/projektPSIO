@@ -1,6 +1,8 @@
 package GraPackage;
 
-import Postacie.Postacie;
+
+
+import Postacie.Postac;
 
 import java.util.Random;
 
@@ -11,8 +13,8 @@ public class Gra {
 	private final int PRZECIWNIK_WYGRANA = 1;
 
 	//Game fields
-	private Postacie wybranaPostac; //user player
-	private Postacie przeciwnik; //randomly generated opponent
+	private Postac wybranaPostac; //user player
+	private Postac przeciwnik; //randomly generated opponent
 	private int firstTurn;
 	private int turn;
 	private int distance;
@@ -39,7 +41,7 @@ public class Gra {
 		turn++;
 	}
 
-	private void atak(Postacie postac){
+	private void atak(Postac postac){
 		postac.WykonajAtak(); //wywoluje metode interfejsu AtakiInterfejs_I
 		checkForWinner();
 	}

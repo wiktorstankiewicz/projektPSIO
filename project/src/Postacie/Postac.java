@@ -108,5 +108,4 @@ abstract public class Postac {
     public void setObrazek(String obrazek) {
         this.obrazek = obrazek;
     }
-    //
 }

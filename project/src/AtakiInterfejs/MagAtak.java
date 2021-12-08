@@ -3,7 +3,7 @@ import Postacie.*;
 
 public class MagAtak implements AtakiInterfejs_I{
     @Override
-    public void Atak(Postacie P) {
+    public void Atak(Postac P) {
         int ArmorTMP = P.getPrzeciwnik().getArmor();
         int DodgeTMP = P.getPrzeciwnik().getDodgeChance();
         P.getPrzeciwnik().setArmor(0);

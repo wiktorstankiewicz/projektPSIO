@@ -6,9 +6,9 @@ public class Ramka extends JFrame {
     private Object wybranaPostac;
     private Object przeciwnik;
 
-    private JPanel panelWyboru;
-    private JPanel panelRozgrywki;
-    private JPanel panelKoncowy;
+    //private JPanel panelWyboru;
+    //private JPanel panelRozgrywki;
+    //private JPanel panelKoncowy;
 
     private JScrollPane przewijanie;
 
@@ -17,6 +17,7 @@ public class Ramka extends JFrame {
 
     private JList<Object> listaPostaci;
     private JList<Object> listaBroni;
+    private JPanel panelWyboru;
 
     public Ramka(){
         wyswietlPanelWyboru();

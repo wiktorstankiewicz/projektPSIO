@@ -4,7 +4,7 @@ import java.util.*;
 
 public class ZabojcaAtak implements AtakiInterfejs_I {
     @Override
-    public void Atak(Postacie P) {
+    public void Atak(Postac P) {
         Random los = new Random();
         if (10 < los.nextInt(100)) {
             P.getPrzeciwnik().setHp(0);

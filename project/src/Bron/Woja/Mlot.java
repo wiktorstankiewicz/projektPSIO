@@ -7,7 +7,7 @@ public class Mlot extends BronWoja {
         obrazeniaMin = 5;
         obrazeniaMax = 30;
     }
-    public String getPath(){
+    public String getPath() {
         return "mlot.png";
-        
+    }
 }
