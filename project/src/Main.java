@@ -5,7 +5,7 @@ import Bron.Woja.Miecz;
 import Bron.Woja.Mlot;
 import Bron.Zabojcy.Sztylet;
 import Grafika.WyborKlasy;
-import Postacie.Postacie;
+import Postacie.Postac;
 
 public class Main {
 
@@ -14,7 +14,7 @@ public class Main {
     public static void main(String[] args) {
 
         int ilosc_graczy = 2;
-        Postac[] postacie = new Postacie[ilosc_graczy];
+        Postac[] postacie = new Postac[ilosc_graczy];
         Bron[] bronie = new Bron[ilosc_graczy];
 
         String[] StringBronie = new String[ilosc_graczy];
