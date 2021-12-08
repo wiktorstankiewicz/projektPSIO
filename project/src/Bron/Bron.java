@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public abstract class Bron {
     protected String nazwa;
-    protected double obrazeniaMin, obrazeniaMax;
+    protected int obrazeniaMin, obrazeniaMax;
     protected BufferedImage zdjecie;
 
     protected Bron() {
@@ -44,11 +44,11 @@ public abstract class Bron {
         return zdjecie;
     }
 
-    public double getObrazeniaMin() {
+    public int getObrazeniaMin() {
         return obrazeniaMin;
     }
 
-    public double getObrazeniaMax() {
+    public int getObrazeniaMax() {
         return obrazeniaMax;
     }
 

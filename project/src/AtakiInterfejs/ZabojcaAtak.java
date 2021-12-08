@@ -1,15 +1,17 @@
 package AtakiInterfejs;
+import Bron.Bron;
 import Postacie.*;
 import java.util.*;
 
 public class ZabojcaAtak implements AtakiInterfejs_I {
     @Override
-    public void Atak(Postac P) {
-        Random los = new Random();
-        if (10 < los.nextInt(100)) {
-            P.getPrzeciwnik().setHp(0);
+    public void Atak(Postac P, Bron b) {
+        Random generator = new Random();
+
+        if (10 < generator.nextInt(100)) {
+            P.setHp(0);
         } else {
-            P.ZadajObrazenia();
+            P.setHp(P.getHp()-generator.nextInt(b.getObrazeniaMax())+b.getObrazeniaMin()+1);
         }
     }
 }

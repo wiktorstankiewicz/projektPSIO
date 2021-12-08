@@ -1,17 +1,22 @@
 package Postacie;
 
-abstract public class Postac {
+import AtakiInterfejs.AtakiInterfejs_I;
+import Bron.Bron;
 
-    //todo Zadeklarowac intancje klasy Unik
+abstract public class Postac implements AtakiInterfejs_I {
+
+    //todo Zadeklarowac instancje klasy Unik
 
     // Deklaracja zmiennych punktow Postaci
-    private int atak;
-    private int punktyZycia;
+    private int hp=100;
     private int pancerz;
     private int szczescie;
     private String imie;
     private String obrazek;
+    private Bron bron;
+    protected AtakiInterfejs_I atak;
     //
+
 
     // Deklaracja finalnych wartosci minimalnych i maksymalnych dla punktow Postaci
     final private int minimalnaWartoscPunktow = 0;
@@ -21,28 +26,22 @@ abstract public class Postac {
     final private int maksymalneSzczescie = 100;
     //
 
-
     // Konstruktory
     public Postac(){
-        this.atak = maksymalnyAtak;
-        this.punktyZycia = maksymalnePunktyZycia;
-        this.pancerz = maksymalnyPancerz;
-        this.szczescie = maksymalneSzczescie;
+
         this.imie = "Bozydar";
         this.obrazek = "";
     }
 
-    public Postac(int atak, int punktyZycia, int pancerz, int szczescie, String imie, String obrazek) {
-        this.atak = atak;
-        this.punktyZycia = punktyZycia;
-        this.pancerz = pancerz;
-        this.szczescie = szczescie;
+    public Postac(String imie, String obrazek, Bron bron) {
         this.imie = imie;
         this.obrazek = obrazek;
+        this.bron=bron;
     }
     //
 
 
+    /*
     // Funkcja sprawdzajaca czy wartosc punktow zawiera sie w przedziale min-max
     private int getWartoscWPrzedziale(int minimalnaWartoscPunktow, int maksymalnaWartoscPunktow, int wartoscPunktow) {
         int nowaWartoscPunktow = wartoscPunktow;
@@ -55,9 +54,21 @@ abstract public class Postac {
         return nowaWartoscPunktow;
     }
     //
+    */
 
 
     // Gettery
+    public int getHp() {
+        return hp;
+    }
+    public int getPancerz() {
+        return pancerz;
+    }
+    public Bron getBron(){
+        return bron;
+    }
+
+    /*
     public int getAtak() {
         return atak;
     }
@@ -66,25 +77,31 @@ abstract public class Postac {
         return imie;
     }
 
-    public int getPunktyZycia() {
-        return punktyZycia;
-    }
 
-    public int getPancerz() {
-        return pancerz;
-    }
 
     public int getSzczescie() {
         return szczescie;
     }
-
+    */
     public String getObrazek() {
         return obrazek;
+    }
+
+    public String getStan(){
+        return "Stan\n Hp: "+hp+"\nPancerz:"+pancerz;
     }
     //
 
 
     // Settery
+     public void setHp(int hp) {
+        this.hp=hp;
+    }
+
+    public void setPancerz(int pancerz) {
+        this.pancerz = pancerz;
+    }
+    /*
     public void setAtak(int atak) {
         this.atak = getWartoscWPrzedziale(minimalnaWartoscPunktow, maksymalnyAtak, atak);
     }
@@ -93,13 +110,7 @@ abstract public class Postac {
         this.imie = imie;
     }
 
-    public void setPunktyZycia(int punktyZycia) {
-        this.punktyZycia = getWartoscWPrzedziale(minimalnaWartoscPunktow, maksymalnePunktyZycia, punktyZycia);
-    }
 
-    public void setPancerz(int pancerz) {
-        this.pancerz = getWartoscWPrzedziale(minimalnaWartoscPunktow, maksymalnyPancerz, pancerz);
-    }
 
     public void setSzczescie(int szczescie) {
         this.szczescie = getWartoscWPrzedziale(minimalnaWartoscPunktow, maksymalneSzczescie, szczescie);
@@ -108,4 +119,6 @@ abstract public class Postac {
     public void setObrazek(String obrazek) {
         this.obrazek = obrazek;
     }
+
+     */
 }

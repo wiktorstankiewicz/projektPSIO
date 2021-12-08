@@ -5,12 +5,12 @@ import java.util.Scanner;
 
 public abstract class WyborKlasy {
     static String[] listaKlas = {"Wojownik", "Zabojca", "Lowca", "Mag"};
-
     static String[] listaBroniLowcy = {"Luk"};
     static String[] listaBroniZabojcy = {"Sztylet"};
     static String[] listaBroniMaga = {"Rozdzka"};
     static String[] listaBroniWojownika = {"Miecz", "Mlot"};
     static String[] listaBroni;
+    static String[] listaImionBota = {"Ziemowit Bździągwa", "Koszmar Dziekana", "Java Senior Developer", "garbage Collector"};
 
     public static String generujKlasaBot() {
         Random generator = new Random();
@@ -38,6 +38,21 @@ public abstract class WyborKlasy {
 
         return listaBroni[generator.nextInt(listaBroni.length)];
 
+    }
+
+    public static String imieBota(){
+        Random generator = new Random();
+        return listaImionBota[generator.nextInt(listaImionBota.length)];
+    }
+
+    public static String wybierzImie(){
+
+        String imie;
+        System.out.print("Podaj imie:");
+        Scanner czytnik = new Scanner(System.in);
+        imie=czytnik.next();
+
+        return imie;
     }
 
     public static String wybierzKlase() {

@@ -1,8 +1,19 @@
 package Postacie.Dystansowe;
 
+import AtakiInterfejs.LowcaAtak;
+import Bron.Bron;
+import Postacie.Postac;
+
 public class Lowca extends Dystansowe{
-    public Lowca(int atak, int punktyZycia, int pancerz, int szczescie, String imie, String obrazek) {
-        super(atak, punktyZycia, pancerz, szczescie, imie, obrazek);
+    public Lowca(String imie, String obrazek, Bron bron) {
+        super(imie, obrazek, bron);
+        atak = new LowcaAtak();
+    }
+
+    @Override
+    public void Atak(Postac p, Bron b) {
+        b=this.getBron();
+        atak.Atak(p, b);
     }
     //todo
 }

@@ -1,11 +1,12 @@
 package Postacie.Dystansowe;
 
+import Bron.Bron;
 import Postacie.Postac;
 
 abstract public class Dystansowe extends Postac {
     //todo
 
-    public Dystansowe(int atak, int punktyZycia, int pancerz, int szczescie, String imie, String obrazek) {
-        super(atak, punktyZycia, pancerz, szczescie, imie, obrazek);
+    public Dystansowe(String imie, String obrazek, Bron bron) {
+        super(imie, obrazek, bron);
     }
 }

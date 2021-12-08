@@ -1,10 +1,12 @@
 package Postacie.WZwarciu;
 
+import AtakiInterfejs.AtakiInterfejs_I;
+import Bron.Bron;
 import Postacie.Postac;
 
-abstract public class WZwarciu extends Postac {
-    public WZwarciu(int atak, int punktyZycia, int pancerz, int szczescie, String imie, String obrazek) {
-        super(atak, punktyZycia, pancerz, szczescie, imie, obrazek);
+abstract public class WZwarciu extends Postac implements AtakiInterfejs_I {
+    public WZwarciu(String imie, String obrazek, Bron bron) {
+        super(imie, obrazek, bron);
     }
     //todo
 }
