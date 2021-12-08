@@ -39,13 +39,15 @@ public class Gra {
 		turn++;
 	}
 
-	private void atak(Postacie postac){
+	private void atak(Postacie postac)
+	{
 		postac.WykonajAtak(); //wywoluje metode interfejsu AtakiInterfejs_I
 		checkForWinner();
 	}
 
 	//Podchodzi o x pol
-	private void podejdz(int x){
+	private void podejdz(int x)
+	{
 		if (distance <= 0) return;
 
 		distance = Math.max(distance-x, 0);
