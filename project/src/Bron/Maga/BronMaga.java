@@ -1,6 +1,6 @@
 package Bron.Maga;
 
-import Bron.Bron;
+import Bron.*;
 
 
 public abstract class BronMaga extends Bron

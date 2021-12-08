@@ -1,6 +1,6 @@
 package Bron.Lowcy;
 
-import Bron.Bron;
+import Bron.*;
 
 
 public abstract class BronLowcy extends Bron

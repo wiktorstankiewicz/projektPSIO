@@ -1,6 +1,6 @@
 package Bron.Woja;
 
-import Bron.Bron;
+import Bron.*;
 
 
 public abstract class BronWoja extends Bron

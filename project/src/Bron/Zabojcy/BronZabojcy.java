@@ -1,6 +1,6 @@
 package Bron.Zabojcy;
 
-import Bron.Bron;
+import Bron.*;
 
 
 
