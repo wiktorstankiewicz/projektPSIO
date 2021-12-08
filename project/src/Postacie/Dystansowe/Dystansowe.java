@@ -6,7 +6,7 @@ import Postacie.Postac;
 abstract public class Dystansowe extends Postac {
     //todo
 
-    public Dystansowe(String imie, String obrazek, Bron bron) {
-        super(imie, obrazek, bron);
+    public Dystansowe(String imie, Bron bron) {
+        super(imie, bron);
     }
 }

@@ -4,17 +4,13 @@ import AtakiInterfejs.AtakiInterfejs_I;
 
 import AtakiInterfejs.ZabojcaAtak;
 import Bron.Bron;
+import Bron.Zabojcy.BronZabojcy;
 import Postacie.Postac;
 
 public class Zabojca extends WZwarciu{
 
-    private int punktyZycia=100;
-    private int pancerz = 10;
-    private int szczescie = 10;
-
-    public Zabojca(String imie, String obrazek, Bron bron) {
-        super(imie, obrazek, bron);
-        atak = new ZabojcaAtak();
+    public Zabojca(String imie, BronZabojcy bron) {
+        super(imie, bron);
     }
 
     @Override

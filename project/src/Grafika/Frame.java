@@ -1,4 +1,5 @@
 package Grafika;
+import GraPackage.Gra;
 import Postacie.Postac;
 
 import javax.swing.*;
@@ -20,15 +21,17 @@ public class Frame extends JFrame {
     private JLabel zdjecieGracza;
     private JLabel zdjecieBroniGracza;
     private JLabel zdjeciePrzeciwnika;
-    private JTextArea tura;
 
+    private JTextArea tura;
     private JTextArea opisGracza;
     private JTextArea opisPrzeciwnika;
+
+    private Gra gra;
 
     public Frame(Postac wybranaPostacGracza){
 
         this.wybranaPostacGracza = wybranaPostacGracza;
-        this.przeciwnik = wybranaPostacGracza.getPrzeciwnik();
+        this.przeciwnik = wybranaPostacGracza;
         inicjalizujEkranGry();
 
 
@@ -92,8 +95,8 @@ public class Frame extends JFrame {
 
     }
 
-    public void wyswietlPanelRozgrywki(){
-        //wyswietla postac i przeciwnika, bronie, ich stan i przycisk akcji(podejdź bądź zaatakuj)
+    public void wyswietlPanelRozgrywki(Gra gra){
+
     }
 
     public void wyswietlPanelKoncowy(Graphics2D g2D){
