@@ -124,7 +124,7 @@ public class Frame extends JFrame {
         wykonanaAkcja.setText("Akcja: \n");
         wykonanaAkcja.setEditable(false);
         wykonanaAkcja.setFont(new Font("Arial",Font.BOLD,25));
-        wykonanaAkcja.setBounds(375,350,200,200);
+        wykonanaAkcja.setBounds(50,600,500,200);
         wykonanaAkcja.setBackground(null);
         this.add(wykonanaAkcja);
     }
@@ -134,11 +134,8 @@ public class Frame extends JFrame {
         opisGracza.setText(gra.getGracz().getStan());
         opisPrzeciwnika.setText(gra.getPrzeciwnik().getStan());
         dystans.setText("Dystans: " + gra.getDistance());
+        wykonanaAkcja.setText(gra.getAkcja());
 
-    }
-
-    public void pokazWykonanaAkcje(Gra gra, String akcja){
-        wykonanaAkcja.setText(akcja);
     }
 
     public void pokazKomunikatKoncowy(boolean czyGraczWygral){

@@ -145,7 +145,7 @@ public class Gra {
 	}*/
 
 	public String wykonanaAkcja(){
-	return akcja;
+		return akcja;
 	}
 	public void setWykonanaAkcja(String akcja){
 		this.akcja=akcja;
@@ -255,5 +255,13 @@ public class Gra {
 
 	public void setGenerator(Random generator) {
 		this.generator = generator;
+	}
+
+	public String getAkcja() {
+		return akcja;
+	}
+
+	public void setAkcja(String akcja) {
+		this.akcja = akcja;
 	}
 }
