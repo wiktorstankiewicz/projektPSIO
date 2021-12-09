@@ -53,4 +53,11 @@ public abstract class Bron {
         return obrazeniaMax;
     }
 
+    public String getImageFilePath() {
+        return imageFilePath;
+    }
+
+    public void setImageFilePath(String imageFilePath) {
+        this.imageFilePath = imageFilePath;
+    }
 }

@@ -19,6 +19,7 @@ public class Frame extends JFrame {
     private JLabel zdjecieGracza;
     private JLabel zdjecieBroniGracza;
     private JLabel zdjeciePrzeciwnika;
+    private JLabel zdjecieBroniPrzeciwnika;
 
     private JTextArea tura;
     private JTextArea opisGracza;
@@ -37,7 +38,9 @@ public class Frame extends JFrame {
 
     public void inicjalizujEkranGry(Gra gra){
         initGracz(gra);
+        initBronGracza(gra);
         initPrzeciwnik(gra);
+        initBronPrzeciwnika(gra);
         initTura(gra);
         initWykonanaAkcja();
         initDystans(gra);
@@ -57,7 +60,7 @@ public class Frame extends JFrame {
         tura.setText("Tura: " + gra.getTurn());
         tura.setEditable(false);
         tura.setFont(new Font("Arial",Font.BOLD,25));
-        tura.setBounds(0,0,500,50);
+        tura.setBounds(0,0,150,50);
         tura.setBackground(null);
         this.add(tura);
     }
@@ -97,6 +100,24 @@ public class Frame extends JFrame {
         this.add(opisPrzeciwnika);
     }
 
+    public void initBronGracza(Gra gra){
+        zdjecieBroniGracza = new JLabel();
+
+        zdjecieBroniGracza.setIcon(new ImageIcon(gra.getGracz().getBron().getImageFilePath()));
+        zdjecieBroniGracza.setBounds(350,300,100,100);
+        zdjecieBroniGracza.setBackground(null);
+        this.add(zdjecieBroniGracza);
+    }
+
+    public void initBronPrzeciwnika(Gra gra){
+        zdjecieBroniPrzeciwnika = new JLabel();
+
+        zdjecieBroniPrzeciwnika.setIcon(new ImageIcon(gra.getPrzeciwnik().getBron().getImageFilePath()));
+        zdjecieBroniPrzeciwnika.setBounds(500,300,100,100);
+        zdjecieBroniPrzeciwnika.setBackground(null);
+        this.add(zdjecieBroniPrzeciwnika);
+    }
+
     public void initDystans(Gra gra){
         dystans = new JTextArea();
         dystans.setText("Dystans: " + gra.getDistance());
@@ -111,7 +132,7 @@ public class Frame extends JFrame {
         wykonanaAkcja = new JTextArea();
         wykonanaAkcja.setEditable(false);
         wykonanaAkcja.setFont(new Font("Arial",Font.BOLD,25));
-        wykonanaAkcja.setBounds(50,600,500,200);
+        wykonanaAkcja.setBounds(50,600,700,200);
         wykonanaAkcja.setBackground(null);
         this.add(wykonanaAkcja);
     }
