@@ -12,6 +12,7 @@ public abstract class Bron {
     protected String nazwa;
     protected int obrazeniaMin, obrazeniaMax;
     protected BufferedImage zdjecie;
+    protected String imageFilePath;
 
     protected Bron() {
         nazwa = "";

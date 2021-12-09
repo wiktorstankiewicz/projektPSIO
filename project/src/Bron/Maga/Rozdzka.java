@@ -7,6 +7,7 @@ public class Rozdzka extends BronMaga {
         nazwa = "Rozdzka";
         obrazeniaMin = 1;
         obrazeniaMax = 20;
+        imageFilePath = "project/resources/img/rozdzka.png";
     }
 
     public String getPath(){

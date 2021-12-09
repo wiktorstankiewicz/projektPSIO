@@ -8,10 +8,10 @@ import java.awt.*;
 public class Frame extends JFrame {
     private Postac wybranaPostacGracza;
     private Postac przeciwnik;
-    private int numerTury;
+   private int numerTury;
 
-    private final int WIDTH = 500;
-    private final int HEIGHT = 500;
+    private final int WIDTH = 1000;
+    private final int HEIGHT = 1000;
 
     //private JButton wykonajAkcje;
 
@@ -26,56 +26,30 @@ public class Frame extends JFrame {
     private JTextArea opisGracza;
     private JTextArea opisPrzeciwnika;
 
-    private Gra gra;
+    private JTextArea infKoncowa;
 
-    public Frame(Postac wybranaPostacGracza){
 
-        this.wybranaPostacGracza = wybranaPostacGracza;
-        this.przeciwnik = wybranaPostacGracza;
-        inicjalizujEkranGry();
+    public Frame(Gra gra){
+
+        wybranaPostacGracza = gra.getGracz();
+        przeciwnik = gra.getPrzeciwnik();
+        inicjalizujEkranGry(gra);
 
 
         System.out.println("done");
 
     }
 
-    public void inicjalizujEkranGry(){
-        String path = "project/resources/img/Creeper.png";
+    public void inicjalizujEkranGry(Gra gra){
+       /* String path = "project/resources/img/Creeper.png";
         String text1 = "Stan gracza \nHp: 100 \nPancerz: 200";
-        String text2 = "Stan przeciwnika \nHp: 100 \nPancerz: 200";
-        tura = new JTextArea();
-        tura.setText("Tura: " + numerTury);
-        tura.setEditable(false);
-        tura.setFont(new Font("Arial",Font.BOLD,25));
-        tura.setBounds(0,0,500,50);
-        tura.setBackground(null);
-        this.add(tura);
+        String text2 = "Stan przeciwnika \nHp: 100 \nPancerz: 200";*/
 
-        zdjecieGracza = new JLabel();
-        opisGracza = new JTextArea();
 
-        opisPrzeciwnika = new JTextArea();
-        zdjeciePrzeciwnika= new JLabel();
+        initGracz(gra);
+        initPrzeciwnik(gra);
+        initTura(gra);
 
-        zdjecieGracza.setIcon(new ImageIcon(path));
-        zdjecieGracza.setBounds(50,100,200,200);
-        zdjecieGracza.setBackground(null);
-        opisGracza.setText(text1);
-        opisGracza.setEditable(false);
-        opisGracza.setBounds(50,300,100,50);
-        opisGracza.setBackground(null);
-        this.add(zdjecieGracza);
-        this.add(opisGracza);
-
-        zdjeciePrzeciwnika.setIcon(new ImageIcon(path));
-        zdjeciePrzeciwnika.setBounds(350,100,200,200);
-        zdjeciePrzeciwnika.setBackground(null);
-        opisPrzeciwnika.setText(text2);
-        opisPrzeciwnika.setEditable(false);
-        opisPrzeciwnika.setBounds(350,300,100,50);
-        opisPrzeciwnika.setBackground(null);
-        this.add(zdjeciePrzeciwnika);
-        this.add(opisPrzeciwnika);
 
         this.setSize(new Dimension(WIDTH,HEIGHT));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -83,15 +57,72 @@ public class Frame extends JFrame {
         this.setLayout(null);
         this.setVisible(true);
 
-        while(true){
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            numerTury ++;
-            tura.setText("Tura: " + numerTury);
+
+    }
+
+    public void initTura(Gra gra){
+        tura = new JTextArea();
+        tura.setText("Tura: " + gra.getTurn());
+        tura.setEditable(false);
+        tura.setFont(new Font("Arial",Font.BOLD,25));
+        tura.setBounds(0,0,500,50);
+        tura.setBackground(null);
+        this.add(tura);
+    }
+
+    public void initGracz(Gra gra){
+        zdjecieGracza = new JLabel();
+        opisGracza = new JTextArea();
+
+        zdjecieGracza.setIcon(new ImageIcon(gra.getGracz().getImageFilePath()));
+        zdjecieGracza.setBounds(50,100,300,300);
+        zdjecieGracza.setBackground(null);
+        opisGracza.setText(gra.getGracz().getStan());
+        opisGracza.setEditable(false);
+        opisGracza.setBounds(50,400,100,300);
+        opisGracza.setFont(new Font("Comic sans",Font.BOLD,20));
+        opisGracza.setBackground(null);
+        this.add(zdjecieGracza);
+        this.add(opisGracza);
+    }
+
+    public void initPrzeciwnik(Gra gra){
+        opisPrzeciwnika = new JTextArea();
+        zdjeciePrzeciwnika= new JLabel();
+
+        zdjeciePrzeciwnika.setIcon(new ImageIcon(gra.getPrzeciwnik().getImageFilePath()));
+        zdjeciePrzeciwnika.setBounds(600,100,300,300);
+        zdjeciePrzeciwnika.setBackground(null);
+        opisPrzeciwnika.setText(gra.getPrzeciwnik().getStan());
+        opisPrzeciwnika.setEditable(false);
+        opisPrzeciwnika.setBounds(600,400,100,300);
+        opisPrzeciwnika.setFont(new Font("Comic sans",Font.BOLD,20));
+        opisPrzeciwnika.setBackground(null);
+        this.add(zdjeciePrzeciwnika);
+        this.add(opisPrzeciwnika);
+    }
+
+    public void update(Gra gra){
+        tura.setText("Tura: " + gra.getTurn());
+        opisGracza.setText(gra.getGracz().getStan());
+        opisPrzeciwnika.setText(gra.getPrzeciwnik().getStan());
+    }
+
+    public void pokazKomunikatKoncowy(boolean czyGraczWygral){
+        infKoncowa = new JTextArea();
+        infKoncowa.setBounds(300,0,300,100);
+        infKoncowa.setFont(new Font("Comic sans", Font.PLAIN,30));
+        infKoncowa.setEditable(false);
+        if(czyGraczWygral){
+            infKoncowa.setText("Wygrales!");
+            this.add(infKoncowa);
+            return;
         }
+        infKoncowa.setText("Przegrałeś!");
+        this.add(infKoncowa);
+    }
+
+    public void pokazKomunikatOPorazce() {
 
     }
 

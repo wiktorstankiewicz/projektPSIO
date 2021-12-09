@@ -120,4 +120,12 @@ abstract public class Postac implements AtakiInterfejs_I {
         b=this.getBron();
         atak.Atak(p,b);
     }
+
+    public String getImageFilePath() {
+        return imageFilePath;
+    }
+
+    public void setImageFilePath(String imageFilePath) {
+        this.imageFilePath = imageFilePath;
+    }
 }

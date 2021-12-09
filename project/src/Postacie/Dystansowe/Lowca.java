@@ -9,6 +9,7 @@ public class Lowca extends Dystansowe{
 
     public Lowca(String imie, BronLowcy bron) {
         super(imie, bron);
+        imageFilePath = "project/resources/img/lowca.png";
         atak = new LowcaAtak();
     }
 

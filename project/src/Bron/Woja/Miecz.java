@@ -6,6 +6,7 @@ public class Miecz extends BronWoja {
         nazwa = "Miecz";
         obrazeniaMin = 13;
         obrazeniaMax = 18;
+        imageFilePath = "project/resources/img/miecz.png";
 
     }
     public String getPath(){

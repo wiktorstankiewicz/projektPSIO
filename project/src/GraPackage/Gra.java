@@ -29,10 +29,15 @@ public class Gra {
 	static int playerCount = 2;
 	private Postac gracz;
 	private Postac przeciwnik;
-	private static int firstTurn;
-	private static int turn;
+	private int firstTurn;
+	private int turn;
 	private int distance;
 
+	private Frame GUI;
+
+	public Gra(){
+
+	}
 
 	//Helper fields
 	private Random generator= new Random();
@@ -50,7 +55,7 @@ public class Gra {
 		String wylosowanaBronPrzeciwnika = WyborKlasy.generujBronBot(wylosowanaPostacPrzeciwnika);
 		String wylosowaneImiePrzeciwnika = WyborKlasy.generujImieBota();
 		przeciwnik = WyborKlasy.stworzPostac(wylosowanaPostacPrzeciwnika,wylosowaneImiePrzeciwnika,wylosowanaBronPrzeciwnika);
-
+		GUI = new Frame(this);
 
 	}
 
@@ -79,8 +84,14 @@ public class Gra {
 			System.out.println("Postacie nie istnieja");
 			return;
 		}
-		while(!(GRACZ_WYGRANA || PRZECIWNIK_WYGRANA)) {
+		GUI.inicjalizujEkranGry(this);
 
+		while(!(GRACZ_WYGRANA || PRZECIWNIK_WYGRANA)) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			if (firstTurn == turn % 2) {
 
 				if (distance > 0 && (gracz instanceof WZwarciu)) {
@@ -100,7 +111,7 @@ public class Gra {
 				System.out.println("Przeciwnik"+przeciwnik.getHp());
 				checkForWinner();
 			}
-
+			GUI.update(this);
 			System.out.println("\nDystans: "+distance);
 			turn++;
 		}
@@ -143,11 +154,86 @@ public class Gra {
 	private void finishGame(boolean wygrany){
 		if (GRACZ_WYGRANA){
 			System.out.println("Gratulacje! Wygrales!");
+			GUI.pokazKomunikatKoncowy(true);
 		}
 		else if (PRZECIWNIK_WYGRANA) {
 			System.out.println("Niestey, nie udalo ci sie wygrac. Powodzenia nastepnym razem");
+			GUI.pokazKomunikatKoncowy(false);
 		}
 	}
 
+	public int getMAX_DISTANCE() {
+		return MAX_DISTANCE;
+	}
 
+	public boolean isGRACZ_WYGRANA() {
+		return GRACZ_WYGRANA;
+	}
+	public void setGRACZ_WYGRANA(boolean GRACZ_WYGRANA) {
+		this.GRACZ_WYGRANA = GRACZ_WYGRANA;
+	}
+
+	public boolean isPRZECIWNIK_WYGRANA() {
+		return PRZECIWNIK_WYGRANA;
+	}
+
+	public void setPRZECIWNIK_WYGRANA(boolean PRZECIWNIK_WYGRANA) {
+		this.PRZECIWNIK_WYGRANA = PRZECIWNIK_WYGRANA;
+	}
+
+	public static int getPlayerCount() {
+		return playerCount;
+	}
+
+	public static void setPlayerCount(int playerCount) {
+		Gra.playerCount = playerCount;
+	}
+
+	public Postac getGracz() {
+		return gracz;
+	}
+
+	public void setGracz(Postac gracz) {
+		this.gracz = gracz;
+	}
+
+	public Postac getPrzeciwnik() {
+		return przeciwnik;
+	}
+
+	public void setPrzeciwnik(Postac przeciwnik) {
+		this.przeciwnik = przeciwnik;
+	}
+
+	public int getFirstTurn() {
+		return firstTurn;
+	}
+
+	public void setFirstTurn(int firstTurn) {
+		this.firstTurn = firstTurn;
+	}
+
+	public int getTurn() {
+		return turn;
+	}
+
+	public void setTurn(int turn) {
+		this.turn = turn;
+	}
+
+	public int getDistance() {
+		return distance;
+	}
+
+	public void setDistance(int distance) {
+		this.distance = distance;
+	}
+
+	public Random getGenerator() {
+		return generator;
+	}
+
+	public void setGenerator(Random generator) {
+		this.generator = generator;
+	}
 }
