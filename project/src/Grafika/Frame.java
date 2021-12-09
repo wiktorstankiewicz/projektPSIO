@@ -27,6 +27,8 @@ public class Frame extends JFrame {
     private JTextArea opisPrzeciwnika;
 
     private JTextArea infKoncowa;
+    private JTextArea wykonanaAkcja;
+    private JTextArea dystans;
 
 
     public Frame(Gra gra){
@@ -49,13 +51,15 @@ public class Frame extends JFrame {
         initGracz(gra);
         initPrzeciwnik(gra);
         initTura(gra);
-
+        initWykonanaAkcja();
+        initDystans(gra);
 
         this.setSize(new Dimension(WIDTH,HEIGHT));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setLayout(null);
         this.setVisible(true);
+        this.setResizable(false);
 
 
     }
@@ -77,9 +81,11 @@ public class Frame extends JFrame {
         zdjecieGracza.setIcon(new ImageIcon(gra.getGracz().getImageFilePath()));
         zdjecieGracza.setBounds(50,100,300,300);
         zdjecieGracza.setBackground(null);
+        zdjecieGracza.setText(gra.getGracz().getClass().getSimpleName() + ": " + gra.getGracz().getImie());
         opisGracza.setText(gra.getGracz().getStan());
         opisGracza.setEditable(false);
-        opisGracza.setBounds(50,400,100,300);
+        opisGracza.setBounds(50,450,400,300);
+        opisGracza.setBackground(new Color(0,100,0));
         opisGracza.setFont(new Font("Comic sans",Font.BOLD,20));
         opisGracza.setBackground(null);
         this.add(zdjecieGracza);
@@ -95,31 +101,59 @@ public class Frame extends JFrame {
         zdjeciePrzeciwnika.setBackground(null);
         opisPrzeciwnika.setText(gra.getPrzeciwnik().getStan());
         opisPrzeciwnika.setEditable(false);
-        opisPrzeciwnika.setBounds(600,400,100,300);
+        opisPrzeciwnika.setBounds(600,450,400,300);
+        opisPrzeciwnika.setBackground(new Color(0,100,0));
         opisPrzeciwnika.setFont(new Font("Comic sans",Font.BOLD,20));
         opisPrzeciwnika.setBackground(null);
         this.add(zdjeciePrzeciwnika);
         this.add(opisPrzeciwnika);
     }
 
+    public void initDystans(Gra gra){
+        dystans = new JTextArea();
+        dystans.setText("Dystans: " + gra.getDistance());
+        dystans.setEditable(false);
+        dystans.setFont(new Font("Arial",Font.BOLD,25));
+        dystans.setBounds(375,200,200,200);
+        dystans.setBackground(null);
+        this.add(dystans);
+    }
+
+    public void initWykonanaAkcja(){
+        wykonanaAkcja = new JTextArea();
+        wykonanaAkcja.setText("Akcja: \n");
+        wykonanaAkcja.setEditable(false);
+        wykonanaAkcja.setFont(new Font("Arial",Font.BOLD,25));
+        wykonanaAkcja.setBounds(375,350,200,200);
+        wykonanaAkcja.setBackground(null);
+        this.add(wykonanaAkcja);
+    }
+
     public void update(Gra gra){
         tura.setText("Tura: " + gra.getTurn());
         opisGracza.setText(gra.getGracz().getStan());
         opisPrzeciwnika.setText(gra.getPrzeciwnik().getStan());
+        dystans.setText("Dystans: " + gra.getDistance());
+
+    }
+
+    public void pokazWykonanaAkcje(Gra gra, String akcja){
+        wykonanaAkcja.setText(akcja);
     }
 
     public void pokazKomunikatKoncowy(boolean czyGraczWygral){
         infKoncowa = new JTextArea();
-        infKoncowa.setBounds(300,0,300,100);
+        this.add(infKoncowa);
+        infKoncowa.setBounds(400,20,250,60);
+        infKoncowa.setBackground(null);
         infKoncowa.setFont(new Font("Comic sans", Font.PLAIN,30));
         infKoncowa.setEditable(false);
         if(czyGraczWygral){
             infKoncowa.setText("Wygrales!");
-            this.add(infKoncowa);
+
             return;
         }
         infKoncowa.setText("Przegrałeś!");
-        this.add(infKoncowa);
     }
 
     public void pokazKomunikatOPorazce() {

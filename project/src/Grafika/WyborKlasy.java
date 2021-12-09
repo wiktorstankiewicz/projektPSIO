@@ -61,7 +61,7 @@ public abstract class WyborKlasy {
         String imie;
         System.out.print("Podaj imie:");
         Scanner czytnik = new Scanner(System.in);
-        imie = czytnik.next();
+        imie = czytnik.nextLine();
 
         return imie;
     }

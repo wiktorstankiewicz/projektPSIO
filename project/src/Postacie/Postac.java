@@ -81,7 +81,9 @@ abstract public class Postac implements AtakiInterfejs_I {
     */
 
     public String getStan(){
-        return "Stan\n Hp: "+hp+"\nPancerz:"+pancerz;
+        return this.getClass().getSimpleName() + ": " + imie + "\n" +
+                "HP: " + hp + "\n" +
+                "Pancerz: " + pancerz;
     }
     //
 
