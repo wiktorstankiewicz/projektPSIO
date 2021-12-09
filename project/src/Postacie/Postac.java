@@ -9,7 +9,6 @@ abstract public class Postac implements AtakiInterfejs_I {
     // Deklaracja zmiennych punktow Postaci
     protected int hp=100;
     protected int pancerz;
-    protected int szczescie;
     protected String imie;
     protected String imageFilePath;
     protected Bron bron;

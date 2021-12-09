@@ -1,19 +1,8 @@
 package GraPackage;
 
-import Bron.*;
-import Bron.Lowcy.Luk;
-import Bron.Maga.Rozdzka;
-import Bron.Woja.Miecz;
-import Bron.Woja.Mlot;
-import Bron.Zabojcy.Sztylet;
 import Grafika.Frame;
-import Grafika.WyborKlasy;
-import Postacie.Dystansowe.Lowca;
-import Postacie.Dystansowe.Mag;
 import Postacie.Postac;
 import Postacie.WZwarciu.WZwarciu;
-import Postacie.WZwarciu.Wojownik;
-import Postacie.WZwarciu.Zabojca;
 
 
 import java.util.Random;
@@ -121,7 +110,7 @@ public class Gra {
                     akcja = przeciwnik.getImie() + " zadał " + (graczHp - gracz.getHp()) + " HP";
                 }
 
-                System.out.println("Przeciwnik" + przeciwnik.getHp());
+                System.out.println(przeciwnik.getImie() + ": " + przeciwnik.getHp() + " HP");
                 checkForWinner();
             }
             GUI.update(this);

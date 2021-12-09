@@ -1,6 +1,8 @@
 package AtakiInterfejs;
+
 import Bron.Bron;
 import Postacie.*;
+
 import java.util.*;
 
 public class ZabojcaAtak implements AtakiInterfejs_I {
@@ -11,7 +13,7 @@ public class ZabojcaAtak implements AtakiInterfejs_I {
         if (10 >= generator.nextInt(100)) {
             P.setHp(0);
         } else {
-            P.setHp(P.getHp()-(generator.nextInt(b.getObrazeniaMax()-b.getObrazeniaMin())+b.getObrazeniaMin()+1));
+            AtakiInterfejs_I.zadajObrazenia(P, b);
         }
     }
 }
