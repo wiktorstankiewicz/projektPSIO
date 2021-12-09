@@ -11,7 +11,7 @@ public class Frame extends JFrame {
     private int numerTury;
 
     private final int WIDTH = 1000;
-    private final int HEIGHT = 1000;
+    private final int HEIGHT = 700;
     //todo
     //private JButton wykonajAkcje;
 
@@ -50,6 +50,7 @@ public class Frame extends JFrame {
         this.setLocationRelativeTo(null);
         this.setLayout(null);
         this.setVisible(true);
+        this.getContentPane().setBackground(Color.WHITE);
         this.setResizable(false);
 
 
@@ -75,7 +76,7 @@ public class Frame extends JFrame {
         zdjecieGracza.setText(gra.getGracz().getClass().getSimpleName() + ": " + gra.getGracz().getImie());
         opisGracza.setText(gra.getGracz().getStan());
         opisGracza.setEditable(false);
-        opisGracza.setBounds(50,450,400,300);
+        opisGracza.setBounds(50,450,400,150);
         opisGracza.setBackground(new Color(0,100,0));
         opisGracza.setFont(new Font("Comic sans",Font.BOLD,20));
         opisGracza.setBackground(null);
@@ -132,7 +133,7 @@ public class Frame extends JFrame {
         wykonanaAkcja = new JTextArea();
         wykonanaAkcja.setEditable(false);
         wykonanaAkcja.setFont(new Font("Arial",Font.BOLD,25));
-        wykonanaAkcja.setBounds(50,600,700,200);
+        wykonanaAkcja.setBounds(50,600,1000,200);
         wykonanaAkcja.setBackground(null);
         this.add(wykonanaAkcja);
     }
