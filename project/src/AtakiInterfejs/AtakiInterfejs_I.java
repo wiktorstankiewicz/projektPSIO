@@ -1,9 +1,7 @@
 package AtakiInterfejs;
 
-
 import Bron.Bron;
 import Postacie.Postac;
-
 import java.util.Random;
 
 public interface AtakiInterfejs_I {
@@ -12,6 +10,6 @@ public interface AtakiInterfejs_I {
     static void zadajObrazenia(Postac P, Bron b) {
 
         Random generator = new Random();
-        P.setHp(P.getHp() - (int)((generator.nextInt(b.getObrazeniaMax() - b.getObrazeniaMin()) + b.getObrazeniaMin() + 1)/(1-(P.getPancerz()/100))));
+        P.setHp(P.getHp() - (int)((generator.nextInt(b.getObrazeniaMax() - b.getObrazeniaMin()) + b.getObrazeniaMin() + 1)/(1-((double)P.getPancerz()/100.0))));
     }
 }

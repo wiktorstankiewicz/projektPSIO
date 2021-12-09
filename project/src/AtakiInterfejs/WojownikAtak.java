@@ -2,7 +2,6 @@ package AtakiInterfejs;
 
 import Bron.Bron;
 import Postacie.*;
-
 import java.util.*;
 
 public class WojownikAtak implements AtakiInterfejs_I {

@@ -1,9 +1,7 @@
 package Postacie.Dystansowe;
 
 import AtakiInterfejs.LowcaAtak;
-import Bron.Bron;
 import Bron.Lowcy.BronLowcy;
-import Postacie.Postac;
 
 public class Lowca extends Dystansowe{
 
@@ -13,7 +11,4 @@ public class Lowca extends Dystansowe{
         atak = new LowcaAtak();
         pancerz = 10;
     }
-
-
-    //todo
 }

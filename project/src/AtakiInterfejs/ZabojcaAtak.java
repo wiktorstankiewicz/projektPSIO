@@ -2,7 +2,6 @@ package AtakiInterfejs;
 
 import Bron.Bron;
 import Postacie.*;
-
 import java.util.*;
 
 public class ZabojcaAtak implements AtakiInterfejs_I {

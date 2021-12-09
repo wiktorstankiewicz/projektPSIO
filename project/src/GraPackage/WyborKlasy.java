@@ -15,7 +15,6 @@ import Postacie.Dystansowe.Mag;
 import Postacie.Postac;
 import Postacie.WZwarciu.Wojownik;
 import Postacie.WZwarciu.Zabojca;
-
 import java.util.Random;
 import java.util.Scanner;
 
@@ -51,9 +50,7 @@ public abstract class WyborKlasy {
                 listaBroni = listaBroniMaga;
                 break;
         }
-
         return listaBroni[random.nextInt(listaBroni.length)];
-
     }
 
     public static String wybierzImie() {
@@ -79,7 +76,6 @@ public abstract class WyborKlasy {
         else return "Wojownik";
 
     }
-
 
     public static String wybierzBron(String wyborGracza) {
         Scanner czytnik = new Scanner(System.in);
@@ -126,22 +122,22 @@ public abstract class WyborKlasy {
         Bron wynik;
         switch (bron) {
             case "Miecz":
-                wynik = (BronWoja) new Miecz();
+                wynik = new Miecz();
                 break;
             case "Mlot":
-                wynik = (BronWoja) new Mlot();
+                wynik = new Mlot();
                 break;
             case "Luk":
-                wynik = (BronLowcy) new Luk();
+                wynik = new Luk();
                 break;
             case "Rozdzka":
-                wynik = (BronMaga) new Rozdzka();
+                wynik = new Rozdzka();
                 break;
             case "Sztylet":
-                wynik = (BronZabojcy) new Sztylet();
+                wynik = new Sztylet();
                 break;
             default:
-                wynik = (BronWoja) new Miecz();
+                wynik = new Miecz();
         }
         return wynik;
     }

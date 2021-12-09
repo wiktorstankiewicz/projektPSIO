@@ -1,9 +1,7 @@
 package Postacie.Dystansowe;
 
 import AtakiInterfejs.MagAtak;
-import Bron.Bron;
 import Bron.Maga.BronMaga;
-import Postacie.Postac;
 
 public class Mag extends Dystansowe {
     public Mag(String imie, BronMaga bron) {
@@ -12,6 +10,4 @@ public class Mag extends Dystansowe {
         atak = new MagAtak();
         pancerz = 20;
     }
-
-    //todo
 }

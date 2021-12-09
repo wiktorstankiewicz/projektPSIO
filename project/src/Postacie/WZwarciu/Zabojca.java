@@ -1,11 +1,7 @@
 package Postacie.WZwarciu;
 
-import AtakiInterfejs.AtakiInterfejs_I;
-
 import AtakiInterfejs.ZabojcaAtak;
-import Bron.Bron;
 import Bron.Zabojcy.BronZabojcy;
-import Postacie.Postac;
 
 public class Zabojca extends WZwarciu {
 
@@ -15,9 +11,4 @@ public class Zabojca extends WZwarciu {
         atak = new ZabojcaAtak();
         pancerz = 10;
     }
-
-
-    //todo
-
-
 }

@@ -8,8 +8,8 @@ public class Sztylet extends BronZabojcy {
         obrazeniaMax = 20;
         imageFilePath = "project/resources/img/sztylet.png";
     }
+
     public String getPath(){
         return "sztylet.png";
-
     }
 }
