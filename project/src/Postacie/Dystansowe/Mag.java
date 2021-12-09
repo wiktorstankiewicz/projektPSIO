@@ -8,6 +8,6 @@ public class Mag extends Dystansowe {
         super(imie, bron);
         imageFilePath = "project/resources/img/mag.png";
         atak = new MagAtak();
-        pancerz = 20;
+        pancerz = 15;
     }
 }

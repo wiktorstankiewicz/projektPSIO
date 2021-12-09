@@ -63,7 +63,7 @@ public class Gra {
             przeciwnikHp = przeciwnik.getHp();
 
             try {
-                Thread.sleep(2000);
+                Thread.sleep(997);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

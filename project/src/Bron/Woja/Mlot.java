@@ -4,8 +4,8 @@ public class Mlot extends BronWoja {
 
     public Mlot() {
         nazwa = "Mlot";
-        obrazeniaMin = 5;
-        obrazeniaMax = 30;
+        obrazeniaMin = 16;
+        obrazeniaMax = 32;
         imageFilePath = "project/resources/img/mlot.png";
     }
     public String getPath() {

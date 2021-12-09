@@ -8,6 +8,6 @@ public class Wojownik extends WZwarciu {
         super(imie, bron);
         imageFilePath = "project/resources/img/wojownik.png";
         atak = new WojownikAtak();
-        pancerz = 40;
+        pancerz = 50;
     }
 }

@@ -6,7 +6,7 @@ import Bron.Bron;
 abstract public class Postac implements AtakiInterfejs_I {
 
     // Deklaracja zmiennych punktow Postaci
-    protected int hp=100;
+    protected int hp=150;
     protected int pancerz;
     protected String imie;
     protected String imageFilePath;

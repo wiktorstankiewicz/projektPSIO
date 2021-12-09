@@ -9,6 +9,6 @@ public class Zabojca extends WZwarciu {
         super(imie, bron);
         imageFilePath = "project/resources/img/zabojca.png";
         atak = new ZabojcaAtak();
-        pancerz = 10;
+        pancerz = 35;
     }
 }
