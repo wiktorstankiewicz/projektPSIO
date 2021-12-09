@@ -51,26 +51,6 @@ public class Gra {
 
     }
 
-//	private void wyswietlMenuWyboru(String[] StringBronie, String[] StringPostaci) {
-//	static public Postac getPrzeciwnik(){
-//		if (postacie[0] == null || postacie[1] == null){
-//			System.out.println("Postacie nie istnieja");
-//			turn++;
-//			return postacie[0];
-//		}
-//		else if (firstTurn == turn % 2){
-//			turn++;
-//			return postacie[0];
-//		}
-//		else {
-//			turn++;
-//			return postacie[1];
-//		}
-//
-//
-//	}
-
-
     public void bitwa() {
 
         if (gracz == null || przeciwnik == null) {
@@ -85,7 +65,7 @@ public class Gra {
             przeciwnikHp = przeciwnik.getHp();
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
