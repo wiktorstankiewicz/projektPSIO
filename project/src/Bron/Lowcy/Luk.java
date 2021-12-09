@@ -7,8 +7,4 @@ public class Luk extends BronLowcy {
         obrazeniaMax = 15;
         imageFilePath = "project/resources/img/luk.png";
     }
-
-    public String getPath(){
-        return "luk.png";
-    }
 }

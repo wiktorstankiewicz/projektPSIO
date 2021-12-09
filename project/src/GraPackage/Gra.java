@@ -3,6 +3,7 @@ package GraPackage;
 import Grafika.GUI;
 import Postacie.Postac;
 import Postacie.WZwarciu.WZwarciu;
+
 import java.util.Random;
 
 public class Gra {
@@ -22,14 +23,10 @@ public class Gra {
 
     private GUI gui;
 
-    public Gra() {
-
-    }
-
     //Helper fields
     private final Random generator = new Random();
 
-    public void prepareGame() {
+    public void przygotujGre() {
         firstTurn = generator.nextInt(1) + 1;
         distance = generator.nextInt(MAX_DISTANCE) + 1;
 
@@ -43,7 +40,6 @@ public class Gra {
         String wylosowaneImiePrzeciwnika = WyborKlasy.generujImieBota();
         przeciwnik = WyborKlasy.stworzPostac(wylosowanaPostacPrzeciwnika, wylosowaneImiePrzeciwnika, wylosowanaBronPrzeciwnika);
         gui = new GUI(this);
-
     }
 
     public void bitwa() {
@@ -55,6 +51,7 @@ public class Gra {
             System.out.println("Postacie nie istnieja");
             return;
         }
+
         gui.inicjalizujEkranGry(this);
 
         while (!(GRACZ_WYGRANA || PRZECIWNIK_WYGRANA)) {
@@ -78,7 +75,6 @@ public class Gra {
                 }
 
                 System.out.println(gracz.getImie() + ": " + gracz.getHp());
-                checkForWinner();
             } else {
                 if (distance > 0 && (przeciwnik instanceof WZwarciu)) {
                     distance--;
@@ -89,8 +85,8 @@ public class Gra {
                 }
 
                 System.out.println(przeciwnik.getImie() + ": " + przeciwnik.getHp() + " HP");
-                checkForWinner();
             }
+            checkForWinner();
             gui.update(this);
             System.out.println("\nDystans: " + distance);
             turn++;

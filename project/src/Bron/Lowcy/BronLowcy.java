@@ -1,11 +1,9 @@
 package Bron.Lowcy;
 
-import Bron.*;
+import Bron.Bron;
 
-public abstract class BronLowcy extends Bron
-{
-    protected BronLowcy()
-    {
+public abstract class BronLowcy extends Bron {
+    protected BronLowcy() {
         super();
     }
 }

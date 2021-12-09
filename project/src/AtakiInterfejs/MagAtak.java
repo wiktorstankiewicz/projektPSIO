@@ -1,16 +1,14 @@
 package AtakiInterfejs;
 
 import Bron.Bron;
-import Postacie.*;
+import Postacie.Postac;
 
 public class MagAtak implements AtakiInterfejs_I {
     @Override
-    public void Atak(Postac P, Bron b) {
-
-        int ArmorTMP = P.getPancerz();
-        P.setPancerz(0);
-        AtakiInterfejs_I.zadajObrazenia(P, b);
-        P.setPancerz(ArmorTMP);
-
+    public void Atak(Postac p, Bron b) {
+        int ArmorTMP = p.getPancerz();
+        p.setPancerz(0);
+        AtakiInterfejs_I.zadajObrazenia(p, b);
+        p.setPancerz(ArmorTMP);
     }
 }

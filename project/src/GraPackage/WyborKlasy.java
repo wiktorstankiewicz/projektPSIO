@@ -15,17 +15,20 @@ import Postacie.Dystansowe.Mag;
 import Postacie.Postac;
 import Postacie.WZwarciu.Wojownik;
 import Postacie.WZwarciu.Zabojca;
+
 import java.util.Random;
 import java.util.Scanner;
 
 public abstract class WyborKlasy {
-    static String[] listaKlas = {"Wojownik", "Zabojca", "Lowca", "Mag"};
-    static String[] listaBroniLowcy = {"Luk"};
-    static String[] listaBroniZabojcy = {"Sztylet"};
-    static String[] listaBroniMaga = {"Rozdzka"};
-    static String[] listaBroniWojownika = {"Miecz", "Mlot"};
-    static String[] listaBroni;
-    static String[] listaImionBota = {"Ziemowit Bździągwa", "Koszmar Dziekana", "Java Senior Developer", "Garbage Collector"};
+    private static String[] listaKlas = {"Wojownik", "Zabojca", "Lowca", "Mag"};
+    private static String[] listaBroniLowcy = {"Luk"};
+    private static String[] listaBroniZabojcy = {"Sztylet"};
+    private static String[] listaBroniMaga = {"Rozdzka"};
+    private static String[] listaBroniWojownika = {"Miecz", "Mlot"};
+    private static String[] listaBroni;
+    private static String[] listaImionBota = {"Ziemowit Bździągwa", "Koszmar Dziekana", "Java Senior Developer",
+            "Java Garbage Collector",
+            "Kolokwium z Analizy", "PANDA_3"};
     static Random random = new Random();
 
     public static String generujKlasaBot() {
@@ -54,12 +57,10 @@ public abstract class WyborKlasy {
     }
 
     public static String wybierzImie() {
-
         String imie;
         System.out.print("Podaj imie:");
         Scanner czytnik = new Scanner(System.in);
         imie = czytnik.nextLine();
-
         return imie;
     }
 
@@ -115,7 +116,7 @@ public abstract class WyborKlasy {
             case "Mag":
                 return new Mag(imie, (BronMaga) WyborKlasy.stringNaBron(bron));
         }
-        return new Wojownik("BLAD", (BronWoja) new Miecz());
+        return new Wojownik("BLAD", new Miecz());
     }
 
     private static Bron stringNaBron(String bron) {

@@ -23,7 +23,6 @@ public class GUI extends JFrame {
     private JTextArea wykonanaAkcja;
     private JTextArea dystans;
 
-
     public GUI(Gra gra) {
         inicjalizujEkranGry(gra);
     }
@@ -146,7 +145,6 @@ public class GUI extends JFrame {
         infKoncowa.setEditable(false);
         if (czyGraczWygral) {
             infKoncowa.setText("Wygrales!");
-
             return;
         }
         infKoncowa.setText("Przegrałeś!");

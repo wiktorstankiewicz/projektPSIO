@@ -1,6 +1,6 @@
 package Bron.Zabojcy;
 
-import Bron.*;
+import Bron.Bron;
 
 public abstract class BronZabojcy extends Bron {
     protected BronZabojcy() {

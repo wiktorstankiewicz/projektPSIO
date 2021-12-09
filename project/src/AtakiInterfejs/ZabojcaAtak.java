@@ -1,18 +1,19 @@
 package AtakiInterfejs;
 
 import Bron.Bron;
-import Postacie.*;
-import java.util.*;
+import Postacie.Postac;
+
+import java.util.Random;
 
 public class ZabojcaAtak implements AtakiInterfejs_I {
     @Override
-    public void Atak(Postac P, Bron b) {
+    public void Atak(Postac p, Bron b) {
         Random generator = new Random();
 
         if (10 >= generator.nextInt(100)) {
-            P.setHp(0);
+            p.setHp(0);
         } else {
-            AtakiInterfejs_I.zadajObrazenia(P, b);
+            AtakiInterfejs_I.zadajObrazenia(p, b);
         }
     }
 }
