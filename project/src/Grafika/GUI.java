@@ -44,8 +44,7 @@ public class GUI extends JFrame {
         this.setVisible(true);
         this.getContentPane().setBackground(Color.WHITE);
         this.setResizable(false);
-
-
+        this.setAlwaysOnTop(true);
     }
 
     public void initTura(Gra gra) {
@@ -136,7 +135,6 @@ public class GUI extends JFrame {
         opisPrzeciwnika.setText(gra.getPrzeciwnik().getStan());
         dystans.setText("Dystans: " + gra.getDistance());
         wykonanaAkcja.setText(gra.getAkcja());
-
     }
 
     public void pokazKomunikatKoncowy(boolean czyGraczWygral) {
