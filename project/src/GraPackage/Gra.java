@@ -32,6 +32,9 @@ public class Gra {
 	private int firstTurn;
 	private int turn;
 	private int distance;
+	private String akcja;
+	private int graczHp; //Hp z poprzedniej tury
+	private int przeciwnikHp;
 
 	private Frame GUI;
 
@@ -80,6 +83,7 @@ public class Gra {
 
 
 	public void bitwa(){
+
 		if (gracz == null || przeciwnik == null){
 			System.out.println("Postacie nie istnieja");
 			return;
@@ -87,6 +91,10 @@ public class Gra {
 		GUI.inicjalizujEkranGry(this);
 
 		while(!(GRACZ_WYGRANA || PRZECIWNIK_WYGRANA)) {
+
+			graczHp=gracz.getHp();
+			przeciwnikHp=przeciwnik.getHp();
+
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -96,17 +104,22 @@ public class Gra {
 
 				if (distance > 0 && (gracz instanceof WZwarciu)) {
 					distance--;
-					System.out.println("Podszedles!");
-
-				} else gracz.Atak(przeciwnik, gracz.getBron());
+					setWykonanaAkcja(gracz.getImie()+" podszedł!");
+				} else {
+					gracz.Atak(przeciwnik, gracz.getBron());
+					setWykonanaAkcja(gracz.getImie()+" zadał "+ (przeciwnikHp-przeciwnik.getHp()));
+				}
 
 				System.out.println(gracz.getImie()+": "+gracz.getHp());
 				checkForWinner();
 			} else {
 				if (distance > 0 && (przeciwnik instanceof WZwarciu)) {
 					distance--;
-					System.out.println("Przeciwnik podszedl!");
-				}else przeciwnik.Atak(gracz, przeciwnik.getBron());
+					setWykonanaAkcja(przeciwnik.getImie()+" podszedł!");
+				}else {
+					przeciwnik.Atak(gracz, przeciwnik.getBron());
+					setWykonanaAkcja(przeciwnik.getImie()+" zadał "+ (graczHp-gracz.getHp()));
+				}
 
 				System.out.println("Przeciwnik"+przeciwnik.getHp());
 				checkForWinner();
@@ -131,6 +144,12 @@ public class Gra {
 		}
 	}*/
 
+	public String wykonanaAkcja(){
+	return akcja;
+	}
+	public void setWykonanaAkcja(String akcja){
+		this.akcja=akcja;
+	}
 	public void gracz_typ(){
 		System.out.println(gracz.getClass()+"   "+przeciwnik.getClass());
 	}
@@ -139,6 +158,7 @@ public class Gra {
 	 * Checks whether one of the players has <= 0 hp
 	 *     and assigns the winner appropriately
 	 */
+
 	private void checkForWinner(){
 		if (gracz.getHp() <= 0){
 			PRZECIWNIK_WYGRANA=true;
