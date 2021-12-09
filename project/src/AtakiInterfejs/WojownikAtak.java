@@ -9,8 +9,8 @@ public class WojownikAtak implements AtakiInterfejs_I{
         Random generator = new Random();
         if(35 < generator.nextInt(100))
         {
-            P.setHp(P.getHp()-(generator.nextInt(b.getObrazeniaMax())+b.getObrazeniaMin()+1));
+            P.setHp(P.getHp()-(generator.nextInt(b.getObrazeniaMax()-b.getObrazeniaMin())+b.getObrazeniaMin()+1));
         }
-            P.setHp(P.getHp()-(generator.nextInt(b.getObrazeniaMax())+1));
+            P.setHp(P.getHp()-(generator.nextInt(b.getObrazeniaMax()-b.getObrazeniaMin())+1));
     }
     }

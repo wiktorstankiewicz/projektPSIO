@@ -26,7 +26,7 @@ public abstract class WyborKlasy {
     static String[] listaBroniMaga = {"Rozdzka"};
     static String[] listaBroniWojownika = {"Miecz", "Mlot"};
     static String[] listaBroni;
-    static String[] listaImionBota = {"Ziemowit Bździągwa", "Koszmar Dziekana", "Java Senior Developer", "garbage Collector"};
+    static String[] listaImionBota = {"Ziemowit Bździągwa", "Koszmar Dziekana", "Java Senior Developer", "Garbage Collector"};
     static Random random = new Random();
 
     public static String generujKlasaBot() {
