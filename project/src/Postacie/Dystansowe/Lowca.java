@@ -8,6 +8,6 @@ public class Lowca extends Dystansowe {
         super(imie, bron);
         imageFilePath = "project/resources/img/lowca.png";
         atak = new LowcaAtak();
-        pancerz = 10;
+        pancerz = 30;
     }
 }

@@ -9,7 +9,7 @@ public class WojownikAtak implements AtakiInterfejs_I {
     @Override
     public void Atak(Postac p, Bron b) {
         Random generator = new Random();
-        if (20 >= generator.nextInt(100)) {
+        if (15 >= generator.nextInt(100)) {
             AtakiInterfejs_I.zadajObrazenia(p, b);
         }
         AtakiInterfejs_I.zadajObrazenia(p, b);
