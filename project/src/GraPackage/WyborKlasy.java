@@ -57,6 +57,7 @@ public abstract class WyborKlasy {
     }
 
     public static String wybierzImie() {
+
         String imie;
         System.out.print("Podaj imie:");
         Scanner czytnik = new Scanner(System.in);
@@ -65,13 +66,28 @@ public abstract class WyborKlasy {
     }
 
     public static String wybierzPostac() {
-        System.out.println("Wybierz klase:");
-        for (int i = 0; i < listaKlas.length; i++) {
-            System.out.println((i + 1) + "." + listaKlas[i]);
-        }
 
-        Scanner czytnik = new Scanner(System.in);
-        int wyborPostaci = czytnik.nextInt();
+        boolean postacZostalaWybrana = false;
+        int wyborPostaci = 1;
+
+        while (!postacZostalaWybrana) {
+            try {
+                System.out.println("Wybierz klase:");
+                for (int i = 0; i < listaKlas.length; i++) {
+                    System.out.println((i + 1) + "." + listaKlas[i]);
+                }
+                postacZostalaWybrana=true;
+                Scanner czytnik = new Scanner(System.in);
+                wyborPostaci = czytnik.nextInt();
+
+                if(wyborPostaci> listaKlas.length || wyborPostaci<1){
+                    throw new RuntimeException();
+                }
+            } catch (Exception e){
+                System.out.println("Błędny znak!");
+                postacZostalaWybrana=false;
+            }
+        }
 
         if (wyborPostaci < listaKlas.length + 1 && wyborPostaci > 0) return listaKlas[wyborPostaci - 1];
         else return "Wojownik";
@@ -79,7 +95,9 @@ public abstract class WyborKlasy {
     }
 
     public static String wybierzBron(String wyborGracza) {
-        Scanner czytnik = new Scanner(System.in);
+
+        boolean bronZostalaWybrana = false;
+        int wybranaBron = 1;
 
         switch (wyborGracza) {
             case "Wojownik":
@@ -97,12 +115,27 @@ public abstract class WyborKlasy {
             default:
                 break;
         }
-        System.out.println("Wybierz bron:");
-        for (int i = 0; i < listaBroni.length; i++) {
-            System.out.println((i + 1) + "." + listaBroni[i]);
+
+        while (!bronZostalaWybrana) {
+            try {
+                System.out.println("Wybierz bron:");
+                for (int i = 0; i < listaBroni.length; i++) {
+                    System.out.println((i + 1) + "." + listaBroni[i]);
+                }
+                bronZostalaWybrana=true;
+                Scanner czytnik = new Scanner(System.in);
+                wybranaBron = czytnik.nextInt();
+                if(wybranaBron>listaBroni.length || wybranaBron<1){
+                    throw new RuntimeException();
+                }
+            } catch (Exception e){
+                System.out.println("Błędny znak!");
+                bronZostalaWybrana=false;
+            }
         }
-        int wyborBroni = czytnik.nextInt();
-        return listaBroni[wyborBroni - 1];
+
+
+        return listaBroni[wybranaBron - 1];
     }
 
     public static Postac stworzPostac(String wybranaPostac, String imie, String bron) {
