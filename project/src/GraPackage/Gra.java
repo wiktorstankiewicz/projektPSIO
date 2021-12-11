@@ -42,9 +42,11 @@ public class Gra {
     //Helper fields
     private final Random generator = new Random();
     private final Scanner scan = new Scanner(System.in);
+    private ArrayList<Postac> postacieZPlikuTab;
 
     public Gra(){
         postacieTab = new ArrayList<>();
+        postacieZPlikuTab = new ArrayList<>();
         deserialize();
         wypiszTab(postacieTab); //todo usunac metode do debugu
     }
@@ -52,19 +54,19 @@ public class Gra {
     public void przygotujGre() {
         firstTurn = generator.nextInt(1) + 1;
         distance = generator.nextInt(MAX_DISTANCE) + 1;
-
+//        distance = 5;
         createPostacie();
 
         gui = new GUI(this);
     }
 
     private void createPostacie(){
-        boolean nowaPostac = false;
+        boolean wybranoPostac = false;
     //---------------------------------------------------------
     //          Generuj Gracza
     //---------------------------------------------------------
         if (postacieTab.size() == 0) {
-            nowaPostac = true;
+//            nowaPostac = true;
             stworzGracz();
         }
         else {
@@ -74,12 +76,13 @@ public class Gra {
             int wybor = getUserInputInt(1, 2);
 
             if (wybor == 1) {
-                nowaPostac = true;
+//                nowaPostac = true;
                 stworzGracz();
             }
             else {
                 gracz = wybierzPostac();
                 postacieTab.remove(gracz); //usun postac ktora wybral gracz, zeby nie wylosowac jej jako przeciwnika
+                wybranoPostac = true;
             }
         }
 
@@ -101,8 +104,8 @@ public class Gra {
             else wylosujPrzeciwnika();
         }
 
-        //dodaj gracza spowrotem do tablicy, jesli nie tworzono nowego, w celu serializacji calej tablicy
-        if (!nowaPostac)
+        //dodaj gracza spowrotem do tablicy, w celu serializacji calej tablicy
+        if (!postacieTab.contains(gracz))
             postacieTab.add(gracz);
         serialize();
     }
@@ -112,10 +115,6 @@ public class Gra {
         String wybranaPostac = WyborKlasy.wybierzPostac();
         String wybranaBron = WyborKlasy.wybierzBron(wybranaPostac);
         gracz = WyborKlasy.stworzPostac(wybranaPostac, wybraneImie, wybranaBron);
-
-        if (!postacieTab.contains(gracz)) {
-            postacieTab.add(gracz);
-        }
     }
 
     private Postac wybierzPostac(){
@@ -162,44 +161,56 @@ public class Gra {
             }
         }
 
-
         try (BufferedReader breader = new BufferedReader(new FileReader(WCZYTYWANIE_Z_PLIKU_POSTACI_Nazwa))){
 
             String wiersz = "";
             String[] staty;
 
             while ((wiersz = breader.readLine()) != null){
-                wiersz = (wiersz.toLowerCase()).trim();
                 staty = wiersz.split(";");
+
+                for (int i = 0; i < staty.length; i++) {
+                    staty[i] = staty[i].trim();
+                    if (i == 1) continue;
+                    staty[i] = staty[i].toLowerCase();
+                }
 
                 switch (staty[0]){
                     case "zabojca":
                         if(staty[2].equals("sztylet")) {
-                            postacieTab.add(new Zabojca(staty[1], new Sztylet()));
+                            postacieZPlikuTab.add(new Zabojca(staty[1], new Sztylet()));
                         }
                     case "lowca":
                         if (staty[2].equals("luk")) {
-                            postacieTab.add(new Lowca(staty[1], new Luk()));
+                            postacieZPlikuTab.add(new Lowca(staty[1], new Luk()));
                         }
                     case "wojownik":
                         if(staty[2].equals("miecz")) {
-                            postacieTab.add(new Wojownik(staty[1], new Miecz()));
+                            postacieZPlikuTab.add(new Wojownik(staty[1], new Miecz()));
                         }
                         if(staty[2].equals("mlot")) {
-                            postacieTab.add(new Wojownik(staty[1], new Mlot()));
+                            postacieZPlikuTab.add(new Wojownik(staty[1], new Mlot()));
                         }
                     case "mag":
                         if (staty[2].equals("rozdzka")) {
-                            postacieTab.add(new Mag(staty[1], new Rozdzka()));
+                            postacieZPlikuTab.add(new Mag(staty[1], new Rozdzka()));
                         }
                 }
             }
         } catch (Exception e){
 
         }
+        for (int i = 0; i < postacieZPlikuTab.size(); i++) {
+            postacieTab.add(postacieZPlikuTab.get(i));
+        }
     }
 
     private void serialize(){
+
+        for (int i = 0; i < postacieZPlikuTab.size(); i++) {
+            postacieTab.remove(postacieZPlikuTab.get(i));
+        }
+
         try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(POSTACIE_NAZWA_PLIKU))){
             os.writeObject(postacieTab);
         } catch (IOException e) {
