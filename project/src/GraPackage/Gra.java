@@ -1,6 +1,11 @@
 package GraPackage;
 
 import AtakiInterfejs.*;
+import Bron.Lowcy.Luk;
+import Bron.Maga.Rozdzka;
+import Bron.Woja.Miecz;
+import Bron.Woja.Mlot;
+import Bron.Zabojcy.Sztylet;
 import Grafika.GUI;
 import Postacie.Dystansowe.Lowca;
 import Postacie.Dystansowe.Mag;
@@ -21,6 +26,7 @@ public class Gra {
     private boolean GRACZ_WYGRANA = false;
     private boolean PRZECIWNIK_WYGRANA = false;
     private final String POSTACIE_NAZWA_PLIKU = "postacie.ser";
+    private final String WCZYTYWANIE_Z_PLIKU_POSTACI_Nazwa = "wczyt_postaci.txt"; //schemat zapisu w pliku: klasa;imie;bron
 
     //Game fields
     private Postac gracz;
@@ -142,9 +148,6 @@ public class Gra {
         } catch (IOException | ClassNotFoundException e) {
         }
 
-        //todo Adam
-        //todo wczytac postacie z pliku tekstowego do tablicy postaci
-
         for (int i = 0; i < postacieTab.size(); i++) {
             if (postacieTab.get(i).getAtak() == null){
                 AtakiInterfejs_I atak = null;
@@ -158,6 +161,42 @@ public class Gra {
                 postacieTab.get(i).setAtak(atak);
             }
         }
+
+
+        try (BufferedReader breader = new BufferedReader(new FileReader(WCZYTYWANIE_Z_PLIKU_POSTACI_Nazwa))){
+
+            String wiersz = "";
+            String[] staty;
+
+            while ((wiersz = breader.readLine()) != null){
+                wiersz = (wiersz.toLowerCase()).trim();
+                staty = wiersz.split(";");
+
+                switch (staty[0]){
+                    case "zabojca":
+                        if(staty[2].equals("sztylet")) {
+                            postacieTab.add(new Zabojca(staty[1], new Sztylet()));
+                        }
+                    case "lowca":
+                        if (staty[2].equals("luk")) {
+                            postacieTab.add(new Lowca(staty[1], new Luk()));
+                        }
+                    case "wojownik":
+                        if(staty[2].equals("miecz")) {
+                            postacieTab.add(new Wojownik(staty[1], new Miecz()));
+                        }
+                        if(staty[2].equals("mlot")) {
+                            postacieTab.add(new Wojownik(staty[1], new Mlot()));
+                        }
+                    case "mag":
+                        if (staty[2].equals("rozdzka")) {
+                            postacieTab.add(new Mag(staty[1], new Rozdzka()));
+                        }
+                }
+            }
+        } catch (Exception e){
+
+        }
     }
 
     private void serialize(){
@@ -167,6 +206,7 @@ public class Gra {
             e.printStackTrace();
         }
     }
+
 
     public void bitwa() {
 

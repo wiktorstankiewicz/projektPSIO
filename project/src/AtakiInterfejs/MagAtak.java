@@ -3,7 +3,9 @@ package AtakiInterfejs;
 import Bron.Bron;
 import Postacie.Postac;
 
-public class MagAtak implements AtakiInterfejs_I {
+import java.io.Serializable;
+
+public class MagAtak implements AtakiInterfejs_I, Serializable {
     @Override
     public void Atak(Postac p, Bron b) {
         int ArmorTMP = p.getPancerz();
