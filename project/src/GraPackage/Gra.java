@@ -1,182 +1,147 @@
 package GraPackage;
-import Bron.*;
-import Bron.Lowcy.Luk;
-import Bron.Maga.Rozdzka;
-import Bron.Woja.Miecz;
-import Bron.Woja.Mlot;
-import Bron.Zabojcy.Sztylet;
-import Grafika.WyborKlasy;
-import Postacie.Dystansowe.Lowca;
-import Postacie.Dystansowe.Mag;
+
+import Grafika.GUI;
 import Postacie.Postac;
-import Postacie.WZwarciu.Wojownik;
-import Postacie.WZwarciu.Zabojca;
-
-
+import Postacie.WZwarciu.WZwarciu;
 
 import java.util.Random;
 
 public class Gra {
 
-	//Constants
-	private final int MAX_DISTANCE = 3;
-	private final int GRACZ_WYGRANA = 0;
-	private final int PRZECIWNIK_WYGRANA = 1;
+    //Constants
+    private final int MAX_DISTANCE = 5;
+    private boolean GRACZ_WYGRANA = false;
+    private boolean PRZECIWNIK_WYGRANA = false;
 
-	//Game fields
-	static int playerCount = 2;
-	private static final Postac[] postacie = new Postac[playerCount]; //player and random opponent
-	private final String[] imiona = new String[playerCount];//their names, respectively
-	private final Bron[] bronie = new Bron[playerCount]; //their weapons, respectively
-	private static int firstTurn;
-	private static int turn;
-	private int distance;
+    //Game fields
+    private Postac gracz;
+    private Postac przeciwnik;
+    private int firstTurn;
+    private int turn;
+    private int distance;
+    private String akcja;
 
+    private GUI gui;
 
-	//Helper fields
-	private Random generator= new Random();
+    //Helper fields
+    private final Random generator = new Random();
 
-	public void prepareGame(){
-		firstTurn = generator.nextInt() % 2 + 1;
-		distance = generator.nextInt() % MAX_DISTANCE + 1;
+    public void przygotujGre() {
+        firstTurn = generator.nextInt(1) + 1;
+        distance = generator.nextInt(MAX_DISTANCE) + 1;
 
-		imiona[0] = WyborKlasy.wybierzImie();
+        String wybraneImie = WyborKlasy.wybierzImie();
+        String wybranaPostac = WyborKlasy.wybierzPostac();
+        String wybranaBron = WyborKlasy.wybierzBron(wybranaPostac);
+        gracz = WyborKlasy.stworzPostac(wybranaPostac, wybraneImie, wybranaBron);
 
-		String[] StringBronie = new String[playerCount];
-		String[] StringPostaci = new String[playerCount];
+        String wylosowanaPostacPrzeciwnika = WyborKlasy.generujKlasaBot();
+        String wylosowanaBronPrzeciwnika = WyborKlasy.generujBronBot(wylosowanaPostacPrzeciwnika);
+        String wylosowaneImiePrzeciwnika = WyborKlasy.generujImieBota();
+        przeciwnik = WyborKlasy.stworzPostac(wylosowanaPostacPrzeciwnika, wylosowaneImiePrzeciwnika, wylosowanaBronPrzeciwnika);
+        gui = new GUI(this);
+    }
 
-		StringPostaci[0] = WyborKlasy.wybierzKlase();
-		StringBronie[0] = WyborKlasy.wybierzBron(StringPostaci[0]);
+    public void bitwa() {
 
-		for(int i=1;i<StringPostaci.length;i++) {
-			StringPostaci[1] = WyborKlasy.generujKlasaBot();
-			StringBronie[1] = WyborKlasy.generujBronBot(StringPostaci[1]);
-			imiona[i]= WyborKlasy.imieBota();
-		}
+        int graczHp; //Hp z poprzedniej tury
+        int przeciwnikHp;
 
-
-
-		for (int i = 0; i < StringBronie.length; i++) {
-			switch (StringBronie[i]) {
-				case "Miecz":
-					bronie[i] = new Miecz();
-					break;
-
-				case "Mlot":
-					bronie[i] = new Mlot();
-					break;
-
-				case "Luk":
-					bronie[i] = new Luk();
-					break;
-
-				case "Rozdzka":
-					bronie[i] = new Rozdzka();
-					break;
-				case "Sztylet":
-					bronie[i] = new Sztylet();
-			}
-		}
-
-        for (int i = 0; i < StringBronie.length; i++) {
-            switch (StringBronie[i]) {
-                case "Wojownik":
-                    postacie[i] = new Wojownik(imiona[i],"",bronie[i]);
-                    break;
-                case "Lowca":
-                    postacie[i] = new Lowca(imiona[i],"",bronie[i]);
-                    break;
-                case "Zabojca":
-                    postacie[i] = new Zabojca(imiona[i],"",bronie[i]);
-                    break;
-                case "Mag":
-                    postacie[i] = new Mag(imiona[i],"",bronie[i]);
-                    break;
-
-            }
-
+        if (gracz == null || przeciwnik == null) {
+            System.out.println("Postacie nie istnieja");
+            return;
         }
 
-		System.out.println(StringBronie[0] + "  " + StringBronie[1]);
-		System.out.println(StringPostaci[0] + "  " + StringPostaci[1]);
+        gui.inicjalizujEkranGry(this);
 
+        while (!(GRACZ_WYGRANA || PRZECIWNIK_WYGRANA)) {
 
+            graczHp = gracz.getHp();
+            przeciwnikHp = przeciwnik.getHp();
 
-		for (int i = 0; i < 2; i++) {
-			System.out.println(bronie[i].getClass());
-			System.out.println(imiona[i]);
-		}
-	}
+            try {
+                Thread.sleep(997);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (firstTurn == turn % 2) {
 
+                if (distance > 0 && (gracz instanceof WZwarciu)) {
+                    distance--;
+                    akcja = gracz.getImie() + " podszedł!";
+                } else {
+                    gracz.wykonajZwyklyAtak(przeciwnik, gracz.getBron());
+                    akcja = gracz.getImie() + " zadał " + (przeciwnikHp - przeciwnik.getHp()) + " HP";
+                }
 
+                System.out.println(gracz.getImie() + ": " + gracz.getHp());
+            } else {
+                if (distance > 0 && (przeciwnik instanceof WZwarciu)) {
+                    distance--;
+                    akcja = przeciwnik.getImie() + " podszedł!";
+                } else {
+                    przeciwnik.wykonajZwyklyAtak(gracz, przeciwnik.getBron());
+                    akcja = przeciwnik.getImie() + " zadał " + (graczHp - gracz.getHp()) + " HP";
+                }
 
-	static public Postac getPrzeciwnik(){
-		if (postacie[0] == null || postacie[1] == null){
-			System.out.println("Postacie nie istnieja");
-			turn++;
-			return postacie[0];
-		}
-		else if (firstTurn == turn % 2){
-			turn++;
-			return postacie[0];
-		}
-		else {
-			turn++;
-			return postacie[1];
-		}
+                System.out.println(przeciwnik.getImie() + ": " + przeciwnik.getHp() + " HP");
+            }
+            checkForWinner();
+            gui.update(this);
+            System.out.println("\nDystans: " + distance);
+            turn++;
+        }
+    }
 
+    public void gracz_typ() {
+        System.out.println(gracz.getClass() + "   " + przeciwnik.getClass());
+    }
 
-	}
+    /**
+     * Checks whether one of the players has <= 0 hp
+     * and assigns the winner appropriately
+     */
 
-	/*
-	private void bitwa(){
-		if (postacie[0] == null || postacie[1] == null){
-			System.out.println("Postacie nie istnieja");
-			return;
-		}
-		if (firstTurn == turn % 2){
-			atak(postacie[0]);
-		}
-		else {
-			atak(postacie[1]);
-		}
-		turn++;
-	}
+    private void checkForWinner() {
+        if (gracz.getHp() <= 0) {
+            PRZECIWNIK_WYGRANA = true;
+            finishGame();
+        }
 
-	private void atak(Postac postac){
-		postac.Atak(getPrzeciwnik()); //wywoluje metode interfejsu AtakiInterfejs_I
-		checkForWinner();
-	}
-	 */
+        if (przeciwnik.getHp() <= 0) {
+            GRACZ_WYGRANA = true;
+            finishGame();
+        }
+    }
 
-	//Podchodzi o x pol
-	private void podejdz(int x){
-		if (distance <= 0) return;
+    private void finishGame() {
+        if (GRACZ_WYGRANA) {
+            System.out.println("Gratulacje! Wygrales!");
+            gui.pokazKomunikatKoncowy(true);
+        } else if (PRZECIWNIK_WYGRANA) {
+            System.out.println("Niestey, nie udalo ci sie wygrac. Powodzenia nastepnym razem");
+            gui.pokazKomunikatKoncowy(false);
+        }
+    }
 
-		distance = Math.max(distance-x, 0);
-		turn++;
-	}
+    public Postac getGracz() {
+        return gracz;
+    }
 
-	/**
-	 * Checks whether one of the players has <= 0 hp
-	 *     and assigns the winner appropriately
-	 */
-	private void checkForWinner(){
-		if (postacie[0].getHp() <= 0){
-			finishGame(PRZECIWNIK_WYGRANA);
-		}
+    public Postac getPrzeciwnik() {
+        return przeciwnik;
+    }
 
-		if (postacie[1].getHp() <= 0){
-			finishGame(GRACZ_WYGRANA);
-		}
-	}
+    public int getTurn() {
+        return turn;
+    }
 
-	private void finishGame(int wygrany){
-		if (wygrany == GRACZ_WYGRANA){
-			System.out.println("Gratulacje! Wygrales!");
-		}
-		else if (wygrany == PRZECIWNIK_WYGRANA) {
-			System.out.println("Niestey, nie udalo ci sie wygrac. Powodzenia nastepnym razem");
-		}
-	}
+    public int getDistance() {
+        return distance;
+    }
+
+    public String getAkcja() {
+        return akcja;
+    }
+
 }

@@ -1,20 +1,15 @@
 package Postacie.WZwarciu;
 
-import AtakiInterfejs.WojownikAtak;
-import Bron.Bron;
-import Postacie.Postac;
+import AtakiInterfejs.WojownikSpecjalnyAtak;
+import AtakiInterfejs.WojownikZwyklyAtak;
+import Bron.Woja.BronWoja;
 
-public class Wojownik extends WZwarciu{
-    public Wojownik(String imie, String obrazek, Bron bron) {
-        super(imie, obrazek, bron);
-        atak = new WojownikAtak();
+public class Wojownik extends WZwarciu {
+    public Wojownik(String imie, BronWoja bron) {
+        super(imie, bron);
+        imageFilePath = "project/resources/img/wojownik.png";
+        zwyklyAtak = new WojownikZwyklyAtak();
+        specjalnyAtak = new WojownikSpecjalnyAtak();
+        pancerz = 50;
     }
-
-    @Override
-    public void Atak(Postac p, Bron b) {
-        b=this.getBron();
-        atak.Atak(p,b);
-    }
-
-    //todo
 }

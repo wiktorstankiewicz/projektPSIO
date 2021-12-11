@@ -1,14 +1,10 @@
 package Bron.Zabojcy;
 
 public class Sztylet extends BronZabojcy {
-
     public Sztylet() {
         nazwa = "Sztylet";
-        obrazeniaMin = 15;
+        obrazeniaMin = 12;
         obrazeniaMax = 20;
-    }
-    public String getPath(){
-        return "sztylet.png";
-
+        imageFilePath = "project/resources/img/sztylet.png";
     }
 }

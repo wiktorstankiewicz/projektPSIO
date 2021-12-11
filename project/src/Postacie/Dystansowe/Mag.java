@@ -1,19 +1,15 @@
 package Postacie.Dystansowe;
 
-import AtakiInterfejs.MagAtak;
-import Bron.Bron;
-import Postacie.Postac;
+import AtakiInterfejs.MagSpecjalnyAtak;
+import AtakiInterfejs.MagZwyklyAtak;
+import Bron.Maga.BronMaga;
 
 public class Mag extends Dystansowe {
-    public Mag(String imie, String obrazek, Bron bron) {
-        super(imie, obrazek, bron);
-        atak = new MagAtak();
+    public Mag(String imie, BronMaga bron) {
+        super(imie, bron);
+        imageFilePath = "project/resources/img/mag.png";
+        zwyklyAtak = new MagZwyklyAtak();
+        specjalnyAtak = new MagSpecjalnyAtak();
+        pancerz = 15;
     }
-
-    @Override
-    public void Atak(Postac p, Bron b) {
-        b=this.getBron();
-        atak.Atak(p, b);
-    }
-    //todo
 }

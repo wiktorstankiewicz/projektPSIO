@@ -1,15 +1,10 @@
 package Bron.Maga;
 
 public class Rozdzka extends BronMaga {
-
-
     public Rozdzka() {
         nazwa = "Rozdzka";
-        obrazeniaMin = 1;
-        obrazeniaMax = 20;
-    }
-
-    public String getPath(){
-        return "rozdzka.png";
+        obrazeniaMin = 12;
+        obrazeniaMax = 22;
+        imageFilePath = "project/resources/img/rozdzka.png";
     }
 }

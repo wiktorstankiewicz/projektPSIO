@@ -1,124 +1,105 @@
 package Postacie;
 
 import AtakiInterfejs.AtakiInterfejs_I;
+import AtakiInterfejs.SpecjalnyAtak;
+import AtakiInterfejs.ZwyklyAtak;
 import Bron.Bron;
 
-abstract public class Postac implements AtakiInterfejs_I {
+import java.io.Serial;
+import java.io.Serializable;
 
-    //todo Zadeklarowac instancje klasy Unik
+abstract public class Postac implements Serializable {
+    //Version as of 11.12.2021 16:45
+    @Serial
+    private static final long serialVersionUID = 1900397209056382825L;
 
     // Deklaracja zmiennych punktow Postaci
-    private int hp=100;
-    private int pancerz;
-    private int szczescie;
-    private String imie;
-    private String obrazek;
-    private Bron bron;
-    protected AtakiInterfejs_I atak;
-    //
-
-
-    // Deklaracja finalnych wartosci minimalnych i maksymalnych dla punktow Postaci
-    final private int minimalnaWartoscPunktow = 0;
-    final private int maksymalnyAtak = 100;
-    final private int maksymalnePunktyZycia = 100;
-    final private int maksymalnyPancerz = 100;
-    final private int maksymalneSzczescie = 100;
-    //
+    protected int hp = 150;
+    protected int pancerz;
+    protected String imie;
+    protected String imageFilePath;
+    protected Bron bron;
+    protected AtakiInterfejs_I specjalnyAtak;
+    protected AtakiInterfejs_I zwyklyAtak;
+    private boolean czyPodpalony;
 
     // Konstruktory
-    public Postac(){
-
-        this.imie = "Bozydar";
-        this.obrazek = "";
+    public Postac() {
+        this.imie = "Bożydar";
     }
 
-    public Postac(String imie, String obrazek, Bron bron) {
+    public Postac(String imie, Bron bron)
+    {
         this.imie = imie;
-        this.obrazek = obrazek;
-        this.bron=bron;
-    }
-    //
-
-
-    /*
-    // Funkcja sprawdzajaca czy wartosc punktow zawiera sie w przedziale min-max
-    private int getWartoscWPrzedziale(int minimalnaWartoscPunktow, int maksymalnaWartoscPunktow, int wartoscPunktow) {
-        int nowaWartoscPunktow = wartoscPunktow;
-
-        if (wartoscPunktow < minimalnaWartoscPunktow) {
-            nowaWartoscPunktow = minimalnaWartoscPunktow;
-        } else if (wartoscPunktow > maksymalnaWartoscPunktow) {
-            nowaWartoscPunktow = maksymalnaWartoscPunktow;
-        }
-        return nowaWartoscPunktow;
-    }
-    //
-    */
-
-
-    // Gettery
-    public int getHp() {
-        return hp;
-    }
-    public int getPancerz() {
-        return pancerz;
-    }
-    public Bron getBron(){
-        return bron;
+        this.bron = bron;
     }
 
-    /*
-    public int getAtak() {
-        return atak;
+    public void wykonajZwyklyAtak(Postac p, Bron b)
+    {
+        zwyklyAtak.Atak(p, b);
     }
 
-    public String getImie() {
-        return imie;
+    public void wykonajSpecjalnyAtak(Postac p, Bron b)
+    {
+        specjalnyAtak.Atak(p, b);
     }
 
-
-
-    public int getSzczescie() {
-        return szczescie;
+    public String getStan()
+    {
+        return this.getClass().getSimpleName() + ": " + imie + "\n" +
+                "HP: " + hp + "\n" +
+                "Pancerz: " + pancerz;
     }
-    */
-    public String getObrazek() {
-        return obrazek;
-    }
-
-    public String getStan(){
-        return "Stan\n Hp: "+hp+"\nPancerz:"+pancerz;
-    }
-    //
-
 
     // Settery
-     public void setHp(int hp) {
-        this.hp=hp;
+    public void setHp(int hp) {
+        this.hp = hp;
     }
 
     public void setPancerz(int pancerz) {
         this.pancerz = pancerz;
     }
-    /*
-    public void setAtak(int atak) {
-        this.atak = getWartoscWPrzedziale(minimalnaWartoscPunktow, maksymalnyAtak, atak);
+
+    // Gettery
+    public String getImie() {
+        return imie;
     }
 
-    public void setImie(String imie) {
-        this.imie = imie;
+    public String getImageFilePath() {
+        return imageFilePath;
     }
 
-
-
-    public void setSzczescie(int szczescie) {
-        this.szczescie = getWartoscWPrzedziale(minimalnaWartoscPunktow, maksymalneSzczescie, szczescie);
+    public int getHp() {
+        return hp;
     }
 
-    public void setObrazek(String obrazek) {
-        this.obrazek = obrazek;
+    public int getPancerz() {
+        return pancerz;
     }
 
-     */
+    public Bron getBron() {
+        return bron;
+    }
+
+    public void setCzyPodpalony(boolean czyPodpalony) {
+        this.czyPodpalony = czyPodpalony;
+    }
+
+    public boolean getCzyPodpalony() {
+        return czyPodpalony;
+    }
+
+    //this == p jesli
+    //this.imie == p.imie
+    //this.bron == p.bron
+    public boolean equals(Object p){
+        if (!(p instanceof Postac)) return false;
+
+        Postac postac = (Postac) p;
+
+        if (!imie.equals(postac.imie)) return false;
+        if (!bron.equals(postac.bron)) return false;
+
+        return true;
+    }
 }

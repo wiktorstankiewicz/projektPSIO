@@ -3,11 +3,8 @@ package Bron.Lowcy;
 public class Luk extends BronLowcy {
     public Luk() {
         nazwa = "Luk";
-        obrazeniaMin = 10;
-        obrazeniaMax = 15;
-    }
-
-    public String getPath(){
-        return "luk.png";
+        obrazeniaMin = 22;
+        obrazeniaMax = 27;
+        imageFilePath = "project/resources/img/luk.png";
     }
 }
