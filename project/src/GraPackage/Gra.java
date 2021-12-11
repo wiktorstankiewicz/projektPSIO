@@ -1,8 +1,13 @@
 package GraPackage;
 
+import AtakiInterfejs.*;
 import Grafika.GUI;
+import Postacie.Dystansowe.Lowca;
+import Postacie.Dystansowe.Mag;
 import Postacie.Postac;
 import Postacie.WZwarciu.WZwarciu;
+import Postacie.WZwarciu.Wojownik;
+import Postacie.WZwarciu.Zabojca;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -35,6 +40,7 @@ public class Gra {
     public Gra(){
         postacieTab = new ArrayList<>();
         deserialize();
+        wypiszTab(postacieTab);
     }
 
     public void przygotujGre() {
@@ -47,17 +53,24 @@ public class Gra {
     }
 
     private void createPostacie(){
+        boolean nowaPostac = false;
     //---------------------------------------------------------
     //          Generuj Gracza
     //---------------------------------------------------------
-        if (postacieTab.size() == 0) stworzGracz();
+        if (postacieTab.size() == 0) {
+            nowaPostac = true;
+            stworzGracz();
+        }
         else {
             System.out.println("1. Stworz nowa postac");
             System.out.println("2. Wybierz postac z juz stworzonych");
 
             int wybor = getUserInputInt(1, 2);
 
-            if (wybor == 1) stworzGracz();
+            if (wybor == 1) {
+                nowaPostac = true;
+                stworzGracz();
+            }
             else {
                 gracz = wybierzPostac();
                 postacieTab.remove(gracz); //usun postac ktora wybral gracz, zeby nie wylosowac jej jako przeciwnika
@@ -76,6 +89,11 @@ public class Gra {
         if (wybor == 1) generujPrzeciwnik();
         else if (wybor == 2) przeciwnik = wybierzPostac();
         else wylosujPrzeciwnika();
+
+        //dodaj gracza spowrotem do tablicy, jesli nie tworzono nowego, w celu serializacji calej tablicy
+        if (!nowaPostac)
+            postacieTab.add(gracz);
+        serialize();
     }
 
     private void stworzGracz(){
@@ -91,7 +109,7 @@ public class Gra {
 
     private Postac wybierzPostac(){
         for (int i=0; i<postacieTab.size(); i++){
-            System.out.println(i + "." + postacieTab.get(i));
+            System.out.println((i+1) + "." + postacieTab.get(i));
         }
 
         int wybor = getUserInputInt(1, postacieTab.size());
@@ -112,11 +130,36 @@ public class Gra {
     }
 
     private void deserialize(){
+        try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(POSTACIE_NAZWA_PLIKU))){
+            Object tab = is.readObject();
+            if (tab instanceof ArrayList)
+                postacieTab = (ArrayList<Postac>) tab;
+        } catch (IOException | ClassNotFoundException e) {
+        }
+
         //todo Adam
         //todo wczytac postacie z pliku tekstowego do tablicy postaci
-        try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(POSTACIE_NAZWA_PLIKU))){
-            postacieTab.add((Postac) is.readObject());
-        } catch (IOException | ClassNotFoundException e) {
+
+        for (int i = 0; i < postacieTab.size(); i++) {
+            if (postacieTab.get(i).getAtak() == null){
+                AtakiInterfejs_I atak = null;
+                Postac p = postacieTab.get(i);
+
+                if (p instanceof Lowca) atak = new LowcaAtak();
+                else if (p instanceof Mag) atak = new MagAtak();
+                else if (p instanceof Wojownik) atak = new WojownikAtak();
+                else if (p instanceof Zabojca) atak = new ZabojcaAtak();
+
+                postacieTab.get(i).setAtak(atak);
+            }
+        }
+    }
+
+    private void serialize(){
+        try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(POSTACIE_NAZWA_PLIKU))){
+            os.writeObject(postacieTab);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -246,4 +289,9 @@ public class Gra {
         return wybor;
     }
 
+    private void wypiszTab(ArrayList<? extends Postac> tab){
+        for (Postac p: tab) {
+            System.out.println(p);
+        }
+    }
 }
