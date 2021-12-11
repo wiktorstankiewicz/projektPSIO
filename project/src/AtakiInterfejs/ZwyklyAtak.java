@@ -2,8 +2,9 @@ package AtakiInterfejs;
 
 import Bron.Bron;
 import Postacie.Postac;
+import java.io.Serializable;
 
-public abstract class ZwyklyAtak implements AtakiInterfejs_I{
+public abstract class ZwyklyAtak implements AtakiInterfejs_I, Serializable {
 
     static void zadajMaleObrazenia(Postac p, Bron b) {
 
