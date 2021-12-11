@@ -35,6 +35,10 @@ abstract public class Postac implements AtakiInterfejs_I, Serializable {
                 "Pancerz: " + pancerz;
     }
 
+    public String toString(){
+        return this.getClass().getSimpleName() + ": " + imie + ", HP: " + hp + ", Pancerz: " + pancerz;
+    }
+
     @Override
     public void Atak(Postac p, Bron b) {
         atak.Atak(p, this.getBron());
@@ -47,6 +51,10 @@ abstract public class Postac implements AtakiInterfejs_I, Serializable {
 
     public void setPancerz(int pancerz) {
         this.pancerz = pancerz;
+    }
+
+    public void setAtak(AtakiInterfejs_I atak){
+        this.atak = atak;
     }
 
     // Gettery
@@ -68,6 +76,10 @@ abstract public class Postac implements AtakiInterfejs_I, Serializable {
 
     public Bron getBron() {
         return bron;
+    }
+
+    public AtakiInterfejs_I getAtak(){
+        return atak;
     }
 
     //this == p jesli
