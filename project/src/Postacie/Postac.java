@@ -22,16 +22,15 @@ abstract public class Postac implements AtakiInterfejs_I {
         this.bron = bron;
     }
 
-    @Override
-    public void Atak(Postac p, Bron b) {
-        b = this.getBron();
-        atak.Atak(p, b);
-    }
-
     public String getStan() {
         return this.getClass().getSimpleName() + ": " + imie + "\n" +
                 "HP: " + hp + "\n" +
                 "Pancerz: " + pancerz;
+    }
+
+    @Override
+    public void Atak(Postac p, Bron b) {
+        atak.Atak(p, this.getBron());
     }
 
     // Settery
