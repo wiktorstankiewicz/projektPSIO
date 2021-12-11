@@ -3,7 +3,14 @@ package Postacie;
 import AtakiInterfejs.AtakiInterfejs_I;
 import Bron.Bron;
 
-abstract public class Postac implements AtakiInterfejs_I {
+import java.io.Serial;
+import java.io.Serializable;
+
+abstract public class Postac implements AtakiInterfejs_I, Serializable {
+    //Version as of 11.12.2021 16:45
+    @Serial
+    private static final long serialVersionUID = 1900397209056382825L;
+
     // Deklaracja zmiennych punktow Postaci
     protected int hp = 150;
     protected int pancerz;
@@ -61,5 +68,19 @@ abstract public class Postac implements AtakiInterfejs_I {
 
     public Bron getBron() {
         return bron;
+    }
+
+    //this == p jesli
+    //this.imie == p.imie
+    //this.bron == p.bron
+    public boolean equals(Object p){
+        if (!(p instanceof Postac)) return false;
+
+        Postac postac = (Postac) p;
+
+        if (!imie.equals(postac.imie)) return false;
+        if (!bron.equals(postac.bron)) return false;
+
+        return true;
     }
 }
