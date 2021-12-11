@@ -70,7 +70,7 @@ public class Gra {
                     distance--;
                     akcja = gracz.getImie() + " podszedł!";
                 } else {
-                    gracz.Atak(przeciwnik, gracz.getBron());
+                    gracz.wykonajZwyklyAtak(przeciwnik, gracz.getBron());
                     akcja = gracz.getImie() + " zadał " + (przeciwnikHp - przeciwnik.getHp()) + " HP";
                 }
 
@@ -80,7 +80,7 @@ public class Gra {
                     distance--;
                     akcja = przeciwnik.getImie() + " podszedł!";
                 } else {
-                    przeciwnik.Atak(gracz, przeciwnik.getBron());
+                    przeciwnik.wykonajZwyklyAtak(gracz, przeciwnik.getBron());
                     akcja = przeciwnik.getImie() + " zadał " + (graczHp - gracz.getHp()) + " HP";
                 }
 

@@ -5,9 +5,11 @@ import Postacie.Postac;
 
 import java.util.Random;
 
-public abstract class SpecjalnyAtak implements AtakiInterfejs_I {
+public abstract class SpecjalnyAtak implements AtakiInterfejs_I
+{
 
-    static boolean zadajDuzeObrazenia(Postac p, Bron b) {
+    static boolean zadajDuzeObrazenia(Postac p, Bron b)
+    {
 
         Random generator = new Random();
 

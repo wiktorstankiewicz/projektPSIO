@@ -1,16 +1,20 @@
 package Postacie;
 
 import AtakiInterfejs.AtakiInterfejs_I;
+import AtakiInterfejs.SpecjalnyAtak;
+import AtakiInterfejs.ZwyklyAtak;
 import Bron.Bron;
 
-abstract public class Postac implements AtakiInterfejs_I {
+abstract public class Postac
+{
     // Deklaracja zmiennych punktow Postaci
     protected int hp = 150;
     protected int pancerz;
     protected String imie;
     protected String imageFilePath;
     protected Bron bron;
-    protected AtakiInterfejs_I atak;
+    protected AtakiInterfejs_I specjalnyAtak;
+    protected AtakiInterfejs_I zwyklyAtak;
     private boolean czyPodpalony;
 
     // Konstruktory
@@ -18,21 +22,32 @@ abstract public class Postac implements AtakiInterfejs_I {
         this.imie = "Bożydar";
     }
 
-    public Postac(String imie, Bron bron) {
+    public Postac(String imie, Bron bron)
+    {
         this.imie = imie;
         this.bron = bron;
     }
 
-    public String getStan() {
+    public void wykonajZwyklyAtak(Postac p, Bron b)
+    {
+        zwyklyAtak.Atak(p, b);
+    }
+
+
+    public void wykonajSpecjalnyAtak(Postac p, Bron b)
+    {
+        specjalnyAtak.Atak(p, b);
+    }
+
+
+
+    public String getStan()
+    {
         return this.getClass().getSimpleName() + ": " + imie + "\n" +
                 "HP: " + hp + "\n" +
                 "Pancerz: " + pancerz;
     }
 
-    @Override
-    public void Atak(Postac p, Bron b) {
-        atak.Atak(p, this.getBron());
-    }
 
     // Settery
     public void setHp(int hp) {
