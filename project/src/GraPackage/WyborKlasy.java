@@ -20,13 +20,13 @@ import java.util.Random;
 import java.util.Scanner;
 
 public abstract class WyborKlasy {
-    private static String[] listaKlas = {"Wojownik", "Zabojca", "Lowca", "Mag"};
-    private static String[] listaBroniLowcy = {"Luk"};
-    private static String[] listaBroniZabojcy = {"Sztylet"};
-    private static String[] listaBroniMaga = {"Rozdzka"};
-    private static String[] listaBroniWojownika = {"Miecz", "Mlot"};
+    public final static String[] listaKlas = {"Wojownik", "Zabojca", "Lowca", "Mag"};
+    public final static String[] listaBroniLowcy = {"Luk"};
+    public final static String[] listaBroniZabojcy = {"Sztylet"};
+    public final static String[] listaBroniMaga = {"Rozdzka"};
+    public final static String[] listaBroniWojownika = {"Miecz", "Mlot"};
     private static String[] listaBroni;
-    private static String[] listaImionBota = {"Ziemowit Bździągwa", "Koszmar Dziekana", "Java Senior Developer",
+    public final static String[] listaImionBota = {"Ziemowit Bździągwa", "Koszmar Dziekana", "Java Senior Developer",
             "Java Garbage Collector",
             "Kolokwium z Analizy", "PANDA_3"};
     static Random random = new Random();
