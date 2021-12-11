@@ -40,7 +40,7 @@ public class Gra {
     public Gra(){
         postacieTab = new ArrayList<>();
         deserialize();
-        wypiszTab(postacieTab);
+        wypiszTab(postacieTab); //todo usunac metode do debugu
     }
 
     public void przygotujGre() {
@@ -80,15 +80,20 @@ public class Gra {
     //---------------------------------------------------------
     //          Generuj Przeciwnika
     //---------------------------------------------------------
-        System.out.println("1. Generuj nowego przeciwnika");
-        System.out.println("2. Wybierz przeciwnika z juz stworzonych");
-        System.out.println("3. Wylosuj przeciwnika z juz stworzonych");
+        if (postacieTab.size() == 0){
+            generujPrzeciwnik();
+        }
+        else {
+            System.out.println("1. Generuj nowego przeciwnika");
+            System.out.println("2. Wybierz przeciwnika z juz stworzonych");
+            System.out.println("3. Wylosuj przeciwnika z juz stworzonych");
 
-        int wybor = getUserInputInt(1, 3);
+            int wybor = getUserInputInt(1, 3);
 
-        if (wybor == 1) generujPrzeciwnik();
-        else if (wybor == 2) przeciwnik = wybierzPostac();
-        else wylosujPrzeciwnika();
+            if (wybor == 1) generujPrzeciwnik();
+            else if (wybor == 2) przeciwnik = wybierzPostac();
+            else wylosujPrzeciwnika();
+        }
 
         //dodaj gracza spowrotem do tablicy, jesli nie tworzono nowego, w celu serializacji calej tablicy
         if (!nowaPostac)
