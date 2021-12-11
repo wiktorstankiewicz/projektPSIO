@@ -3,12 +3,12 @@ package AtakiInterfejs;
 import Bron.Bron;
 import Postacie.Postac;
 
-public class MagAtak implements AtakiInterfejs_I {
+public class MagZwyklyAtak extends ZwyklyAtak {
     @Override
     public void Atak(Postac p, Bron b) {
         int ArmorTMP = p.getPancerz();
         p.setPancerz(0);
-        AtakiInterfejs_I.zadajObrazenia(p, b);
+        ZwyklyAtak.zadajMaleObrazenia(p, b);
         p.setPancerz(ArmorTMP);
     }
 }

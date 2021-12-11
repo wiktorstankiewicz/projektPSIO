@@ -11,6 +11,7 @@ abstract public class Postac implements AtakiInterfejs_I {
     protected String imageFilePath;
     protected Bron bron;
     protected AtakiInterfejs_I atak;
+    private boolean czyPodpalony;
 
     // Konstruktory
     public Postac() {
@@ -61,5 +62,13 @@ abstract public class Postac implements AtakiInterfejs_I {
 
     public Bron getBron() {
         return bron;
+    }
+
+    public void setCzyPodpalony(boolean czyPodpalony) {
+        this.czyPodpalony = czyPodpalony;
+    }
+
+    public boolean getCzyPodpalony() {
+        return czyPodpalony;
     }
 }

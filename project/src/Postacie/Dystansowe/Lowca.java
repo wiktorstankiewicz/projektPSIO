@@ -1,13 +1,13 @@
 package Postacie.Dystansowe;
 
-import AtakiInterfejs.LowcaAtak;
+import AtakiInterfejs.LowcaZwyklyAtak;
 import Bron.Lowcy.BronLowcy;
 
 public class Lowca extends Dystansowe {
     public Lowca(String imie, BronLowcy bron) {
         super(imie, bron);
         imageFilePath = "project/resources/img/lowca.png";
-        atak = new LowcaAtak();
+        atak = new LowcaZwyklyAtak();
         pancerz = 30;
     }
 }
