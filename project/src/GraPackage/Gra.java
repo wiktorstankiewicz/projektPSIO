@@ -1,17 +1,9 @@
 package GraPackage;
 
-import Bron.Lowcy.Luk;
-import Bron.Maga.Rozdzka;
-import Bron.Woja.Miecz;
-import Bron.Woja.Mlot;
-import Bron.Zabojcy.Sztylet;
 import Grafika.GUI;
-import Postacie.Dystansowe.Lowca;
-import Postacie.Dystansowe.Mag;
 import Postacie.Postac;
 import Postacie.WZwarciu.WZwarciu;
-import Postacie.WZwarciu.Wojownik;
-import Postacie.WZwarciu.Zabojca;
+import Utils.Utils;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -146,47 +138,12 @@ public class Gra {
         } catch (IOException | ClassNotFoundException e) {
         }
 
-        try (BufferedReader breader = new BufferedReader(new FileReader(WCZYTYWANIE_Z_PLIKU_POSTACI_Nazwa))){
+        ArrayList arr = Utils.readArrayListFromTXTFile(new File(WCZYTYWANIE_Z_PLIKU_POSTACI_Nazwa));
+        if (arr == null || arr.size() <= 0 || !(arr.get(0) instanceof Postac)) return;
 
-            String wiersz = "";
-            String[] staty;
-
-            while ((wiersz = breader.readLine()) != null){
-                staty = wiersz.split(";");
-
-                for (int i = 0; i < staty.length; i++) {
-                    staty[i] = staty[i].trim();
-                    if (i == 1) continue;
-                    staty[i] = staty[i].toLowerCase();
-                }
-
-                switch (staty[0]){
-                    case "zabojca":
-                        if(staty[2].equals("sztylet")) {
-                            postacieZPlikuTab.add(new Zabojca(staty[1], new Sztylet()));
-                        }
-                    case "lowca":
-                        if (staty[2].equals("luk")) {
-                            postacieZPlikuTab.add(new Lowca(staty[1], new Luk()));
-                        }
-                    case "wojownik":
-                        if(staty[2].equals("miecz")) {
-                            postacieZPlikuTab.add(new Wojownik(staty[1], new Miecz()));
-                        }
-                        if(staty[2].equals("mlot")) {
-                            postacieZPlikuTab.add(new Wojownik(staty[1], new Mlot()));
-                        }
-                    case "mag":
-                        if (staty[2].equals("rozdzka")) {
-                            postacieZPlikuTab.add(new Mag(staty[1], new Rozdzka()));
-                        }
-                }
-            }
-        } catch (Exception e){
-
-        }
-        for (int i = 0; i < postacieZPlikuTab.size(); i++) {
-            postacieTab.add(postacieZPlikuTab.get(i));
+        for (int i = 0; i < this.postacieZPlikuTab.size(); i++) {
+            postacieTab.add((Postac)arr.get(i));
+            postacieZPlikuTab.add((Postac)arr.get(i));
         }
     }
 
