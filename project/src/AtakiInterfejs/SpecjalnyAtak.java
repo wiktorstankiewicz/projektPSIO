@@ -2,10 +2,15 @@ package AtakiInterfejs;
 
 import Bron.Bron;
 import Postacie.Postac;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Random;
 
 public abstract class SpecjalnyAtak implements AtakiInterfejs_I, Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 8532566225854114736L;
 
     static boolean zadajDuzeObrazenia(Postac p, Bron b) {
 

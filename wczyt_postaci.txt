@@ -1,0 +1,7 @@
+zabojca; SKOWRON   ; SztyleT
+Wojownik;SKOWRON_PRIME;miecz
+Mag;Python;sztylet
+Zabojca;To juz jest zle;sztylet
+Mag;pdjrlilfhrfmd;rozdzka
+lowca;BRUHER;luk
+mAg;St00pkarz;rOzDzKa
