@@ -7,6 +7,7 @@ import Bron.Woja.Mlot;
 import Bron.Zabojcy.Sztylet;
 import Postacie.Dystansowe.Lowca;
 import Postacie.Dystansowe.Mag;
+import Postacie.Postac;
 import Postacie.WZwarciu.Wojownik;
 import Postacie.WZwarciu.Zabojca;
 
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 
 public abstract class Utils {
 	public static ArrayList readArrayListFromTXTFile(File file){
-		ArrayList arr = new ArrayList();
+		ArrayList<Postac> arr = new ArrayList<>();
 		try (BufferedReader breader = new BufferedReader(new FileReader(file))){
 
 			String wiersz = "";

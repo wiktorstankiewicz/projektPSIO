@@ -32,11 +32,11 @@ abstract public class Postac implements Serializable {
     }
 
     public void wykonajZwyklyAtak(Postac p, Bron b) {
-        zwyklyAtak.Atak(p, b);
+        zwyklyAtak.atak(p, b);
     }
 
     public void wykonajSpecjalnyAtak(Postac p, Bron b) {
-        specjalnyAtak.Atak(p, b);
+        specjalnyAtak.atak(p, b);
     }
 
     public String getStan() {

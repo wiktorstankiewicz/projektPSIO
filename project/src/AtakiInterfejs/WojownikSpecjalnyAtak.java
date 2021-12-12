@@ -7,12 +7,12 @@ import java.util.Random;
 
 public class WojownikSpecjalnyAtak extends SpecjalnyAtak {
     @Override
-    public void Atak(Postac p, Bron b) {
+    public void atak(Postac p, Bron b) {
         Random generator = new Random();
         if (30 >= generator.nextInt(100))
         {
-            SpecjalnyAtak.zadajDuzeObrazenia(p, b);
+            zadajDuzeObrazenia(p, b);
         }
-        SpecjalnyAtak.zadajDuzeObrazenia(p, b);
+        zadajDuzeObrazenia(p, b);
     }
 }

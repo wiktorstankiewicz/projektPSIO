@@ -12,8 +12,8 @@ import java.io.File;
 
 public class View {
 	//Constants
-	private final int SIZE_X = 650;
-	private final int SIZE_Y = 600;
+	private static final int SIZE_X = 650;
+	private static final int SIZE_Y = 600;
 
 	private ControllerInterface controller;
 

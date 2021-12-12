@@ -13,12 +13,11 @@ import java.util.Scanner;
 
 public class Gra implements Runnable {
 
-    //Constants
-    private final int MAX_DISTANCE = 5;
+    private static final int MAX_DISTANCE = 5;
     private boolean GRACZ_WYGRANA = false;
     private boolean PRZECIWNIK_WYGRANA = false;
     private final String POSTACIE_NAZWA_PLIKU = "postacie.ser";
-    private final String WCZYTYWANIE_Z_PLIKU_POSTACI_Nazwa = "wczyt_postaci.txt"; //schemat zapisu w pliku: klasa;imie;bron
+    private static final String WCZYTYWANIE_Z_PLIKU_POSTACI_Nazwa = "wczyt_postaci.txt"; //schemat zapisu w pliku: klasa;imie;bron
 
     //Game fields
     private Postac gracz;

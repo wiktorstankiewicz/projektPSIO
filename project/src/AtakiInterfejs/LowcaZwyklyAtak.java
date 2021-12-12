@@ -5,7 +5,7 @@ import Postacie.Postac;
 
 public class LowcaZwyklyAtak extends SpecjalnyAtak {
     @Override
-    public void Atak(Postac p, Bron b) {
+    public void atak(Postac p, Bron b) {
         ZwyklyAtak.zadajMaleObrazenia(p, b);
     }
 }

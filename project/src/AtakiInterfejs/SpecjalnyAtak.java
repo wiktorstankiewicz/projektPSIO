@@ -12,7 +12,7 @@ public abstract class SpecjalnyAtak implements AtakiInterfejs_I, Serializable {
     @Serial
     private static final long serialVersionUID = 8532566225854114736L;
 
-    static boolean zadajDuzeObrazenia(Postac p, Bron b) {
+    public boolean zadajDuzeObrazenia(Postac p, Bron b) {
 
         Random generator = new Random();
 
