@@ -5,6 +5,7 @@ import Grafika.GUI;
 import Postacie.Postac;
 import Postacie.WZwarciu.WZwarciu;
 import Utils.Utils;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
@@ -35,14 +36,14 @@ public class Gra implements Runnable {
     private final Scanner scan = new Scanner(System.in);
     private ArrayList<Postac> postacieZPlikuTab;
 
-    public Gra(){
+    public Gra() {
         postacieTab = new ArrayList<>();
         postacieZPlikuTab = new ArrayList<>();
         deserialize();
         wypiszTab(postacieTab); //todo usunac metode do debugu
     }
 
-    public void run(){
+    public void run() {
         przygotujGre();
         bitwa();
     }
@@ -56,16 +57,15 @@ public class Gra implements Runnable {
         gui = new GUI(this);
     }
 
-    private void createPostacie(){
+    private void createPostacie() {
         boolean wybranoPostac = false;
-    //---------------------------------------------------------
-    //          Generuj Gracza
-    //---------------------------------------------------------
+        //---------------------------------------------------------
+        //          Generuj Gracza
+        //---------------------------------------------------------
         if (postacieTab.size() == 0) {
 //            nowaPostac = true;
             stworzGracz();
-        }
-        else {
+        } else {
             System.out.println("1. Stworz nowa postac");
             System.out.println("2. Wybierz postac z juz stworzonych");
 
@@ -74,21 +74,19 @@ public class Gra implements Runnable {
             if (wybor == 1) {
 //                nowaPostac = true;
                 stworzGracz();
-            }
-            else {
+            } else {
                 gracz = wybierzPostac();
                 postacieTab.remove(gracz); //usun postac ktora wybral gracz, zeby nie wylosowac jej jako przeciwnika
                 wybranoPostac = true;
             }
         }
 
-    //---------------------------------------------------------
-    //          Generuj Przeciwnika
-    //---------------------------------------------------------
-        if (postacieTab.size() == 0){
+        //---------------------------------------------------------
+        //          Generuj Przeciwnika
+        //---------------------------------------------------------
+        if (postacieTab.size() == 0) {
             generujPrzeciwnik();
-        }
-        else {
+        } else {
             System.out.println("1. Generuj nowego przeciwnika");
             System.out.println("2. Wybierz przeciwnika z juz stworzonych");
             System.out.println("3. Wylosuj przeciwnika z juz stworzonych");
@@ -106,16 +104,16 @@ public class Gra implements Runnable {
         serialize();
     }
 
-    private void stworzGracz(){
+    private void stworzGracz() {
         String wybraneImie = WyborKlasy.wybierzImie();
         String wybranaPostac = WyborKlasy.wybierzPostac();
         String wybranaBron = WyborKlasy.wybierzBron(wybranaPostac);
         gracz = WyborKlasy.stworzPostac(wybranaPostac, wybraneImie, wybranaBron);
     }
 
-    private Postac wybierzPostac(){
-        for (int i=0; i<postacieTab.size(); i++){
-            System.out.println((i+1) + "." + postacieTab.get(i));
+    private Postac wybierzPostac() {
+        for (int i = 0; i < postacieTab.size(); i++) {
+            System.out.println((i + 1) + "." + postacieTab.get(i));
         }
 
         int wybor = getUserInputInt(1, postacieTab.size());
@@ -123,20 +121,20 @@ public class Gra implements Runnable {
         return postacieTab.get(wybor - 1);
     }
 
-    private void generujPrzeciwnik(){
+    private void generujPrzeciwnik() {
         String wylosowanaPostacPrzeciwnika = WyborKlasy.generujKlasaBot();
         String wylosowanaBronPrzeciwnika = WyborKlasy.generujBronBot(wylosowanaPostacPrzeciwnika);
         String wylosowaneImiePrzeciwnika = WyborKlasy.generujImieBota();
         przeciwnik = WyborKlasy.stworzPostac(wylosowanaPostacPrzeciwnika, wylosowaneImiePrzeciwnika, wylosowanaBronPrzeciwnika);
     }
 
-    private void wylosujPrzeciwnika(){
+    private void wylosujPrzeciwnika() {
         int randomIndex = generator.nextInt(postacieTab.size()); //zasieg [0, size)
         przeciwnik = postacieTab.get(randomIndex);
     }
 
-    private void deserialize(){
-        try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(POSTACIE_NAZWA_PLIKU))){
+    private void deserialize() {
+        try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(POSTACIE_NAZWA_PLIKU))) {
             Object tab = is.readObject();
             if (tab instanceof ArrayList)
                 postacieTab = (ArrayList<Postac>) tab;
@@ -147,18 +145,18 @@ public class Gra implements Runnable {
         if (arr == null || arr.size() <= 0 || !(arr.get(0) instanceof Postac)) return;
 
         for (int i = 0; i < this.postacieZPlikuTab.size(); i++) {
-            postacieTab.add((Postac)arr.get(i));
-            postacieZPlikuTab.add((Postac)arr.get(i));
+            postacieTab.add((Postac) arr.get(i));
+            postacieZPlikuTab.add((Postac) arr.get(i));
         }
     }
 
-    private void serialize(){
+    private void serialize() {
 
         for (int i = 0; i < postacieZPlikuTab.size(); i++) {
             postacieTab.remove(postacieZPlikuTab.get(i));
         }
 
-        try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(POSTACIE_NAZWA_PLIKU))){
+        try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(POSTACIE_NAZWA_PLIKU))) {
             os.writeObject(postacieTab);
         } catch (IOException e) {
             e.printStackTrace();
@@ -182,6 +180,8 @@ public class Gra implements Runnable {
 
             graczHp = gracz.getHp();
             przeciwnikHp = przeciwnik.getHp();
+            if(gracz.getCzyPodpalony()) gracz.setHp(graczHp-5);
+            if(przeciwnik.getCzyPodpalony()) przeciwnik.setHp(przeciwnikHp-5);
 
             try {
                 Thread.sleep(997);
@@ -192,19 +192,22 @@ public class Gra implements Runnable {
 
             if (firstTurn == turn % 2) {
 
-                if (distance > 0 && (gracz instanceof WZwarciu)) {
+                while (!gui.getnextTurn()) {
+                    try {
+                        Thread.sleep(50);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                if (distance > 0 && gui.getattackChoice() == 3) {
+                    gui.setNextTurn(false);
                     distance--;
                     akcja = gracz.getImie() + " podszedł!";
+                } else if (distance > 0 && gracz instanceof WZwarciu) {
+                    gui.setNextTurn(false);
+                    akcja = "Jestes za daleko!";
                 } else {
-
-                    while(!gui.getnextTurn()){
-                        try {
-                            Thread.sleep(50);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
                     this.zmianaAtaku(gracz, przeciwnik, gracz.getBron(), gui.getattackChoice());
                     gui.setNextTurn(false);
                     akcja = gracz.getImie() + " zadał " + (przeciwnikHp - przeciwnik.getHp()) + " HP";
@@ -216,7 +219,7 @@ public class Gra implements Runnable {
                     distance--;
                     akcja = przeciwnik.getImie() + " podszedł!";
                 } else {
-                    this.zmianaAtaku(przeciwnik, gracz, przeciwnik.getBron(), (generator.nextInt(2))+1);
+                    this.zmianaAtaku(przeciwnik, gracz, przeciwnik.getBron(), (generator.nextInt(2)) + 1);
 
                     akcja = przeciwnik.getImie() + " zadał " + (graczHp - gracz.getHp()) + " HP";
                 }
@@ -230,8 +233,8 @@ public class Gra implements Runnable {
         }
     }
 
-    public void zmianaAtaku(Postac x, Postac y, Bron b, int rodzajAtaku){ //rodzaj ataku: 1-Zwykły, 2-Specjalny, 0-brak wyboru
-        if(rodzajAtaku==2) x.wykonajSpecjalnyAtak(y, b);
+    public void zmianaAtaku(Postac x, Postac y, Bron b, int rodzajAtaku) { //rodzaj ataku: 1-Zwykły, 2-Specjalny, 0-brak wyboru
+        if (rodzajAtaku == 2) x.wykonajSpecjalnyAtak(y, b);
         else x.wykonajZwyklyAtak(y, b);
     }
 
@@ -289,13 +292,13 @@ public class Gra implements Runnable {
     //Pobiera wartosc od uzytkownika
     //Ponawia probe jesli wprowadzono zle dane
     //zle dane -> wartosc nie jest intem && nie jest w zakresie [lower, upper]
-    private int getUserInputInt(int lowerBound, int upperBound){ // [lower, upper]
+    private int getUserInputInt(int lowerBound, int upperBound) { // [lower, upper]
         int wybor = 0;
 
-        while(true){
+        while (true) {
             try {
                 wybor = Integer.parseInt(scan.next());
-            } catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Nieprawidlowa opcja, sprobuj ponownie");
                 continue;
             }
@@ -310,8 +313,8 @@ public class Gra implements Runnable {
         return wybor;
     }
 
-    private void wypiszTab(ArrayList<? extends Postac> tab){
-        for (Postac p: tab) {
+    private void wypiszTab(ArrayList<? extends Postac> tab) {
+        for (Postac p : tab) {
             System.out.println(p);
         }
     }

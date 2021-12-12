@@ -31,24 +31,22 @@ abstract public class Postac implements Serializable {
         this.bron = bron;
     }
 
-    public void wykonajZwyklyAtak(Postac p, Bron b)
-    {
+    public void wykonajZwyklyAtak(Postac p, Bron b) {
         zwyklyAtak.Atak(p, b);
     }
 
-    public void wykonajSpecjalnyAtak(Postac p, Bron b)
-    {
+    public void wykonajSpecjalnyAtak(Postac p, Bron b) {
         specjalnyAtak.Atak(p, b);
     }
 
-    public String getStan()
-    {
+    public String getStan() {
         return this.getClass().getSimpleName() + ": " + imie + "\n" +
                 "HP: " + hp + "\n" +
-                "Pancerz: " + pancerz;
+                "Pancerz: " + pancerz + "\n" +
+                "Czy podpalony: " + czyPodpalony;
     }
 
-    public String toString(){
+    public String toString() {
         return this.getClass().getSimpleName() + ": " + imie + ", HP: " + hp + ", Pancerz: " + pancerz;
     }
 
@@ -61,11 +59,11 @@ abstract public class Postac implements Serializable {
         this.pancerz = pancerz;
     }
 
-    public void setZwyklyAtak(AtakiInterfejs_I zwyklyAtak){
+    public void setZwyklyAtak(AtakiInterfejs_I zwyklyAtak) {
         this.zwyklyAtak = zwyklyAtak;
     }
 
-    public void setSpecjalnyAtak(AtakiInterfejs_I specjalnyAtak){
+    public void setSpecjalnyAtak(AtakiInterfejs_I specjalnyAtak) {
         this.specjalnyAtak = specjalnyAtak;
     }
 
@@ -98,18 +96,18 @@ abstract public class Postac implements Serializable {
         return czyPodpalony;
     }
 
-    public AtakiInterfejs_I getZwyklyAtak(){
+    public AtakiInterfejs_I getZwyklyAtak() {
         return zwyklyAtak;
     }
 
-    public AtakiInterfejs_I getSpecjalnyAtak(){
+    public AtakiInterfejs_I getSpecjalnyAtak() {
         return specjalnyAtak;
     }
 
     //this == p jesli
     //this.imie == p.imie
     //this.bron == p.bron
-    public boolean equals(Object p){
+    public boolean equals(Object p) {
         if (!(p instanceof Postac)) return false;
 
         Postac postac = (Postac) p;

@@ -51,21 +51,31 @@ public class GUI extends JFrame {
 
         JButton normalAttackButton = new JButton("Zwykły atak");
         JButton specialAttackButton = new JButton("Specjalny atak");
+        JButton walkUpButton = new JButton("Podejdź");
         normalAttackButton.addActionListener(e -> {
             attackChoice = 1;
             nextTurn=true;
         });
+
         specialAttackButton.addActionListener(e -> {
             attackChoice = 2;
             nextTurn=true;
         });
-        normalAttackButton.setBounds(410,75,125,50);
-        specialAttackButton.setBounds(410,125,125,75);
+
+        walkUpButton.addActionListener(e -> {
+            attackChoice = 3;
+            nextTurn=true;
+        });
+        normalAttackButton.setBounds(410,75,125,40);
+        specialAttackButton.setBounds(410,115,125,40);
+        walkUpButton.setBounds(410,155,125,40);
         normalAttackButton.setVisible(true);
         specialAttackButton.setVisible(true);
+        walkUpButton.setVisible(true);
 
         this.add(normalAttackButton);
         this.add(specialAttackButton);
+        this.add(walkUpButton);
 
 
     }
@@ -176,6 +186,9 @@ public class GUI extends JFrame {
 
     public int getattackChoice(){
         return attackChoice;
+    }
+    public void setattackChoice(int attackChoice){
+        this.attackChoice=attackChoice;
     }
     public boolean getnextTurn(){
         return nextTurn;
