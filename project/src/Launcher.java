@@ -1,3 +1,4 @@
+import GraPackage.Gra;
 import PostaciCreator.Controller.Controller;
 import PostaciCreator.Controller.ControllerInterface;
 import PostaciCreator.Model.Model;
@@ -55,6 +56,7 @@ public class Launcher {
 	}
 
 	private void launchGra(){
-
+//		launcherFrame.setVisible(false);
+		(new Thread(new Gra())).start();
 	}
 }

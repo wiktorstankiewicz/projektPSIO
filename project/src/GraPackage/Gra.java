@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Gra {
+public class Gra implements Runnable {
 
     //Constants
     private final int MAX_DISTANCE = 5;
@@ -40,6 +40,11 @@ public class Gra {
         postacieZPlikuTab = new ArrayList<>();
         deserialize();
         wypiszTab(postacieTab); //todo usunac metode do debugu
+    }
+
+    public void run(){
+        przygotujGre();
+        bitwa();
     }
 
     public void przygotujGre() {
