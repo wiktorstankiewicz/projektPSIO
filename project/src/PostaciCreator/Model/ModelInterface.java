@@ -2,6 +2,7 @@ package PostaciCreator.Model;
 
 import Postacie.Postac;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public interface ModelInterface {
@@ -10,4 +11,6 @@ public interface ModelInterface {
 	void usunPostac(Postac p);
 	ArrayList<Postac> getPostacie();
 	void serializuj();
+	void wczytajNadpisz(File f);
+	void wczytajDopisz(File f);
 }

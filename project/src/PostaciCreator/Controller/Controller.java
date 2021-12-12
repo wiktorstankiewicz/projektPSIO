@@ -6,6 +6,7 @@ import Postacie.Postac;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 
 public class Controller implements ControllerInterface{
@@ -33,6 +34,12 @@ public class Controller implements ControllerInterface{
 
 	public ArrayList<Postac> getPostacie() {
 		return model.getPostacie();
+	}
+
+	@Override
+	public void wczytajPostacie(File file, int option) {
+		if (option == OVERWRITE) model.wczytajNadpisz(file);
+		else model.wczytajDopisz(file);
 	}
 
 	public static class ZapiszZmianyListener implements ActionListener{
