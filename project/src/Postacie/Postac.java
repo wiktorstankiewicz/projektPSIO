@@ -1,8 +1,6 @@
 package Postacie;
 
 import AtakiInterfejs.AtakiInterfejs_I;
-import AtakiInterfejs.SpecjalnyAtak;
-import AtakiInterfejs.ZwyklyAtak;
 import Bron.Bron;
 
 import java.io.Serial;
@@ -28,8 +26,7 @@ abstract public class Postac implements Serializable {
         this.imie = "Bożydar";
     }
 
-    public Postac(String imie, Bron bron)
-    {
+    public Postac(String imie, Bron bron) {
         this.imie = imie;
         this.bron = bron;
     }
@@ -51,6 +48,10 @@ abstract public class Postac implements Serializable {
                 "Pancerz: " + pancerz;
     }
 
+    public String toString(){
+        return this.getClass().getSimpleName() + ": " + imie + ", HP: " + hp + ", Pancerz: " + pancerz;
+    }
+
     // Settery
     public void setHp(int hp) {
         this.hp = hp;
@@ -58,6 +59,14 @@ abstract public class Postac implements Serializable {
 
     public void setPancerz(int pancerz) {
         this.pancerz = pancerz;
+    }
+
+    public void setZwyklyAtak(AtakiInterfejs_I zwyklyAtak){
+        this.zwyklyAtak = zwyklyAtak;
+    }
+
+    public void setSpecjalnyAtak(AtakiInterfejs_I specjalnyAtak){
+        this.specjalnyAtak = specjalnyAtak;
     }
 
     // Gettery
@@ -87,6 +96,14 @@ abstract public class Postac implements Serializable {
 
     public boolean getCzyPodpalony() {
         return czyPodpalony;
+    }
+
+    public AtakiInterfejs_I getZwyklyAtak(){
+        return zwyklyAtak;
+    }
+
+    public AtakiInterfejs_I getSpecjalnyAtak(){
+        return specjalnyAtak;
     }
 
     //this == p jesli
