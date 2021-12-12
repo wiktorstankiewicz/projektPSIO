@@ -16,6 +16,8 @@ import Postacie.WZwarciu.Zabojca;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class DodajPostacJFrame extends JFrame {
 	private final DefaultComboBoxModel<String> modelWoj = new DefaultComboBoxModel<>( WyborKlasy.listaBroniWojownika );
@@ -42,8 +44,17 @@ public class DodajPostacJFrame extends JFrame {
 
 		panel = new JPanel();
 		this.getContentPane().add(panel);
-		this.setSize(new Dimension(200, 200));
+		this.setSize(new Dimension(200, 175));
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		this.setResizable(false);
+
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				super.windowClosing(e);
+				hideFrame();
+			}
+		});
 
 		imieField = new JTextField("Imie");
 
@@ -124,4 +135,9 @@ public class DodajPostacJFrame extends JFrame {
 		return p;
 	}
 
+	private void hideFrame(){
+		this.setVisible(false);
+	}
+
 }
+

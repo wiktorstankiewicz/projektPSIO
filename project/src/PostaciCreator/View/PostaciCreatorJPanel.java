@@ -17,9 +17,10 @@ public class PostaciCreatorJPanel extends JPanel implements ModelObserver {
 	//Constants
 	private final int BUTTON_HEIGHT = 100;
 	private final int BUTTONS_GAP = 20;
-	private final int RECORDS_GAP = 20;
+	private final int RECORDS_GAP = 5;
 	private final String DELETE = "deleteButton.png";
 	private final String EDIT = "editButton.png";
+	private final Font FONT = new Font("Arial", Font.BOLD, 15);
 
 	private ModelInterface model;
 	private ControllerInterface controller;
@@ -89,6 +90,7 @@ public class PostaciCreatorJPanel extends JPanel implements ModelObserver {
 	private class PostacRecordJPanel extends JPanel {
 		private final int H_GAP = 10;
 		private final int MAX_HEIGHT = 50;
+
 		private Postac postac;
 		private String klasa;
 		private String imie;
@@ -99,6 +101,7 @@ public class PostaciCreatorJPanel extends JPanel implements ModelObserver {
 		public PostacRecordJPanel(Postac p, int index){
 			this.postac = p;
 			this.index = index;
+			this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			imie = p.getImie();
 			klasa = p.getClass().getSimpleName();
 			hp = p.getHp();
@@ -158,6 +161,7 @@ public class PostaciCreatorJPanel extends JPanel implements ModelObserver {
 		comp.setEditable(false);
 		comp.setBorder(BorderFactory.createEmptyBorder());
 		comp.setOpaque(false);
+		comp.setFont(FONT);
 		if (comp instanceof JTextField){
 			((JTextField) comp).setHorizontalAlignment(SwingConstants.CENTER);
 		}

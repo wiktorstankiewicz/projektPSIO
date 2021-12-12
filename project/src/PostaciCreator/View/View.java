@@ -12,7 +12,7 @@ import java.io.File;
 
 public class View {
 	//Constants
-	private final int SIZE_X = 600;
+	private final int SIZE_X = 650;
 	private final int SIZE_Y = 600;
 
 	private ControllerInterface controller;
@@ -42,6 +42,7 @@ public class View {
 		});
 
 		mainFrame.setSize(new Dimension(SIZE_X, SIZE_Y));
+		mainFrame.setResizable(false);
 		mainPanel = new PostaciCreatorJPanel(model, controller, mainFrame);
 		mainFrame.getContentPane().add(new MyCustomScrollPane(mainPanel));
 		mainMenuBar = new JMenuBar();
