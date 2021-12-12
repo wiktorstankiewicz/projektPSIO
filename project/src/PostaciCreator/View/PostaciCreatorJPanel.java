@@ -132,12 +132,16 @@ public class PostaciCreatorJPanel extends JPanel implements ModelObserver {
 			JButton deleteButton = new JButton("///");
 
 			File file = new File(EDIT);
-			if (file.canRead())
+			if (file.canRead()) {
 				editButton.setIcon(new ImageIcon(EDIT));
+				editButton.setText("");
+			}
 
 			file = new File(DELETE);
-			if (file.canRead())
+			if (file.canRead()) {
 				deleteButton.setIcon(new ImageIcon(DELETE));
+				deleteButton.setText("");
+			}
 
 			editButton.addActionListener(e -> new DodajPostacJFrame(index, postac, controller));
 			deleteButton.addActionListener(e -> controller.usunPostac(postac));
