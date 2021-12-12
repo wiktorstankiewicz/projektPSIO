@@ -4,11 +4,15 @@ import GraPackage.Gra;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GUI extends JFrame {
 
     private final int WIDTH = 1000;
     private final int HEIGHT = 700;
+    private int attackChoice=1;
+    private boolean nextTurn=false;
 
     private JLabel zdjecieGracza;
     private JLabel zdjecieBroniGracza;
@@ -44,6 +48,26 @@ public class GUI extends JFrame {
         this.getContentPane().setBackground(Color.WHITE);
         this.setResizable(false);
         this.setAlwaysOnTop(true);
+
+        JButton normalAttackButton = new JButton("Zwykły atak");
+        JButton specialAttackButton = new JButton("Specjalny atak");
+        normalAttackButton.addActionListener(e -> {
+            attackChoice = 1;
+            nextTurn=true;
+        });
+        specialAttackButton.addActionListener(e -> {
+            attackChoice = 2;
+            nextTurn=true;
+        });
+        normalAttackButton.setBounds(410,75,125,50);
+        specialAttackButton.setBounds(410,125,125,75);
+        normalAttackButton.setVisible(true);
+        specialAttackButton.setVisible(true);
+
+        this.add(normalAttackButton);
+        this.add(specialAttackButton);
+
+
     }
 
     public void initTura(Gra gra) {
@@ -148,5 +172,15 @@ public class GUI extends JFrame {
             return;
         }
         infKoncowa.setText("Przegrałeś!");
+    }
+
+    public int getattackChoice(){
+        return attackChoice;
+    }
+    public boolean getnextTurn(){
+        return nextTurn;
+    }
+    public void setNextTurn(boolean nextTurn){
+        this.nextTurn=nextTurn;
     }
 }

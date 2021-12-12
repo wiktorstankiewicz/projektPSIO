@@ -1,10 +1,10 @@
 package GraPackage;
 
+import Bron.Bron;
 import Grafika.GUI;
 import Postacie.Postac;
 import Postacie.WZwarciu.WZwarciu;
 import Utils.Utils;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
@@ -188,13 +188,25 @@ public class Gra implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
+
             if (firstTurn == turn % 2) {
 
                 if (distance > 0 && (gracz instanceof WZwarciu)) {
                     distance--;
                     akcja = gracz.getImie() + " podszedł!";
                 } else {
-                    gracz.wykonajZwyklyAtak(przeciwnik, gracz.getBron());
+
+                    while(!gui.getnextTurn()){
+                        try {
+                            Thread.sleep(50);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    this.zmianaAtaku(gracz, przeciwnik, gracz.getBron(), gui.getattackChoice());
+                    gui.setNextTurn(false);
                     akcja = gracz.getImie() + " zadał " + (przeciwnikHp - przeciwnik.getHp()) + " HP";
                 }
 
@@ -204,7 +216,8 @@ public class Gra implements Runnable {
                     distance--;
                     akcja = przeciwnik.getImie() + " podszedł!";
                 } else {
-                    przeciwnik.wykonajZwyklyAtak(gracz, przeciwnik.getBron());
+                    this.zmianaAtaku(przeciwnik, gracz, przeciwnik.getBron(), (generator.nextInt(2))+1);
+
                     akcja = przeciwnik.getImie() + " zadał " + (graczHp - gracz.getHp()) + " HP";
                 }
 
@@ -215,6 +228,11 @@ public class Gra implements Runnable {
             System.out.println("\nDystans: " + distance);
             turn++;
         }
+    }
+
+    public void zmianaAtaku(Postac x, Postac y, Bron b, int rodzajAtaku){ //rodzaj ataku: 1-Zwykły, 2-Specjalny, 0-brak wyboru
+        if(rodzajAtaku==2) x.wykonajSpecjalnyAtak(y, b);
+        else x.wykonajZwyklyAtak(y, b);
     }
 
     public void gracz_typ() {

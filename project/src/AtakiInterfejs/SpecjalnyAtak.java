@@ -16,7 +16,7 @@ public abstract class SpecjalnyAtak implements AtakiInterfejs_I, Serializable {
 
         Random generator = new Random();
 
-        if (50 >= generator.nextInt(100)) {
+        if (60 >= generator.nextInt(100)) {
             int obliczoneHp = p.getHp() - (int) ((generator.nextInt(b.getObrazeniaMax() - b.getObrazeniaMin()) + b.getObrazeniaMin() + 1) * (1 - ((double) p.getPancerz() / 100.0)));
             if (obliczoneHp < 0) {
                 p.setHp(0);
