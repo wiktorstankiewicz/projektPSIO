@@ -10,6 +10,7 @@ import Postacie.Postac;
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 
 public class PostaciCreatorJPanel extends JPanel implements ModelObserver {
@@ -17,6 +18,8 @@ public class PostaciCreatorJPanel extends JPanel implements ModelObserver {
 	private final int BUTTON_HEIGHT = 100;
 	private final int BUTTONS_GAP = 20;
 	private final int RECORDS_GAP = 20;
+	private final String DELETE = "deleteButton.png";
+	private final String EDIT = "editButton.png";
 
 	private ModelInterface model;
 	private ControllerInterface controller;
@@ -128,18 +131,24 @@ public class PostaciCreatorJPanel extends JPanel implements ModelObserver {
 			JButton editButton = new JButton("\\\\\\");
 			JButton deleteButton = new JButton("///");
 
+			File file = new File(EDIT);
+			if (file.canRead())
+				editButton.setIcon(new ImageIcon(EDIT));
+
+			file = new File(DELETE);
+			if (file.canRead())
+				deleteButton.setIcon(new ImageIcon(DELETE));
+
 			editButton.addActionListener(e -> new DodajPostacJFrame(index, postac, controller));
 			deleteButton.addActionListener(e -> controller.usunPostac(postac));
 
 			editButtons.add(editButton);
+			editButtons.add(Box.createRigidArea(new Dimension(H_GAP, 1)));
 			editButtons.add(deleteButton);
 
 			this.add(editButtons);
 		}
 	}
-
-
-
 
 	private void setupJTextComponentForView(JTextComponent comp){
 		comp.setEditable(false);
