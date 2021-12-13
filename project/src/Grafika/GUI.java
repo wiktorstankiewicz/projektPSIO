@@ -129,12 +129,13 @@ public class GUI extends JFrame {
         zdjecieGracza.setText(gra.getGracz().getClass().getSimpleName() + ": " + gra.getGracz().getImie());
         opisGracza.setText(gra.getGracz().getStan());
         opisGracza.setEditable(false);
+        opisGracza.setBackground(null);
         opisGracza.setBounds(50, 450, 350, 110);
         opisGracza.setFont(new Font("Comic sans", Font.BOLD, 20));
         opisGracza.setForeground(kolorTekstu);
         this.add(zdjecieGracza);
         this.add(opisGracza);
-        opisGracza.setBackground(Color.green);
+        opisGracza.setOpaque(false);
     }
 
     public void initPrzeciwnik(Gra gra) {
@@ -147,13 +148,12 @@ public class GUI extends JFrame {
         opisPrzeciwnika.setText(gra.getPrzeciwnik().getStan());
         opisPrzeciwnika.setEditable(false);
         opisPrzeciwnika.setBounds(600, 450, 350, 110);
-        opisPrzeciwnika.setBackground(new Color(0, 100, 0));
         opisPrzeciwnika.setFont(new Font("Comic sans", Font.BOLD, 20));
         opisPrzeciwnika.setBackground(null);
         opisPrzeciwnika.setForeground(kolorTekstu);
         this.add(zdjeciePrzeciwnika);
         this.add(opisPrzeciwnika);
-        opisPrzeciwnika.setBackground(Color.black);
+        opisPrzeciwnika.setOpaque(false);
     }
 
     public void initBronGracza(Gra gra) {
@@ -183,7 +183,7 @@ public class GUI extends JFrame {
         dystans.setBounds(410, 200, 140, 30);
         dystans.setBackground(null);
         this.add(dystans);
-        dystans.setBackground(Color.black);
+        dystans.setOpaque(false);
     }
 
     public void initWykonanaAkcja() {
@@ -191,7 +191,7 @@ public class GUI extends JFrame {
         wykonanaAkcja.setEditable(false);
         wykonanaAkcja.setForeground(kolorTekstu);
         wykonanaAkcja.setFont(new Font("Arial", Font.BOLD, 25));
-        wykonanaAkcja.setBounds(50, 600, 400, 30);
+        wykonanaAkcja.setBounds(200, 600, 600, 30);
         wykonanaAkcja.setBackground(null);
         this.add(wykonanaAkcja);
         wykonanaAkcja.setBackground(Color.black);
@@ -209,16 +209,16 @@ public class GUI extends JFrame {
         infKoncowa = new JTextArea();
         this.add(infKoncowa);
         infKoncowa.setOpaque(false);
-        infKoncowa.setBounds(400, 20, 250, 60);
-        infKoncowa.setBackground(Color.black);
+        infKoncowa.setBounds(360, 20, 250, 60);
+        infKoncowa.setOpaque(false);
         infKoncowa.setFont(new Font("Comic sans", Font.PLAIN, 30));
         infKoncowa.setEditable(false);
         infKoncowa.setForeground(kolorTekstu);
         if (czyGraczWygral) {
-            infKoncowa.setText("Wygrales!");
+            infKoncowa.setText("WYGRAŁEŚ!");
             return;
         }
-        infKoncowa.setText("Przegrałeś!");
+        infKoncowa.setText("PRZEGRAŁEŚ!");
     }
 
     public int getattackChoice(){
