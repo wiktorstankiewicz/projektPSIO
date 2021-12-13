@@ -30,7 +30,7 @@ public class GUI extends JFrame {
     private JTextArea wykonanaAkcja;
     private JTextArea dystans;
 
-    private Color kolorTekstu = Color.BLACK;
+    private Color kolorTekstu = Color.WHITE;
 
     public GUI(Gra gra) {
         inicjalizujEkranGry(gra);
@@ -113,10 +113,10 @@ public class GUI extends JFrame {
         tura.setEditable(false);
         tura.setFont(new Font("Comic sans", Font.BOLD, 25));
         tura.setForeground(kolorTekstu);
-        tura.setBounds(0, 0, 150, 50);
+        tura.setBounds(0, 0, 100, 40);
         tura.setBackground(null);
         this.add(tura);
-        tura.setOpaque(false);
+        tura.setBackground(Color.black);
     }
 
     public void initGracz(Gra gra) {
@@ -129,13 +129,12 @@ public class GUI extends JFrame {
         zdjecieGracza.setText(gra.getGracz().getClass().getSimpleName() + ": " + gra.getGracz().getImie());
         opisGracza.setText(gra.getGracz().getStan());
         opisGracza.setEditable(false);
-        opisGracza.setBounds(50, 450, 400, 150);
-        opisGracza.setBackground(new Color(0, 100, 0));
+        opisGracza.setBounds(50, 450, 350, 110);
         opisGracza.setFont(new Font("Comic sans", Font.BOLD, 20));
         opisGracza.setForeground(kolorTekstu);
         this.add(zdjecieGracza);
         this.add(opisGracza);
-        opisGracza.setOpaque(false);
+        opisGracza.setBackground(Color.green);
     }
 
     public void initPrzeciwnik(Gra gra) {
@@ -147,14 +146,14 @@ public class GUI extends JFrame {
         zdjeciePrzeciwnika.setBackground(null);
         opisPrzeciwnika.setText(gra.getPrzeciwnik().getStan());
         opisPrzeciwnika.setEditable(false);
-        opisPrzeciwnika.setBounds(600, 450, 400, 300);
+        opisPrzeciwnika.setBounds(600, 450, 350, 110);
         opisPrzeciwnika.setBackground(new Color(0, 100, 0));
         opisPrzeciwnika.setFont(new Font("Comic sans", Font.BOLD, 20));
         opisPrzeciwnika.setBackground(null);
         opisPrzeciwnika.setForeground(kolorTekstu);
         this.add(zdjeciePrzeciwnika);
         this.add(opisPrzeciwnika);
-        opisPrzeciwnika.setOpaque(false);
+        opisPrzeciwnika.setBackground(Color.black);
     }
 
     public void initBronGracza(Gra gra) {
@@ -181,10 +180,10 @@ public class GUI extends JFrame {
         dystans.setEditable(false);
         dystans.setForeground(kolorTekstu);
         dystans.setFont(new Font("Arial", Font.BOLD, 25));
-        dystans.setBounds(410, 200, 150, 200);
+        dystans.setBounds(410, 200, 140, 30);
         dystans.setBackground(null);
         this.add(dystans);
-        dystans.setOpaque(false);
+        dystans.setBackground(Color.black);
     }
 
     public void initWykonanaAkcja() {
@@ -192,10 +191,10 @@ public class GUI extends JFrame {
         wykonanaAkcja.setEditable(false);
         wykonanaAkcja.setForeground(kolorTekstu);
         wykonanaAkcja.setFont(new Font("Arial", Font.BOLD, 25));
-        wykonanaAkcja.setBounds(50, 600, 1000, 200);
+        wykonanaAkcja.setBounds(50, 600, 400, 30);
         wykonanaAkcja.setBackground(null);
         this.add(wykonanaAkcja);
-        wykonanaAkcja.setOpaque(false);
+        wykonanaAkcja.setBackground(Color.black);
     }
 
     public void update(Gra gra) {
@@ -211,7 +210,7 @@ public class GUI extends JFrame {
         this.add(infKoncowa);
         infKoncowa.setOpaque(false);
         infKoncowa.setBounds(400, 20, 250, 60);
-        infKoncowa.setBackground(null);
+        infKoncowa.setBackground(Color.black);
         infKoncowa.setFont(new Font("Comic sans", Font.PLAIN, 30));
         infKoncowa.setEditable(false);
         infKoncowa.setForeground(kolorTekstu);
