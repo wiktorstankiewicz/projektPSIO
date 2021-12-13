@@ -213,7 +213,7 @@ public class Gra implements Runnable {
                     akcja = gracz.getImie() + " zadał " + (przeciwnikHp - przeciwnik.getHp()) + " HP";
                 }
 
-                System.out.println(gracz.getImie() + ": " + gracz.getHp());
+                //System.out.println(gracz.getImie() + ": " + gracz.getHp());
             } else {
                 if (distance > 0 && (przeciwnik instanceof WZwarciu)) {
                     distance--;
@@ -224,11 +224,10 @@ public class Gra implements Runnable {
                     akcja = przeciwnik.getImie() + " zadał " + (graczHp - gracz.getHp()) + " HP";
                 }
 
-                System.out.println(przeciwnik.getImie() + ": " + przeciwnik.getHp() + " HP");
+                //System.out.println(przeciwnik.getImie() + ": " + przeciwnik.getHp() + " HP");
             }
             checkForWinner();
             gui.update(this);
-            System.out.println("\nDystans: " + distance);
             turn++;
         }
     }

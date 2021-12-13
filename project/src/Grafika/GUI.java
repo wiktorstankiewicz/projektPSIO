@@ -2,15 +2,18 @@ package Grafika;
 
 import GraPackage.Gra;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class GUI extends JFrame {
 
     private final int WIDTH = 1000;
     private final int HEIGHT = 700;
+    private final String backgroundImageFilePath = "project/resources/img/tlo.png";
     private int attackChoice=1;
     private boolean nextTurn=false;
 
@@ -27,11 +30,14 @@ public class GUI extends JFrame {
     private JTextArea wykonanaAkcja;
     private JTextArea dystans;
 
+    private Color kolorTekstu = Color.WHITE;
+
     public GUI(Gra gra) {
         inicjalizujEkranGry(gra);
     }
 
     public void inicjalizujEkranGry(Gra gra) {
+        initBackgroundImage();
         initGracz(gra);
         initBronGracza(gra);
         initPrzeciwnik(gra);
@@ -45,7 +51,6 @@ public class GUI extends JFrame {
         this.setLocationRelativeTo(null);
         this.setLayout(null);
         this.setVisible(true);
-        this.getContentPane().setBackground(Color.WHITE);
         this.setResizable(false);
         this.setAlwaysOnTop(true);
 
@@ -80,14 +85,38 @@ public class GUI extends JFrame {
 
     }
 
+    public void initBackgroundImage(){
+        class BackgroundImagePanel extends JComponent{
+            private BufferedImage image;
+
+            public BackgroundImagePanel(){
+                try {
+                    image = ImageIO.read(new File(backgroundImageFilePath));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                this.setVisible(true);
+            }
+            @Override
+            protected void paintComponent(Graphics g){
+                super.paintComponent(g);
+                g.drawImage(image,0,0,this);
+            }
+        }
+        this.setContentPane(new BackgroundImagePanel());
+
+    }
+
     public void initTura(Gra gra) {
         tura = new JTextArea();
         tura.setText("Tura: " + gra.getTurn());
         tura.setEditable(false);
-        tura.setFont(new Font("Arial", Font.BOLD, 25));
-        tura.setBounds(0, 0, 150, 50);
+        tura.setFont(new Font("Comic sans", Font.BOLD, 25));
+        tura.setForeground(kolorTekstu);
+        tura.setBounds(0, 0, 100, 40);
         tura.setBackground(null);
         this.add(tura);
+        tura.setBackground(Color.black);
     }
 
     public void initGracz(Gra gra) {
@@ -100,12 +129,13 @@ public class GUI extends JFrame {
         zdjecieGracza.setText(gra.getGracz().getClass().getSimpleName() + ": " + gra.getGracz().getImie());
         opisGracza.setText(gra.getGracz().getStan());
         opisGracza.setEditable(false);
-        opisGracza.setBounds(50, 450, 400, 150);
-        opisGracza.setBackground(new Color(0, 100, 0));
-        opisGracza.setFont(new Font("Comic sans", Font.BOLD, 20));
         opisGracza.setBackground(null);
+        opisGracza.setBounds(50, 450, 350, 110);
+        opisGracza.setFont(new Font("Comic sans", Font.BOLD, 20));
+        opisGracza.setForeground(kolorTekstu);
         this.add(zdjecieGracza);
         this.add(opisGracza);
+        opisGracza.setOpaque(false);
     }
 
     public void initPrzeciwnik(Gra gra) {
@@ -117,12 +147,13 @@ public class GUI extends JFrame {
         zdjeciePrzeciwnika.setBackground(null);
         opisPrzeciwnika.setText(gra.getPrzeciwnik().getStan());
         opisPrzeciwnika.setEditable(false);
-        opisPrzeciwnika.setBounds(600, 450, 400, 300);
-        opisPrzeciwnika.setBackground(new Color(0, 100, 0));
+        opisPrzeciwnika.setBounds(600, 450, 350, 110);
         opisPrzeciwnika.setFont(new Font("Comic sans", Font.BOLD, 20));
         opisPrzeciwnika.setBackground(null);
+        opisPrzeciwnika.setForeground(kolorTekstu);
         this.add(zdjeciePrzeciwnika);
         this.add(opisPrzeciwnika);
+        opisPrzeciwnika.setOpaque(false);
     }
 
     public void initBronGracza(Gra gra) {
@@ -147,19 +178,23 @@ public class GUI extends JFrame {
         dystans = new JTextArea();
         dystans.setText("Dystans: " + gra.getDistance());
         dystans.setEditable(false);
+        dystans.setForeground(kolorTekstu);
         dystans.setFont(new Font("Arial", Font.BOLD, 25));
-        dystans.setBounds(410, 200, 150, 200);
+        dystans.setBounds(410, 200, 140, 30);
         dystans.setBackground(null);
         this.add(dystans);
+        dystans.setOpaque(false);
     }
 
     public void initWykonanaAkcja() {
         wykonanaAkcja = new JTextArea();
         wykonanaAkcja.setEditable(false);
+        wykonanaAkcja.setForeground(kolorTekstu);
         wykonanaAkcja.setFont(new Font("Arial", Font.BOLD, 25));
-        wykonanaAkcja.setBounds(50, 600, 1000, 200);
+        wykonanaAkcja.setBounds(200, 600, 600, 30);
         wykonanaAkcja.setBackground(null);
         this.add(wykonanaAkcja);
+        wykonanaAkcja.setBackground(Color.black);
     }
 
     public void update(Gra gra) {
@@ -173,15 +208,17 @@ public class GUI extends JFrame {
     public void pokazKomunikatKoncowy(boolean czyGraczWygral) {
         infKoncowa = new JTextArea();
         this.add(infKoncowa);
-        infKoncowa.setBounds(400, 20, 250, 60);
-        infKoncowa.setBackground(null);
+        infKoncowa.setOpaque(false);
+        infKoncowa.setBounds(360, 20, 250, 60);
+        infKoncowa.setOpaque(false);
         infKoncowa.setFont(new Font("Comic sans", Font.PLAIN, 30));
         infKoncowa.setEditable(false);
+        infKoncowa.setForeground(kolorTekstu);
         if (czyGraczWygral) {
-            infKoncowa.setText("Wygrales!");
+            infKoncowa.setText("WYGRAŁEŚ!");
             return;
         }
-        infKoncowa.setText("Przegrałeś!");
+        infKoncowa.setText("PRZEGRAŁEŚ!");
     }
 
     public int getattackChoice(){
