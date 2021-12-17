@@ -1,6 +1,6 @@
 package PostaciCreator.Controller;
 
-import Postacie.Postac;
+import Gra.Model.Postacie.Postac;
 
 import java.io.File;
 import java.util.ArrayList;

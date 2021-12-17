@@ -2,7 +2,7 @@ package PostaciCreator.Model;
 
 import PostaciCreator.Model.Observers.ModelObservable;
 import PostaciCreator.Model.Observers.ModelObserver;
-import Postacie.Postac;
+import Gra.Model.Postacie.Postac;
 import Utils.Utils;
 
 import java.io.*;

@@ -1,4 +1,4 @@
-import GraPackage.Gra;
+import Gra.Model.Gra;
 
 public class Main {
 

@@ -1,4 +1,4 @@
-import GraPackage.Gra;
+import Gra.Model.Gra;
 import PostaciCreator.Controller.Controller;
 import PostaciCreator.Controller.ControllerInterface;
 import PostaciCreator.Model.Model;

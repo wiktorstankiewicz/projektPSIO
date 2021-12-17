@@ -2,7 +2,7 @@ package PostaciCreator.Controller;
 
 import PostaciCreator.Model.ModelInterface;
 import PostaciCreator.View.View;
-import Postacie.Postac;
+import Gra.Model.Postacie.Postac;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

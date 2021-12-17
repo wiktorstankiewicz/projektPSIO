@@ -5,7 +5,7 @@ import PostaciCreator.Controller.ControllerInterface;
 import PostaciCreator.Model.ModelInterface;
 import PostaciCreator.Model.Observers.ModelObservable;
 import PostaciCreator.Model.Observers.ModelObserver;
-import Postacie.Postac;
+import Gra.Model.Postacie.Postac;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;

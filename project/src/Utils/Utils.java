@@ -1,14 +1,14 @@
 package Utils;
 
-import Bron.Lowcy.Luk;
-import Bron.Maga.Rozdzka;
-import Bron.Woja.Miecz;
-import Bron.Woja.Mlot;
-import Bron.Zabojcy.Sztylet;
-import Postacie.Dystansowe.Lowca;
-import Postacie.Dystansowe.Mag;
-import Postacie.WZwarciu.Wojownik;
-import Postacie.WZwarciu.Zabojca;
+import Gra.Model.Bron.Lowcy.Luk;
+import Gra.Model.Bron.Maga.Rozdzka;
+import Gra.Model.Bron.Woja.Miecz;
+import Gra.Model.Bron.Woja.Mlot;
+import Gra.Model.Bron.Zabojcy.Sztylet;
+import Gra.Model.Postacie.Dystansowe.Lowca;
+import Gra.Model.Postacie.Dystansowe.Mag;
+import Gra.Model.Postacie.WZwarciu.Wojownik;
+import Gra.Model.Postacie.WZwarciu.Zabojca;
 
 import java.io.BufferedReader;
 import java.io.File;
