@@ -15,8 +15,8 @@ public class Controller implements ControllerInterface {
     }
 
     public void kliknietoGuzik(JButton guzik) {
-            if (guzik == gui.getNormalAttackButton()) model.normalAttackButton(1);
-            else if (guzik == gui.getSpecialAttackButton()) model.normalAttackButton(2);
+            if (guzik == gui.getNormalAttackButton()) model.normalAttack(1);
+            else if (guzik == gui.getSpecialAttackButton()) model.normalAttack(2);
             else if (guzik == gui.getWalkUpButton()) model.walkUpAction();
     }
 }

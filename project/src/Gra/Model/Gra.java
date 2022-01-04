@@ -197,7 +197,7 @@ public class Gra implements ModelInterface, Observable, Runnable {
 
     }
 
-    public void normalAttackButton(int attackType) {
+    public void normalAttack(int attackType) {
         int enemyHp = przeciwnik.getHp();
         if (distance > 0 && gracz instanceof WZwarciu) {
             akcja = "Jestes za daleko!";

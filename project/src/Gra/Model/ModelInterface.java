@@ -15,6 +15,6 @@ public interface ModelInterface {
     boolean getPRZECIWNIK_WYGRANA();
     void zmianaAtaku(Postac x, Postac y, Bron b, int rodzajAtaku);
     void registerObserver(Observer o);
-    void normalAttackButton(int number);
+    void normalAttack(int number);
     void walkUpAction();
 }
