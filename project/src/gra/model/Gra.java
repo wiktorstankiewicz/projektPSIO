@@ -40,12 +40,13 @@ public class Gra implements IGameModel, Observable, Runnable {
     private final Scanner scan = new Scanner(System.in);
     private ArrayList<Postac> postacieZPlikuTab;
 
-    public Gra() {
+    public Gra(Postac gracz, Postac przeciwnik) {
+        this.gracz = gracz;
+        this.przeciwnik = przeciwnik;
         postacieTab = new ArrayList<>();
         postacieZPlikuTab = new ArrayList<>();
         observers = new ArrayList<>();
         deserialize();
-        wypiszTab(postacieTab);
     }
 
     public void run() {
@@ -56,11 +57,11 @@ public class Gra implements IGameModel, Observable, Runnable {
     public void przygotujGre() {
         firstTurn = generator.nextInt(2);
         distance = generator.nextInt(MAX_DISTANCE) + 1;
-        createPostacie();
+        serialize();
         new GameController(this);
     }
 
-    private void createPostacie() {
+    /*private void createPostacie() {
         //---------------------------------------------------------
         //          Generuj Gracza
         //---------------------------------------------------------
@@ -118,19 +119,19 @@ public class Gra implements IGameModel, Observable, Runnable {
         int wybor = getUserInputInt(1, postacieTab.size());
 
         return postacieTab.get(wybor - 1);
-    }
+    }*/
 
-    private void generujPrzeciwnik() {
+    public static Postac generujPrzeciwnik() {
         String wylosowanaPostacPrzeciwnika = WyborKlasy.generujKlasaBot();
         String wylosowanaBronPrzeciwnika = WyborKlasy.generujBronBot(wylosowanaPostacPrzeciwnika);
         String wylosowaneImiePrzeciwnika = WyborKlasy.generujImieBota();
-        przeciwnik = WyborKlasy.stworzPostac(wylosowanaPostacPrzeciwnika, wylosowaneImiePrzeciwnika, wylosowanaBronPrzeciwnika);
+        return WyborKlasy.stworzPostac(wylosowanaPostacPrzeciwnika, wylosowaneImiePrzeciwnika, wylosowanaBronPrzeciwnika);
     }
 
-    private void wylosujPrzeciwnika() {
+    /*private void wylosujPrzeciwnika() {
         int randomIndex = generator.nextInt(postacieTab.size()); //zasieg [0, size)
         przeciwnik = postacieTab.get(randomIndex);
-    }
+    }*/
 
     private void deserialize() {
         try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(POSTACIE_NAZWA_PLIKU))) {
@@ -341,9 +342,9 @@ public class Gra implements IGameModel, Observable, Runnable {
         return wybor;
     }
 
-    private void wypiszTab(ArrayList<? extends Postac> tab) {
+    /*private void wypiszTab(ArrayList<? extends Postac> tab) {
         for (Postac p : tab) {
             System.out.println(p);
         }
-    }
+    }*/
 }

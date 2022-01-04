@@ -3,8 +3,8 @@ import gra.model.Gra;
 public class Main {
 
     public static void main(String[] args) {
-        Gra gra = new Gra();
+        /*Gra gra = new Gra();
         gra.przygotujGre();
-        gra.bitwa();
+        gra.bitwa();*/
     }
 }

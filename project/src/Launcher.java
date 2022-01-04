@@ -1,5 +1,3 @@
-
-
 import kreatorPostaci.controller.CreatorController;
 import kreatorPostaci.controller.ICreatorController;
 import kreatorPostaci.model.CreatorModel;
@@ -7,11 +5,15 @@ import kreatorPostaci.model.ICreatorModel;
 import gra.model.Gra;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class Launcher {
 	private final int H_GAP = 20;
 
+	private ICreatorModel model;
+
+	private JLabel komunikat;
 	private JFrame launcherFrame;
 	private JPanel launcherPanel;
 
@@ -26,10 +28,11 @@ public class Launcher {
 	}
 
 	private void makeGui(){
+		model = new CreatorModel();
+
 		launcherFrame = new JFrame("Launcher");
 		launcherPanel = new JPanel();
 
-		launcherFrame.getContentPane().add(launcherPanel);
 		launcherFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		launcherFrame.setSize(new Dimension(600, 150));
 		launcherPanel.setLayout(new BoxLayout(launcherPanel, BoxLayout.X_AXIS));
@@ -50,16 +53,36 @@ public class Launcher {
 		launcherPanel.add(wyjdzButton);
 		launcherPanel.add(Box.createHorizontalGlue());
 
+		komunikat = new JLabel("", SwingConstants.CENTER);
+		komunikat.setForeground(Color.RED);
+		komunikat.setFont(new Font("Sans serif", Font.BOLD, 15));
+
+		JPanel panelKomunikatu = new JPanel();
+		panelKomunikatu.add(komunikat);
+
+		JPanel pionowyPanel = new JPanel();
+		pionowyPanel.setLayout(new BoxLayout(pionowyPanel, BoxLayout.Y_AXIS));
+		pionowyPanel.add(Box.createVerticalGlue());
+		pionowyPanel.add(launcherPanel);
+		pionowyPanel.add(Box.createVerticalGlue());
+		pionowyPanel.add(panelKomunikatu);
+		pionowyPanel.add(Box.createVerticalGlue());
+		launcherFrame.getContentPane().add(pionowyPanel);
+
 		launcherFrame.setVisible(true);
 	}
 
 	private void launchPostaciCreator(){
-		ICreatorModel model = new CreatorModel();
-		ICreatorController controller = new CreatorController(model);
+		new CreatorController(model);
 	}
 
 	private void launchGra(){
-		launcherFrame.setVisible(false);
-		(new Thread(new Gra())).start();
+		if (model.getPostacie().size() > 1) {
+			launcherFrame.setVisible(false);
+			new wyborPostaci.controller.ControllerWyborPostaci(model);
+		} else {
+			komunikat.setText("Zanim rozpoczniesz, stwórz przynajmniej dwie postacie");
+			komunikat.setBorder(new LineBorder(Color.RED));
+		}
 	}
 }
