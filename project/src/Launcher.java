@@ -1,8 +1,10 @@
-import GraPackage.Gra;
-import PostaciCreator.Controller.Controller;
-import PostaciCreator.Controller.ControllerInterface;
-import PostaciCreator.Model.Model;
-import PostaciCreator.Model.ModelInterface;
+
+
+import kreatorPostaci.controller.CreatorController;
+import kreatorPostaci.controller.ICreatorController;
+import kreatorPostaci.model.CreatorModel;
+import kreatorPostaci.model.ICreatorModel;
+import gra.model.Gra;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,9 +15,10 @@ public class Launcher {
 	private JFrame launcherFrame;
 	private JPanel launcherPanel;
 
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		Launcher app = new Launcher();
 		app.go();
+
 	}
 
 	private void go (){
@@ -51,12 +54,12 @@ public class Launcher {
 	}
 
 	private void launchPostaciCreator(){
-		ModelInterface model = new Model();
-		ControllerInterface controller = new Controller(model);
+		ICreatorModel model = new CreatorModel();
+		ICreatorController controller = new CreatorController(model);
 	}
 
 	private void launchGra(){
-//		launcherFrame.setVisible(false);
+		launcherFrame.setVisible(false);
 		(new Thread(new Gra())).start();
 	}
 }
