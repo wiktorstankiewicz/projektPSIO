@@ -54,7 +54,7 @@ public class Gra implements IGameModel, Observable, Runnable {
     }
 
     public void przygotujGre() {
-        firstTurn = generator.nextInt(1) + 1;
+        firstTurn = generator.nextInt(2);
         distance = generator.nextInt(MAX_DISTANCE) + 1;
         createPostacie();
         new GameController(this);
