@@ -1,8 +1,10 @@
-import Gra.Model.Gra;
+
+
 import PostaciCreator.Controller.Controller;
 import PostaciCreator.Controller.ControllerInterface;
 import PostaciCreator.Model.Model;
 import PostaciCreator.Model.ModelInterface;
+import Gra.Model.Gra;
 
 import javax.swing.*;
 import java.awt.*;
@@ -56,7 +58,7 @@ public class Launcher {
 	}
 
 	private void launchGra(){
-//		launcherFrame.setVisible(false);
+		launcherFrame.setVisible(false);
 		(new Thread(new Gra())).start();
 	}
 }

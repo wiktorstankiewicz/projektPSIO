@@ -1,9 +1,11 @@
 package Gra.Model;
 
 import Gra.Model.Bron.Bron;
-import Gra.View.GUI;
-import Gra.Model.Postacie.Postac;
+import Gra.Model.Observers.Observable;
+import Gra.Model.Observers.Observer;
 import Gra.Model.Postacie.WZwarciu.WZwarciu;
+import Gra.Model.Postacie.Postac;
+import Gra.Controller.*;
 import Utils.*;
 
 import java.io.*;
@@ -11,12 +13,10 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Gra implements Runnable {
+public class Gra implements ModelInterface, Observable, Runnable {
 
     //Constants
     private final int MAX_DISTANCE = 5;
-    private boolean GRACZ_WYGRANA = false;
-    private boolean PRZECIWNIK_WYGRANA = false;
     private final String POSTACIE_NAZWA_PLIKU = "postacie.ser";
     private final String WCZYTYWANIE_Z_PLIKU_POSTACI_Nazwa = "wczyt_postaci.txt"; //schemat zapisu w pliku: klasa;imie;bron
 
@@ -24,12 +24,15 @@ public class Gra implements Runnable {
     private Postac gracz;
     private Postac przeciwnik;
     private ArrayList<Postac> postacieTab;
+    private boolean GRACZ_WYGRANA = false;
+    private boolean PRZECIWNIK_WYGRANA = false;
+    private boolean wykonanoAkcje;
     private int firstTurn;
     private int turn;
     private int distance;
     private String akcja;
 
-    private GUI gui;
+    private ArrayList<Observer> observers;
 
     //Helper fields
     private final Random generator = new Random();
@@ -39,8 +42,9 @@ public class Gra implements Runnable {
     public Gra() {
         postacieTab = new ArrayList<>();
         postacieZPlikuTab = new ArrayList<>();
+        observers = new ArrayList<>();
         deserialize();
-        wypiszTab(postacieTab); //todo usunac metode do debugu
+        wypiszTab(postacieTab);
     }
 
     public void run() {
@@ -51,19 +55,15 @@ public class Gra implements Runnable {
     public void przygotujGre() {
         firstTurn = generator.nextInt(1) + 1;
         distance = generator.nextInt(MAX_DISTANCE) + 1;
-//        distance = 5;
         createPostacie();
-
-        gui = new GUI(this);
+        new Controller(this);
     }
 
     private void createPostacie() {
-        boolean wybranoPostac = false;
         //---------------------------------------------------------
         //          Generuj Gracza
         //---------------------------------------------------------
         if (postacieTab.size() == 0) {
-//            nowaPostac = true;
             stworzGracz();
         } else {
             System.out.println("1. Stworz nowa postac");
@@ -72,12 +72,10 @@ public class Gra implements Runnable {
             int wybor = getUserInputInt(1, 2);
 
             if (wybor == 1) {
-//                nowaPostac = true;
                 stworzGracz();
             } else {
                 gracz = wybierzPostac();
                 postacieTab.remove(gracz); //usun postac ktora wybral gracz, zeby nie wylosowac jej jako przeciwnika
-                wybranoPostac = true;
             }
         }
 
@@ -98,7 +96,7 @@ public class Gra implements Runnable {
             else wylosujPrzeciwnika();
         }
 
-        //dodaj gracza spowrotem do tablicy, w celu serializacji calej tablicy
+        //dodaj gracza z powrotem do tablicy, w celu serializacji calej tablicy
         if (!postacieTab.contains(gracz))
             postacieTab.add(gracz);
         serialize();
@@ -163,25 +161,16 @@ public class Gra implements Runnable {
         }
     }
 
-
     public void bitwa() {
 
-        int graczHp; //Hp z poprzedniej tury
-        int przeciwnikHp;
-
         if (gracz == null || przeciwnik == null) {
-            System.out.println("Gra.Model.Postacie nie istnieja");
+            System.out.println("Postacie nie istnieja");
             return;
         }
 
-        gui.inicjalizujEkranGry(this);
-
         while (!(GRACZ_WYGRANA || PRZECIWNIK_WYGRANA)) {
-
-            graczHp = gracz.getHp();
-            przeciwnikHp = przeciwnik.getHp();
-            if(gracz.getCzyPodpalony()) gracz.setHp(graczHp-5);
-            if(przeciwnik.getCzyPodpalony()) przeciwnik.setHp(przeciwnikHp-5);
+            damageFromFire();
+            checkForWinner();
 
             try {
                 Thread.sleep(997);
@@ -189,56 +178,64 @@ public class Gra implements Runnable {
                 e.printStackTrace();
             }
 
-
             if (firstTurn == turn % 2) {
-
-                while (!gui.getnextTurn()) {
+                while (!wykonanoAkcje) {
                     try {
                         Thread.sleep(50);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-
-                if (distance > 0 && gui.getattackChoice() == 3) {
-                    gui.setNextTurn(false);
-                    distance--;
-                    akcja = gracz.getImie() + " podszedł!";
-                } else if (distance > 0 && gracz instanceof WZwarciu) {
-                    gui.setNextTurn(false);
-                    akcja = "Jestes za daleko!";
-                } else {
-                    this.zmianaAtaku(gracz, przeciwnik, gracz.getBron(), gui.getattackChoice());
-                    gui.setNextTurn(false);
-                    akcja = gracz.getImie() + " zadał " + (przeciwnikHp - przeciwnik.getHp()) + " HP";
-                }
-
-                //System.out.println(gracz.getImie() + ": " + gracz.getHp());
-            } else {
-                if (distance > 0 && (przeciwnik instanceof WZwarciu)) {
-                    distance--;
-                    akcja = przeciwnik.getImie() + " podszedł!";
-                } else {
-                    this.zmianaAtaku(przeciwnik, gracz, przeciwnik.getBron(), (generator.nextInt(2)) + 1);
-
-                    akcja = przeciwnik.getImie() + " zadał " + (graczHp - gracz.getHp()) + " HP";
-                }
-
-                //System.out.println(przeciwnik.getImie() + ": " + przeciwnik.getHp() + " HP");
+                wykonanoAkcje = false;
             }
+            else enemyTurn();
+
+            notifyObservers();
             checkForWinner();
-            gui.update(this);
             turn++;
         }
+
+    }
+
+    public void normalAttackButton(int attackType) {
+        int enemyHp = przeciwnik.getHp();
+        if (distance > 0 && gracz instanceof WZwarciu) {
+            akcja = "Jestes za daleko!";
+        } else {
+            zmianaAtaku(gracz, przeciwnik, gracz.getBron(), attackType);
+            setAkcja(gracz.getImie() + " zadał " + (enemyHp - przeciwnik.getHp()) + " HP");
+        }
+        wykonanoAkcje = true;
+    }
+
+    public void walkUpAction() {
+        if(getDistance() > 0) {
+            distance--;
+            akcja = getGracz().getImie() + " podszedł!";
+        }
+        wykonanoAkcje = true;
+    }
+
+    public void enemyTurn() {
+        int playerHp = gracz.getHp();
+        if (distance > 0 && przeciwnik instanceof WZwarciu) {
+            distance--;
+            akcja = przeciwnik.getImie() + " podszedł!";
+        } else {
+            zmianaAtaku(przeciwnik, gracz, przeciwnik.getBron(), (generator.nextInt(2)) + 1);
+
+            akcja = przeciwnik.getImie() + " zadał " + (playerHp - gracz.getHp()) + " HP";
+        }
+    }
+
+    public void damageFromFire() {
+        if(gracz.getCzyPodpalony()) gracz.setHp(gracz.getHp()-5);
+        if(przeciwnik.getCzyPodpalony()) przeciwnik.setHp(przeciwnik.getHp()-5);
     }
 
     public void zmianaAtaku(Postac x, Postac y, Bron b, int rodzajAtaku) { //rodzaj ataku: 1-Zwykły, 2-Specjalny, 0-brak wyboru
         if (rodzajAtaku == 2) x.wykonajSpecjalnyAtak(y, b);
         else x.wykonajZwyklyAtak(y, b);
-    }
-
-    public void gracz_typ() {
-        System.out.println(gracz.getClass() + "   " + przeciwnik.getClass());
     }
 
     /**
@@ -261,10 +258,28 @@ public class Gra implements Runnable {
     private void finishGame() {
         if (GRACZ_WYGRANA) {
             System.out.println("Gratulacje! Wygrales!");
-            gui.pokazKomunikatKoncowy(true);
+            notifyObservers();
         } else if (PRZECIWNIK_WYGRANA) {
             System.out.println("Niestey, nie udalo ci sie wygrac. Powodzenia nastepnym razem");
-            gui.pokazKomunikatKoncowy(false);
+            notifyObservers();
+        }
+    }
+
+    public void notifyObservers() {
+        for (int i = 0; i < observers.size(); i++) {
+            observers.get(i).update(this);
+        }
+    }
+
+    public void registerObserver(Observer o) {
+        if (!observers.contains(o)) {
+            observers.add(o);
+        }
+    }
+
+    public void removeObserver(Observer o) {
+        if (observers.contains(o)){
+            observers.remove(o);
         }
     }
 
@@ -286,6 +301,22 @@ public class Gra implements Runnable {
 
     public String getAkcja() {
         return akcja;
+    }
+
+    public boolean getGRACZ_WYGRANA() {
+        return GRACZ_WYGRANA;
+    }
+
+    public boolean getPRZECIWNIK_WYGRANA() {
+        return PRZECIWNIK_WYGRANA;
+    }
+
+    public void setAkcja(String akcja) {
+        this.akcja = akcja;
+    }
+
+    public ArrayList<Postac> getPostacieTab() {
+        return postacieTab;
     }
 
     //Pobiera wartosc od uzytkownika

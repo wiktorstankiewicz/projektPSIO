@@ -1,6 +1,10 @@
 package Gra.View;
 
-import Gra.Model.Gra;
+import Gra.Controller.Controller;
+import Gra.Controller.ControllerInterface;
+import Gra.Model.ModelInterface;
+import Gra.Model.Observers.Observer;
+import Gra.Model.Postacie.Postac;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -9,7 +13,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class GUI extends JFrame {
+public class GUI extends JFrame implements Observer {
+
+    private final ControllerInterface kontroler;
+    private final ModelInterface gra;
 
     private final int WIDTH = 1000;
     private final int HEIGHT = 700;
@@ -22,6 +29,13 @@ public class GUI extends JFrame {
     private JLabel zdjeciePrzeciwnika;
     private JLabel zdjecieBroniPrzeciwnika;
 
+    private JProgressBar healthBarGracza;
+    private JProgressBar healthBarPrzeciwnika;
+
+    private JButton normalAttackButton;
+    private JButton specialAttackButton;
+    private JButton walkUpButton;
+
     private JTextArea tura;
     private JTextArea opisGracza;
     private JTextArea opisPrzeciwnika;
@@ -32,11 +46,14 @@ public class GUI extends JFrame {
 
     private Color kolorTekstu = Color.WHITE;
 
-    public GUI(Gra gra) {
+    public GUI(ModelInterface gra, Controller kontroler) {
+        this.kontroler = kontroler;
+        this.gra = gra;
+        gra.registerObserver(this);
         inicjalizujEkranGry(gra);
     }
 
-    public void inicjalizujEkranGry(Gra gra) {
+    public void inicjalizujEkranGry(ModelInterface gra) {
         initBackgroundImage();
         initGracz(gra);
         initBronGracza(gra);
@@ -54,23 +71,14 @@ public class GUI extends JFrame {
         this.setResizable(false);
         this.setAlwaysOnTop(true);
 
-        JButton normalAttackButton = new JButton("Zwykły atak");
-        JButton specialAttackButton = new JButton("Specjalny atak");
-        JButton walkUpButton = new JButton("Podejdź");
-        normalAttackButton.addActionListener(e -> {
-            attackChoice = 1;
-            nextTurn=true;
-        });
+        normalAttackButton = new JButton("Zwykły atak");
+        specialAttackButton = new JButton("Specjalny atak");
+        walkUpButton = new JButton("Podejdź");
 
-        specialAttackButton.addActionListener(e -> {
-            attackChoice = 2;
-            nextTurn=true;
-        });
+        normalAttackButton.addActionListener(e -> kontroler.kliknietoGuzik(normalAttackButton));
+        specialAttackButton.addActionListener(e -> kontroler.kliknietoGuzik(specialAttackButton));
+        walkUpButton.addActionListener(e -> kontroler.kliknietoGuzik(walkUpButton));
 
-        walkUpButton.addActionListener(e -> {
-            attackChoice = 3;
-            nextTurn=true;
-        });
         normalAttackButton.setBounds(410,75,125,40);
         specialAttackButton.setBounds(410,115,125,40);
         walkUpButton.setBounds(410,155,125,40);
@@ -81,8 +89,6 @@ public class GUI extends JFrame {
         this.add(normalAttackButton);
         this.add(specialAttackButton);
         this.add(walkUpButton);
-
-
     }
 
     public void initBackgroundImage(){
@@ -104,10 +110,9 @@ public class GUI extends JFrame {
             }
         }
         this.setContentPane(new BackgroundImagePanel());
-
     }
 
-    public void initTura(Gra gra) {
+    public void initTura(ModelInterface gra) {
         tura = new JTextArea();
         tura.setText("Tura: " + gra.getTurn());
         tura.setEditable(false);
@@ -119,7 +124,12 @@ public class GUI extends JFrame {
         tura.setBackground(Color.black);
     }
 
-    public void initGracz(Gra gra) {
+    public void initGracz(ModelInterface gra) {
+        healthBarGracza = new JProgressBar(0, Postac.getMaxHp());
+        healthBarGracza.setBounds(75, 55, 250, 30);
+        healthBarGracza.setForeground(new Color(0, 204, 0));
+        healthBarGracza.setValue(Postac.getMaxHp());
+
         zdjecieGracza = new JLabel();
         opisGracza = new JTextArea();
 
@@ -133,12 +143,19 @@ public class GUI extends JFrame {
         opisGracza.setBounds(50, 450, 350, 110);
         opisGracza.setFont(new Font("Comic sans", Font.BOLD, 20));
         opisGracza.setForeground(kolorTekstu);
+
+        this.add(healthBarGracza);
         this.add(zdjecieGracza);
         this.add(opisGracza);
         opisGracza.setOpaque(false);
     }
 
-    public void initPrzeciwnik(Gra gra) {
+    public void initPrzeciwnik(ModelInterface gra) {
+        healthBarPrzeciwnika = new JProgressBar(0, Postac.getMaxHp());
+        healthBarPrzeciwnika.setBounds(632, 55, 250, 30);
+        healthBarPrzeciwnika.setForeground(new Color(0, 204, 0));
+        healthBarPrzeciwnika.setValue(Postac.getMaxHp());
+
         opisPrzeciwnika = new JTextArea();
         zdjeciePrzeciwnika = new JLabel();
 
@@ -151,12 +168,14 @@ public class GUI extends JFrame {
         opisPrzeciwnika.setFont(new Font("Comic sans", Font.BOLD, 20));
         opisPrzeciwnika.setBackground(null);
         opisPrzeciwnika.setForeground(kolorTekstu);
+
+        this.add(healthBarPrzeciwnika);
         this.add(zdjeciePrzeciwnika);
         this.add(opisPrzeciwnika);
         opisPrzeciwnika.setOpaque(false);
     }
 
-    public void initBronGracza(Gra gra) {
+    public void initBronGracza(ModelInterface gra) {
         zdjecieBroniGracza = new JLabel();
 
         zdjecieBroniGracza.setIcon(new ImageIcon(gra.getGracz().getBron().getImageFilePath()));
@@ -165,7 +184,7 @@ public class GUI extends JFrame {
         this.add(zdjecieBroniGracza);
     }
 
-    public void initBronPrzeciwnika(Gra gra) {
+    public void initBronPrzeciwnika(ModelInterface gra) {
         zdjecieBroniPrzeciwnika = new JLabel();
 
         zdjecieBroniPrzeciwnika.setIcon(new ImageIcon(gra.getPrzeciwnik().getBron().getImageFilePath()));
@@ -174,7 +193,7 @@ public class GUI extends JFrame {
         this.add(zdjecieBroniPrzeciwnika);
     }
 
-    public void initDystans(Gra gra) {
+    public void initDystans(ModelInterface gra) {
         dystans = new JTextArea();
         dystans.setText("Dystans: " + gra.getDistance());
         dystans.setEditable(false);
@@ -197,12 +216,18 @@ public class GUI extends JFrame {
         wykonanaAkcja.setBackground(Color.black);
     }
 
-    public void update(Gra gra) {
+    public void update(ModelInterface gra) {
+        if (gra.getGRACZ_WYGRANA()) pokazKomunikatKoncowy(true);
+        else if (gra.getPRZECIWNIK_WYGRANA()) pokazKomunikatKoncowy(false);
+        else {
         tura.setText("Tura: " + gra.getTurn());
         opisGracza.setText(gra.getGracz().getStan());
         opisPrzeciwnika.setText(gra.getPrzeciwnik().getStan());
         dystans.setText("Dystans: " + gra.getDistance());
         wykonanaAkcja.setText(gra.getAkcja());
+        healthBarGracza.setValue(gra.getGracz().getHp());
+        healthBarPrzeciwnika.setValue(gra.getPrzeciwnik().getHp());
+        }
     }
 
     public void pokazKomunikatKoncowy(boolean czyGraczWygral) {
@@ -221,16 +246,15 @@ public class GUI extends JFrame {
         infKoncowa.setText("PRZEGRAŁEŚ!");
     }
 
-    public int getattackChoice(){
-        return attackChoice;
+    public JButton getNormalAttackButton() {
+        return normalAttackButton;
     }
-    public void setattackChoice(int attackChoice){
-        this.attackChoice=attackChoice;
+
+    public JButton getSpecialAttackButton() {
+        return specialAttackButton;
     }
-    public boolean getnextTurn(){
-        return nextTurn;
-    }
-    public void setNextTurn(boolean nextTurn){
-        this.nextTurn=nextTurn;
+
+    public JButton getWalkUpButton() {
+        return walkUpButton;
     }
 }

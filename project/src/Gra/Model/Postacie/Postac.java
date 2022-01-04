@@ -11,8 +11,10 @@ abstract public class Postac implements Serializable {
     @Serial
     private static final long serialVersionUID = 1900397209056382825L;
 
+    private final static int MAX_HP = 150;
+
     // Deklaracja zmiennych punktow Postaci
-    protected int hp = 150;
+    protected int hp = MAX_HP;
     protected int pancerz;
     protected String imie;
     protected String imageFilePath;
@@ -107,6 +109,8 @@ abstract public class Postac implements Serializable {
     public AtakiInterfejs_I getSpecjalnyAtak() {
         return specjalnyAtak;
     }
+
+    public static int getMaxHp() { return MAX_HP; }
 
     //this == p jesli
     //this.imie == p.imie
