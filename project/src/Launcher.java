@@ -53,11 +53,14 @@ public class Launcher {
 		launcherPanel.add(wyjdzButton);
 		launcherPanel.add(Box.createHorizontalGlue());
 
-		komunikat = new JLabel("", SwingConstants.CENTER);
-		komunikat.setForeground(Color.RED);
+		komunikat = new JLabel("Probny rozmiar", SwingConstants.CENTER);
 		komunikat.setFont(new Font("Sans serif", Font.BOLD, 15));
+		komunikat.setForeground(Color.RED);
+		Dimension preferredSize = komunikat.getPreferredSize();
+		komunikat.setText("");
 
 		JPanel panelKomunikatu = new JPanel();
+		panelKomunikatu.setPreferredSize(preferredSize);
 		panelKomunikatu.add(komunikat);
 
 		JPanel pionowyPanel = new JPanel();
