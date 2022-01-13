@@ -1,8 +1,6 @@
 package gra.view;
 
-import gra.controller.GameController;
-import gra.controller.IGameController;
-import gra.model.IGameModel;
+import gra.model.Gra;
 import gra.model.observers.Observer;
 import gra.model.postacie.Postac;
 
@@ -17,10 +15,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class GUI extends JFrame implements Observer {
-
-    private final IGameController kontroler;
-    private final IGameModel gra;
-
     private final int WIDTH = 1000;
     private final int HEIGHT = 700;
     private final String backgroundImageFilePath = "project/resources/img/tlo.png";
@@ -49,14 +43,12 @@ public class GUI extends JFrame implements Observer {
 
     private Color kolorTekstu = Color.WHITE;
 
-    public GUI(IGameModel gra, GameController kontroler) {
-        this.kontroler = kontroler;
-        this.gra = gra;
+    public GUI(Gra gra) {
         gra.registerObserver(this);
         inicjalizujEkranGry(gra);
     }
 
-    public void inicjalizujEkranGry(IGameModel gra) {
+    public void inicjalizujEkranGry(Gra gra) {
         initBackgroundImage();
         initGracz(gra);
         initBronGracza(gra);
@@ -86,9 +78,9 @@ public class GUI extends JFrame implements Observer {
         specialAttackButton.setForeground(Color.WHITE);
         walkUpButton.setForeground(Color.WHITE);
 
-        normalAttackButton.addActionListener(e -> kontroler.kliknietoGuzik(normalAttackButton));
-        specialAttackButton.addActionListener(e -> kontroler.kliknietoGuzik(specialAttackButton));
-        walkUpButton.addActionListener(e -> kontroler.kliknietoGuzik(walkUpButton));
+        normalAttackButton.addActionListener(e -> gra.setAttackChoice(1));
+        specialAttackButton.addActionListener(e -> gra.setAttackChoice(2));
+        walkUpButton.addActionListener(e -> gra.setAttackChoice(3));
 
         normalAttackButton.setFocusable(false);
         specialAttackButton.setFocusable(false);
@@ -128,7 +120,7 @@ public class GUI extends JFrame implements Observer {
         this.setContentPane(new BackgroundImagePanel());
     }
 
-    public void initTura(IGameModel gra) {
+    public void initTura(Gra gra) {
         tura = new JTextArea();
         tura.setText("Tura: " + gra.getTurn());
         tura.setEditable(false);
@@ -140,7 +132,7 @@ public class GUI extends JFrame implements Observer {
         tura.setBackground(Color.black);
     }
 
-    public void initGracz(IGameModel gra) {
+    public void initGracz(Gra gra) {
         healthBarGracza = new JProgressBar(0, Postac.getMaxHp());
         healthBarGracza.setBounds(75, 55, 250, 30);
         healthBarGracza.setForeground(new Color(0, 204, 0));
@@ -167,7 +159,7 @@ public class GUI extends JFrame implements Observer {
         opisGracza.setOpaque(false);
     }
 
-    public void initPrzeciwnik(IGameModel gra) {
+    public void initPrzeciwnik(Gra gra) {
         healthBarPrzeciwnika = new JProgressBar(0, Postac.getMaxHp());
         healthBarPrzeciwnika.setBounds(632, 55, 250, 30);
         healthBarPrzeciwnika.setForeground(new Color(0, 204, 0));
@@ -193,7 +185,7 @@ public class GUI extends JFrame implements Observer {
         opisPrzeciwnika.setOpaque(false);
     }
 
-    public void initBronGracza(IGameModel gra) {
+    public void initBronGracza(Gra gra) {
         zdjecieBroniGracza = new JLabel();
 
         zdjecieBroniGracza.setIcon(new ImageIcon(gra.getGracz().getBron().getImageFilePath()));
@@ -202,7 +194,7 @@ public class GUI extends JFrame implements Observer {
         this.add(zdjecieBroniGracza);
     }
 
-    public void initBronPrzeciwnika(IGameModel gra) {
+    public void initBronPrzeciwnika(Gra gra) {
         zdjecieBroniPrzeciwnika = new JLabel();
 
         zdjecieBroniPrzeciwnika.setIcon(new ImageIcon(gra.getPrzeciwnik().getBron().getImageFilePath()));
@@ -211,7 +203,7 @@ public class GUI extends JFrame implements Observer {
         this.add(zdjecieBroniPrzeciwnika);
     }
 
-    public void initDystans(IGameModel gra) {
+    public void initDystans(Gra gra) {
         dystans = new JTextArea();
         dystans.setText("Dystans: " + gra.getDistance());
         dystans.setEditable(false);
@@ -234,16 +226,16 @@ public class GUI extends JFrame implements Observer {
     }
 
     @Override
-    public void update(IGameModel gra) {
-        if (gra.getGRACZ_WYGRANA()) pokazKomunikatKoncowy(true);
-        else if (gra.getPRZECIWNIK_WYGRANA()) pokazKomunikatKoncowy(false);
-        tura.setText("Tura: " + gra.getTurn());
-        opisGracza.setText(gra.getGracz().getStan());
-        opisPrzeciwnika.setText(gra.getPrzeciwnik().getStan());
-        dystans.setText("Dystans: " + gra.getDistance());
-        wykonanaAkcja.setText(gra.getAkcja());
-        healthBarGracza.setValue(gra.getGracz().getHp());
-        healthBarPrzeciwnika.setValue(gra.getPrzeciwnik().getHp());
+    public void update(boolean GRACZ_WYGRANA, boolean PRZECIWNIK_WYGRANA, int distance, int turn, String akcja, Postac gracz, Postac przeciwnik) {
+        if (GRACZ_WYGRANA) pokazKomunikatKoncowy(true);
+        else if (PRZECIWNIK_WYGRANA) pokazKomunikatKoncowy(false);
+        tura.setText("Tura: " + turn);
+        opisGracza.setText(gracz.getStan());
+        opisPrzeciwnika.setText(przeciwnik.getStan());
+        dystans.setText("Dystans: " + distance);
+        wykonanaAkcja.setText(akcja);
+        healthBarGracza.setValue(gracz.getHp());
+        healthBarPrzeciwnika.setValue(przeciwnik.getHp());
 
     }
 
@@ -265,17 +257,5 @@ public class GUI extends JFrame implements Observer {
             return;
         }
         infKoncowa.setText("PRZEGRAŁEŚ!");
-    }
-
-    public JButton getNormalAttackButton() {
-        return normalAttackButton;
-    }
-
-    public JButton getSpecialAttackButton() {
-        return specialAttackButton;
-    }
-
-    public JButton getWalkUpButton() {
-        return walkUpButton;
     }
 }

@@ -1,11 +1,11 @@
 package gra.model;
 
-import gra.controller.GameController;
 import gra.model.bron.Bron;
 import gra.model.observers.Observable;
 import gra.model.observers.Observer;
 import gra.model.postacie.Postac;
 import gra.model.postacie.wZwarciu.WZwarciu;
+import gra.view.GUI;
 import utilities.Utils;
 import utilities.WyborKlasy;
 
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Gra implements IGameModel, Observable, Runnable {
+public class Gra implements Observable, Runnable {
 
     //Constants
     private final int MAX_DISTANCE = 5;
@@ -27,7 +27,7 @@ public class Gra implements IGameModel, Observable, Runnable {
     private ArrayList<Postac> postacieTab;
     private boolean GRACZ_WYGRANA = false;
     private boolean PRZECIWNIK_WYGRANA = false;
-    private boolean wykonanoAkcje;
+    private int attackChoice = 0;
     private int firstTurn;
     private int turn;
     private int distance;
@@ -58,7 +58,7 @@ public class Gra implements IGameModel, Observable, Runnable {
         firstTurn = generator.nextInt(2);
         distance = generator.nextInt(MAX_DISTANCE) + 1;
         serialize();
-        new GameController(this);
+        new GUI(this);
     }
 
     /*private void createPostacie() {
@@ -178,14 +178,20 @@ public class Gra implements IGameModel, Observable, Runnable {
             }
 
             if (firstTurn == turn % 2) {
-                while (!wykonanoAkcje) {
+                while (attackChoice == 0) {
                     try {
                         Thread.sleep(50);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+
+                    switch (attackChoice) {
+                        case 1 -> normalAttack(1);
+                        case 2 -> normalAttack(2);
+                        case 3 -> walkUpAction();
+                    }
                 }
-                wykonanoAkcje = false;
+                attackChoice = 0;
             } else enemyTurn();
 
             damageFromFire();
@@ -204,7 +210,6 @@ public class Gra implements IGameModel, Observable, Runnable {
             zmianaAtaku(gracz, przeciwnik, gracz.getBron(), attackType);
             setAkcja(gracz.getImie() + " zadał " + (enemyHp - przeciwnik.getHp()) + " HP");
         }
-        wykonanoAkcje = true;
     }
 
     public void walkUpAction() {
@@ -214,7 +219,6 @@ public class Gra implements IGameModel, Observable, Runnable {
         }else{
             akcja = getGracz().getImie() + " traci turę!";
         }
-        wykonanoAkcje = true;
     }
 
     public void enemyTurn() {
@@ -266,7 +270,7 @@ public class Gra implements IGameModel, Observable, Runnable {
 
     public void notifyObservers() {
         for (int i = 0; i < observers.size(); i++) {
-            observers.get(i).update(this);
+            observers.get(i).update(GRACZ_WYGRANA, PRZECIWNIK_WYGRANA, distance, turn, akcja, gracz, przeciwnik);
         }
     }
 
@@ -312,6 +316,10 @@ public class Gra implements IGameModel, Observable, Runnable {
 
     public void setAkcja(String akcja) {
         this.akcja = akcja;
+    }
+
+    public void setAttackChoice(int attackChoice) {
+        this.attackChoice = attackChoice;
     }
 
     public ArrayList<Postac> getPostacieTab() {
