@@ -236,6 +236,7 @@ public class Gra implements Observable, Runnable {
     public void damageFromFire() {
         if (gracz.getCzyPodpalony()) gracz.setHp(gracz.getHp() - 5);
         if (przeciwnik.getCzyPodpalony()) przeciwnik.setHp(przeciwnik.getHp() - 5);
+        checkForWinner();
     }
 
     public void zmianaAtaku(Postac x, Postac y, Bron b, int rodzajAtaku) { //rodzaj ataku: 1-Zwykły, 2-Specjalny, 0-brak wyboru
@@ -302,6 +303,10 @@ public class Gra implements Observable, Runnable {
         return distance;
     }
 
+    public int getMAX_DISTANCE(){
+        return MAX_DISTANCE;
+    }
+
     public String getAkcja() {
         return akcja;
     }
@@ -325,6 +330,7 @@ public class Gra implements Observable, Runnable {
     public ArrayList<Postac> getPostacieTab() {
         return postacieTab;
     }
+
 
     //Pobiera wartosc od uzytkownika
     //Ponawia probe jesli wprowadzono zle dane
