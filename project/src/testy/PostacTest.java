@@ -97,20 +97,11 @@ class PostacTest {
 
     @Test
     void getZwyklyAtak() {
-        boolean testBoolean;
-
-        if(testowy_wojownik.getZwyklyAtak() instanceof WojownikZwyklyAtak) testBoolean = true;
-        else testBoolean = false;
-
-        Assertions.assertTrue(testBoolean);
+        Assertions.assertTrue(testowy_wojownik.getZwyklyAtak() instanceof WojownikZwyklyAtak);
     }
 
     @Test
     void getSpecjalnyAtak() {
-        boolean testBoolean;
-        if(testowy_wojownik.getSpecjalnyAtak() instanceof WojownikSpecjalnyAtak) testBoolean = true;
-        else testBoolean = false;
-
-        Assertions.assertTrue(testBoolean);
+        Assertions.assertTrue(testowy_wojownik.getSpecjalnyAtak() instanceof WojownikSpecjalnyAtak);
     }
 }
