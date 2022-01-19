@@ -14,6 +14,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class TestAtaki {
 	private static Postac lowca;
 	private static Postac mag;
@@ -37,13 +39,41 @@ public class TestAtaki {
 	}
 
 	@Test
-	public void testAtakiLowca(){
-
+	public void testAtakiLowcaZwykly(){
+		int hpCelu = cel.getHp();
+		lowca.wykonajZwyklyAtak(cel, lowca.getBron());
+		assertTrue(hpCelu > cel.getHp());
 	}
 
 	@Test
-	public void testAtakiMag(){
+	public void testAtakiLowcaSpecjalny(){
+		int hpCelu = cel.getHp();
+		int i = 0;
+		while(true){
+			lowca.wykonajSpecjalnyAtak(cel, lowca.getBron());
+			if (hpCelu > cel.getHp()) break;
+			if (i > Short.MAX_VALUE) assertTrue(false);
+		}
+		assertTrue(hpCelu > cel.getHp());
+	}
 
+	@Test
+	public void testAtakiMagZwykly(){
+		int hpCelu = cel.getHp();
+		mag.wykonajZwyklyAtak(cel, mag.getBron());
+		assertTrue(hpCelu > cel.getHp());
+	}
+
+	@Test
+	public void testAtakiMagSpecjalny(){
+		int hpCelu = cel.getHp();
+		int i = 0;
+		while(true){
+			mag.wykonajSpecjalnyAtak(cel, mag.getBron());
+			if (hpCelu > cel.getHp()) break;
+			if (i > Short.MAX_VALUE) assertTrue(false);
+		}
+		assertTrue(hpCelu > cel.getHp());
 	}
 
 	@Test
@@ -60,6 +90,5 @@ public class TestAtaki {
 	public void testAtakiZabojca(){
 
 	}
-
 
 }
