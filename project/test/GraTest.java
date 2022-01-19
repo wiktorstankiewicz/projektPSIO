@@ -1,5 +1,3 @@
-package testy;
-
 import gra.model.Gra;
 import gra.model.bron.maga.Rozdzka;
 import gra.model.bron.woja.Mlot;

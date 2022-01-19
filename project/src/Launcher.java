@@ -1,8 +1,6 @@
 import kreatorPostaci.controller.CreatorController;
-import kreatorPostaci.controller.ICreatorController;
 import kreatorPostaci.model.CreatorModel;
 import kreatorPostaci.model.ICreatorModel;
-import gra.model.Gra;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
