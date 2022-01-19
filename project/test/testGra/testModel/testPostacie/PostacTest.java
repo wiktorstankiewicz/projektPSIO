@@ -1,3 +1,5 @@
+package testGra.testModel.testPostacie;
+
 import gra.model.atakiInterfejs.WojownikSpecjalnyAtak;
 import gra.model.atakiInterfejs.WojownikZwyklyAtak;
 import gra.model.bron.lowcy.Luk;

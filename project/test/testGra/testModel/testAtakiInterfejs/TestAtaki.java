@@ -10,6 +10,7 @@ import gra.model.postacie.dystansowe.Lowca;
 import gra.model.postacie.dystansowe.Mag;
 import gra.model.postacie.wZwarciu.Wojownik;
 import gra.model.postacie.wZwarciu.Zabojca;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,55 +41,129 @@ public class TestAtaki {
 
 	@Test
 	public void testAtakiLowcaZwykly(){
+		//given
 		int hpCelu = cel.getHp();
+		//when
 		lowca.wykonajZwyklyAtak(cel, lowca.getBron());
-		assertTrue(hpCelu > cel.getHp());
+		//then
+		assertTrue(	hpCelu > cel.getHp());
 	}
 
 	@Test
 	public void testAtakiLowcaSpecjalny(){
+		//given
 		int hpCelu = cel.getHp();
 		int i = 0;
+		//when
 		while(true){
 			lowca.wykonajSpecjalnyAtak(cel, lowca.getBron());
 			if (hpCelu > cel.getHp()) break;
 			if (i > Short.MAX_VALUE) assertTrue(false);
 		}
+		//then
 		assertTrue(hpCelu > cel.getHp());
 	}
 
+
 	@Test
 	public void testAtakiMagZwykly(){
+		//given
 		int hpCelu = cel.getHp();
+		//when
 		mag.wykonajZwyklyAtak(cel, mag.getBron());
+		//then
 		assertTrue(hpCelu > cel.getHp());
 	}
 
 	@Test
 	public void testAtakiMagSpecjalny(){
+		//given
 		int hpCelu = cel.getHp();
 		int i = 0;
+		//when
 		while(true){
 			mag.wykonajSpecjalnyAtak(cel, mag.getBron());
 			if (hpCelu > cel.getHp()) break;
 			if (i > Short.MAX_VALUE) assertTrue(false);
 		}
+		//then
 		assertTrue(hpCelu > cel.getHp());
 	}
 
 	@Test
-	public void testAtakiWojownikMiecz(){
+	public void testAtakiWojownikMieczZwykly(){
+        //given
+		int przeciwnikTestHP = cel.getHp();
+        //when
+		wojownikMiecz.wykonajZwyklyAtak(cel, wojownikMiecz.getBron());
+        //then
+		Assertions.assertTrue(cel.getHp() < przeciwnikTestHP);
+    }
 
+    @Test
+	public void testAtakiWojownikMieczSpecjalny(){
+		//given
+		int hpCelu = cel.getHp();
+		int i = 0;
+		//when
+		while(true){
+			wojownikMiecz.wykonajSpecjalnyAtak(cel, wojownikMiecz.getBron());
+			if (hpCelu > cel.getHp()) break;
+			if (i > Short.MAX_VALUE) assertTrue(false);
+		}
+		//then
+		assertTrue(hpCelu > cel.getHp());
+    }
+
+	@Test
+	public void testAtakiWojownikMlotZwykly(){
+		//given
+		int przeciwnikTestHP = cel.getHp();
+		//when
+		wojownikMlot.wykonajZwyklyAtak(cel, wojownikMlot.getBron());
+		//then
+		Assertions.assertTrue(cel.getHp() < przeciwnikTestHP);
+    }
+
+	@Test
+	public void testAtakiWojownikMlotSpecjalny(){
+		//given
+		int hpCelu = cel.getHp();
+		int i = 0;
+		//when
+		while(true){
+			wojownikMlot.wykonajSpecjalnyAtak(cel, wojownikMlot.getBron());
+			if (hpCelu > cel.getHp()) break;
+			if (i > Short.MAX_VALUE) assertTrue(false);
+		}
+		//then
+		assertTrue(hpCelu > cel.getHp());
 	}
 
 	@Test
-	public void testAtakiWojownikMlot(){
+	public void testAtakiZabojcaZwykly(){
+		//given
+		int przeciwnikTestHP = cel.getHp();
+		//when
+		zabojca.wykonajZwyklyAtak(cel, zabojca.getBron());
+		//then
+		Assertions.assertTrue(cel.getHp() < przeciwnikTestHP);
+    }
 
+    @Test
+	public void testAtakiZabojcaSpecjalny(){
+		//given
+		int hpCelu = cel.getHp();
+		int i = 0;
+		//when
+		while(true){
+			zabojca.wykonajSpecjalnyAtak(cel, zabojca.getBron());
+			if (hpCelu > cel.getHp()) break;
+			if (i > Short.MAX_VALUE) assertTrue(false);
+		}
+		//then
+		assertTrue(hpCelu > cel.getHp());
 	}
 
-	@Test
-	public void testAtakiZabojca(){
-
-	}
 
 }
