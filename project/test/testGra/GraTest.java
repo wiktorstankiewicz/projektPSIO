@@ -1,4 +1,4 @@
-package testy;
+package testGra;
 
 import gra.model.Gra;
 import gra.model.bron.maga.Rozdzka;

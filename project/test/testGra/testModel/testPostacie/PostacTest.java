@@ -1,4 +1,4 @@
-package testy;
+package testGra.testModel.testPostacie;
 
 import gra.model.atakiInterfejs.WojownikSpecjalnyAtak;
 import gra.model.atakiInterfejs.WojownikZwyklyAtak;
