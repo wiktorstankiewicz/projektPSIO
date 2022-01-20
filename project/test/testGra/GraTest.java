@@ -5,7 +5,9 @@ import gra.model.bron.maga.Rozdzka;
 import gra.model.bron.woja.Mlot;
 import gra.model.postacie.dystansowe.Mag;
 import gra.model.postacie.wZwarciu.Wojownik;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 
 class GraTest {
 
@@ -15,7 +17,7 @@ class GraTest {
     Mag gracz;
     Gra gra;
 
-    @org.junit.jupiter.api.BeforeEach
+    @BeforeEach
     void setUp() {
 
         mlot = new Mlot();
@@ -27,7 +29,7 @@ class GraTest {
         gra = new Gra(gracz, przeciwnik);
     }
 
-    @org.junit.jupiter.api.AfterEach
+    @AfterEach
     void tearDown() {
 
         mlot = null;
