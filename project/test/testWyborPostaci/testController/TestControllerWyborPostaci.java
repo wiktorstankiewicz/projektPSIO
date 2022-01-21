@@ -60,8 +60,10 @@ public class TestControllerWyborPostaci {
         }
         Assertions.assertEquals(postacie.size(), model.getPostacie().size());
 
-
-        controllerWyborPostaci.dodajPostacDoListy(new Wojownik("testowy", new Mlot()));
+        //sprawdzamy czy nowa postac zostaje poprawnie dodana
+        Postac nowaPostac = new Wojownik("testowy", new Mlot());
+        controllerWyborPostaci.dodajPostacDoListy(nowaPostac);
+        Assertions.assertEquals(nowaPostac, model.getPostacie().get(model.getPostacie().size()-1));
         Assertions.assertEquals(postacie.size()+1, model.getPostacie().size());
     }
 
@@ -79,8 +81,10 @@ public class TestControllerWyborPostaci {
     public void testStworzPrzeciwnika(){
         JList<Postac> jList = new JList<>();
         DefaultListModel<Postac> listModel = new DefaultListModel<>();
+
         jList.setModel(listModel);
         listModel.addAll(postacie);
+
         Postac postac2;
         for(int i = 0; i<postacie.size(); i++){
             jList.setSelectedIndex(i);
